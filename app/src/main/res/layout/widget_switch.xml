@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch
+			  xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:id="@+id/toggle"
+              app:base_release_color="@color/deep_orange_100"
+              app:base_press_color="@color/deep_purple_100"
+              app:ball_release_color="@color/deep_orange_700"
+              app:ball_press_color="@color/deep_purple_700"
+              app:icon_release="@drawable/ic_wb_sunny_white_36dp"
+              app:icon_press="@drawable/ic_brightness_2_white_36dp"/>

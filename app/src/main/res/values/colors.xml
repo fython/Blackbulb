@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="translucentBackgroundColor">#00000000</color>
+
+	<color name="colorPrimary">#3F51B5</color>
+	<color name="colorPrimaryDark">#303F9F</color>
+	<color name="colorAccent">#FF4081</color>
+
+	<color name="deep_purple_100">#D1C4E9</color>
+	<color name="deep_purple_700">#512DA8</color>
+
+	<color name="deep_orange_100">#FFCCBC</color>
+	<color name="deep_orange_700">#E64A19</color>
+
+</resources>
