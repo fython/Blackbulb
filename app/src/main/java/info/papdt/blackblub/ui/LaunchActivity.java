@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -124,6 +125,14 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 			menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
 		}
+
+		FrameLayout rootLayout = (FrameLayout) findViewById(R.id.root_layout);
+		rootLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 
 	@Override
