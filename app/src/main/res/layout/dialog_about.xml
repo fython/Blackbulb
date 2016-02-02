@@ -30,7 +30,7 @@
 		    <TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
-			    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+			    android:textAppearance="@android:style/TextAppearance.Material.Subhead"
 			    android:text="@string/app_name"/>
 
 		    <TextView
@@ -49,7 +49,8 @@
 		android:layout_marginRight="16dp"
 		android:layout_marginTop="8dp"
 		android:layout_marginBottom="8dp"
-		android:text="@string/about_text"/>
+		android:text="@string/about_text"
+		android:textAppearance="@android:style/TextAppearance.Material"/>
 
 	<TextView
 		android:layout_width="match_parent"

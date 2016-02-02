@@ -6,7 +6,7 @@ android {
 
 	defaultConfig {
 		applicationId "info.papdt.blackblub"
-		minSdkVersion 16
+		minSdkVersion 21
 		targetSdkVersion 23
 		versionCode 1
 		versionName "1.0"
@@ -21,7 +21,6 @@ android {
 
 dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:appcompat-v7:23.1.1'
 	compile 'com.android.support:cardview-v7:23.1.1'
 	compile 'org.adw.library:discrete-seekbar:1.0.0'
 }

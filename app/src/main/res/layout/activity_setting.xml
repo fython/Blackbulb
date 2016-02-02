@@ -30,7 +30,7 @@
 				android:orientation="horizontal"
 				android:gravity="center_vertical">
 
-				<android.support.v7.widget.AppCompatImageView
+				<ImageView
 					android:layout_width="36dp"
 					android:layout_height="36dp"
 					android:layout_marginLeft="24dp"
@@ -39,12 +39,12 @@
 					android:tint="?attr/icon_tint"
 					android:scaleType="centerInside"/>
 
-				<android.support.v7.widget.AppCompatTextView
+				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="@dimen/activity_horizontal_margin"
 					android:text="@string/app_name"
-					android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+					android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
 
 				<Space
 					android:layout_width="0dp"
@@ -65,7 +65,7 @@
 					android:id="@+id/btn_menu"
 					android:src="@drawable/ic_more_vert_black_24dp"
 					android:tint="?attr/overflow_tint"
-					android:background="?attr/selectableItemBackgroundBorderless"/>
+					android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
 			</LinearLayout>
 

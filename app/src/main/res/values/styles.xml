@@ -1,6 +1,6 @@
 <resources>
 
-	<style name="BaseAppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="BaseAppTheme.Light" parent="android:Theme.Material.Light.NoActionBar">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:windowBackground">@color/translucentBackgroundColor</item>
@@ -13,7 +13,7 @@
 		<item name="overflow_tint">#6f000000</item>
 	</style>
 
-	<style name="BaseAppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+	<style name="BaseAppTheme.Dark" parent="android:Theme.Material.NoActionBar">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:windowBackground">@color/translucentBackgroundColor</item>
@@ -26,6 +26,16 @@
 		<item name="overflow_tint">#afffffff</item>
 	</style>
 
-	<style name="AppTheme" parent="BaseAppTheme.Light"></style>
+	<style name="AppTheme.Light" parent="BaseAppTheme.Light">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
+
+	<style name="AppTheme.Dark" parent="BaseAppTheme.Dark">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
 
 </resources>
