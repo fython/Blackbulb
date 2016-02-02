@@ -269,6 +269,13 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 					}
 					break;
+				case C.EVENT_DESTORY_SERVICE:
+					if (isRunning) {
+						mSettings.putBoolean(Settings.KEY_ALIVE, false);
+						mSwitch.toggle();
+						isRunning = false;
+					}
+					break;
 			}
 		}
 

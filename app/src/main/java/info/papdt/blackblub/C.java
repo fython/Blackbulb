@@ -11,6 +11,6 @@ public class C {
 	/** Broadcast */
 	public static final String EXTRA_EVENT_ID = "event_id";
 
-	public static final int EVENT_CANNOT_START = 1;
+	public static final int EVENT_CANNOT_START = 1, EVENT_DESTORY_SERVICE = 2;
 
 }

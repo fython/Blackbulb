@@ -1,11 +1,15 @@
 package info.papdt.blackblub.services;
 
 import android.animation.Animator;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Icon;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import info.papdt.blackblub.C;
+import info.papdt.blackblub.R;
 import info.papdt.blackblub.ui.LaunchActivity;
 import info.papdt.blackblub.utils.Settings;
 import info.papdt.blackblub.utils.Utility;
@@ -21,6 +26,9 @@ import info.papdt.blackblub.utils.Utility;
 public class MaskService extends Service {
 
 	private WindowManager mWindowManager;
+	private NotificationManager mNotificationManager;
+
+	private Notification mNoti;
 
 	private LinearLayout mLayout;
 	private WindowManager.LayoutParams mLayoutParams;
@@ -29,6 +37,7 @@ public class MaskService extends Service {
 	private boolean enableOverlaySystem;
 
 	private static final int ANIMATE_DURATION_MILES = 250;
+	private static final int NOTIFICATION_NO = 1024;
 
 	private static final String TAG = MaskService.class.getSimpleName();
 
@@ -37,14 +46,18 @@ public class MaskService extends Service {
 		super.onCreate();
 
 		mWindowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
+		mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
+
 		mSettings = Settings.getInstance(getApplicationContext());
 		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
 		createMaskView();
+		createNotification();
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		cancelNotification();
 		if (mLayout != null) {
 			mSettings.putBoolean(Settings.KEY_ALIVE, false);
 			mLayout.animate()
@@ -76,6 +89,11 @@ public class MaskService extends Service {
 						}
 					});
 		}
+
+		Intent broadcastIntent = new Intent();
+		broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
+		broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_DESTORY_SERVICE);
+		sendBroadcast(broadcastIntent);
 	}
 
 	private void createMaskView() {
@@ -113,6 +131,47 @@ public class MaskService extends Service {
 		}
 	}
 
+	private void createNotification() {
+		Intent openIntent = new Intent(this, LaunchActivity.class);
+
+		Intent closeIntent = new Intent(this, MaskService.class);
+		closeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
+
+		Notification.Action closeAction = new Notification.Action(
+				R.drawable.ic_wb_incandescent_black_24dp,
+				getString(R.string.notification_action_turn_off),
+				PendingIntent.getService(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+		);
+
+		mNoti = new Notification.Builder(getApplicationContext())
+				.setContentTitle(getString(R.string.notification_running_title))
+				.setContentText(getString(R.string.notification_running_msg))
+				.setSmallIcon(R.drawable.ic_brightness_2_white_36dp)
+				.addAction(closeAction)
+				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT))
+				.setAutoCancel(false)
+				.setOngoing(true)
+				.setOnlyAlertOnce(true)
+				.setShowWhen(false)
+				.build();
+
+	}
+
+	private void showNotification() {
+		if (mNoti == null) {
+			createNotification();
+		}
+		mNotificationManager.notify(NOTIFICATION_NO, mNoti);
+	}
+
+	private void cancelNotification() {
+		try {
+			mNotificationManager.cancel(NOTIFICATION_NO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int arg) {
 		if (intent != null) {
@@ -128,6 +187,7 @@ public class MaskService extends Service {
 					}
 
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
+					showNotification();
 					try {
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 						mLayout.animate()

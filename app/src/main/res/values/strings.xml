@@ -21,4 +21,8 @@
 	<string name="dialog_first_run_title">First run</string>
 	<string name="dialog_first_run_message">Can you see this message? If you can, it proves that Night Screen is working well. \nIt will automatically stop after 5 seconds if you didn\t press OK.</string>
 
+	<string name="notification_running_title">Night Screen is working</string>
+	<string name="notification_running_msg">Click here to open settings</string>
+	<string name="notification_action_turn_off">Turn off</string>
+
 </resources>

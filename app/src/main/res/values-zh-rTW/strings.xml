@@ -21,4 +21,8 @@
 	<string name="dialog_first_run_title">首次啟動</string>
 	<string name="dialog_first_run_message">你能看到這條訊息嗎？如果可以，這證實夜間螢幕正常運作。\n在 5 秒之內不按“確認”會自動停止</string>
 
+	<string name="notification_running_title">夜間螢幕正運作</string>
+	<string name="notification_running_msg">點擊通知打開設定</string>
+	<string name="notification_action_turn_off">開燈</string>
+
 </resources>

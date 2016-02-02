@@ -21,4 +21,8 @@
 	<string name="dialog_first_run_title">首次启动</string>
 	<string name="dialog_first_run_message">你能看见这条信息吗？如果可以，这证明夜间屏幕正常工作。\n在 5 秒之内不按“确定”会自动停止</string>
 
+	<string name="notification_running_title">夜间屏幕已启动</string>
+	<string name="notification_running_msg">点击通知打开设置</string>
+	<string name="notification_action_turn_off">开灯</string>
+
 </resources>
