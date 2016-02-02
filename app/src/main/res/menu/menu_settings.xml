@@ -6,6 +6,12 @@
 	      android:checkable="true"
 	      android:checked="false"/>
 
+	<item android:id="@+id/action_dark_theme"
+	      android:title="@string/action_dark_theme"
+	      android:checkable="true"
+	      android:checked="false"/>
+
+
 	<item android:id="@+id/action_about"
 	      android:title="@string/action_about"/>
 

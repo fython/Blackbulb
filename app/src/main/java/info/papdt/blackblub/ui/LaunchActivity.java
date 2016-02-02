@@ -36,7 +36,7 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 
 	private PopupMenu popupMenu;
 
-	private boolean isRunning = false;
+	private boolean isRunning = false, hasDismissFirstRunDialog = false;
 	private Settings mSettings;
 
 	@Override
@@ -49,6 +49,10 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 				getWindow().setStatusBarColor(Color.TRANSPARENT);
 				getWindow().setNavigationBarColor(Color.TRANSPARENT);
 			}
+		}
+
+		if (mSettings.getBoolean(Settings.KEY_DARK_THEME, false)) {
+			setTheme(R.style.AppTheme_Dark);
 		}
 
 		super.onCreate(savedInstanceState);
@@ -76,6 +80,47 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 					intent.putExtra(C.EXTRA_BRIGHTNESS, mSeekbar.getProgress());
 					startService(intent);
 					isRunning = true;
+
+					// For safe
+					if (mSettings.getBoolean(Settings.KEY_FIRST_RUN, true)) {
+						hasDismissFirstRunDialog = false;
+						final AlertDialog dialog = new AlertDialog.Builder(LaunchActivity.this)
+								.setTitle(R.string.dialog_first_run_title)
+								.setMessage(R.string.dialog_first_run_message)
+								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										mSettings.putBoolean(Settings.KEY_FIRST_RUN, false);
+									}
+								})
+								.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										hasDismissFirstRunDialog = true;
+									}
+								})
+								.setOnDismissListener(new DialogInterface.OnDismissListener() {
+									@Override
+									public void onDismiss(DialogInterface dialogInterface) {
+										mSwitch.toggle();
+										if (mSettings.getBoolean(Settings.KEY_FIRST_RUN, true)) {
+											Intent intent = new Intent(LaunchActivity.this, MaskService.class);
+											intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
+											stopService(intent);
+											isRunning = false;
+										}
+									}
+								})
+								.show();
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								if (dialog.isShowing() && !hasDismissFirstRunDialog) {
+									dialog.dismiss();
+								}
+							}
+						}, 5000);
+					}
 				} else {
 					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
@@ -115,6 +160,9 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 		popupMenu.getMenu()
 				.findItem(R.id.action_overlay_system)
 				.setChecked(mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false));
+		popupMenu.getMenu()
+				.findItem(R.id.action_dark_theme)
+				.setChecked(mSettings.getBoolean(Settings.KEY_DARK_THEME, false));
 		popupMenu.setOnMenuItemClickListener(this);
 		menuBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -195,6 +243,12 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 						})
 						.show();
 			}
+			return true;
+		} else if (id == R.id.action_dark_theme) {
+			mSettings.putBoolean(Settings.KEY_DARK_THEME, !menuItem.isChecked());
+			menuItem.setChecked(!menuItem.isChecked());
+			finish();
+			startActivity(new Intent(this, LaunchActivity.class));
 			return true;
 		}
 		return false;

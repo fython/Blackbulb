@@ -14,7 +14,8 @@
 		android:layout_margin="8dp"
 		android:layout_gravity="center_vertical"
 		android:clickable="true"
-		app:cardElevation="5dp">
+		app:cardElevation="5dp"
+		app:cardBackgroundColor="?attr/card_background_color">
 
 		<LinearLayout
 			android:orientation="vertical"
@@ -35,6 +36,7 @@
 					android:layout_marginLeft="24dp"
 					android:layout_marginRight="12dp"
 					android:src="@drawable/ic_logo_teal"
+					android:tint="?attr/icon_tint"
 					android:scaleType="centerInside"/>
 
 				<android.support.v7.widget.AppCompatTextView
@@ -62,7 +64,7 @@
 					android:layout_marginRight="12dp"
 					android:id="@+id/btn_menu"
 					android:src="@drawable/ic_more_vert_black_24dp"
-					android:tint="#6f000000"
+					android:tint="?attr/overflow_tint"
 					android:background="?attr/selectableItemBackgroundBorderless"/>
 
 			</LinearLayout>
@@ -75,6 +77,9 @@
 				android:layout_marginRight="16dp"
 				android:layout_marginTop="16dp"
 				android:layout_marginBottom="16dp"
+				app:dsb_progressColor="?attr/progress_bar_color"
+				app:dsb_indicatorColor="?attr/progress_bar_color"
+				app:dsb_trackColor="?attr/progress_bar_color"
 				app:dsb_min="25"
 				app:dsb_max="100"/>
 

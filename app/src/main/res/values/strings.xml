@@ -4,14 +4,18 @@
 
 	<string name="action_about">About</string>
 	<string name="action_overlay_system">Overlay Status Bar</string>
+	<string name="action_dark_theme">Dark theme</string>
 
 	<string name="about_author">Author: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen can help you prevent from the harm of strong light at night.\nSome devices\' lowest brightness are still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send a bit money to my Alipay: 316643843\@qq.com"</string>
-	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a></string>
+	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogo Designer: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Enable Overlay Status Bar</string>
 	<string name="dialog_overlay_enable_message">Enable this can make mask on the top of screen, but it may needs a permission in some devices (Such as MIUI and Android 6.0)\nIf it couldn\'t work, please allow this app to show system alert window.</string>
 
 	<string name="mask_fail_to_start">Failed to start mask. Please check if system has denied the permissions.</string>
+
+	<string name="dialog_first_run_title">First run</string>
+	<string name="dialog_first_run_message">Can you see this message? If you can, it proves that Night Screen is working well. \nIt will automatically stop after 5 seconds if you didn\t press OK.</string>
 
 </resources>

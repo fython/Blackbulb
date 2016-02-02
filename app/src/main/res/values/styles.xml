@@ -1,14 +1,31 @@
 <resources>
 
-	<style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+	<style name="BaseAppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="android:windowActionBar">false</item>
 		<item name="android:windowNoTitle">true</item>
 		<item name="android:windowBackground">@color/translucentBackgroundColor</item>
 		<item name="android:colorBackgroundCacheHint">@null</item>
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+		<item name="card_background_color">#EEEEEE</item>
+		<item name="progress_bar_color">@color/teal_700</item>
+		<item name="icon_tint">@color/teal_500</item>
+		<item name="overflow_tint">#6f000000</item>
 	</style>
 
-	<style name="AppTheme" parent="BaseAppTheme"></style>
+	<style name="BaseAppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+		<item name="android:windowActionBar">false</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowBackground">@color/translucentBackgroundColor</item>
+		<item name="android:colorBackgroundCacheHint">@null</item>
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+		<item name="card_background_color">#212121</item>
+		<item name="progress_bar_color">#eeeeee</item>
+		<item name="icon_tint">#ffffff</item>
+		<item name="overflow_tint">#6fffffff</item>
+	</style>
+
+	<style name="AppTheme" parent="BaseAppTheme.Light"></style>
 
 </resources>

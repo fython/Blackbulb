@@ -1,6 +1,12 @@
 <resources>
 
-	<style name="AppTheme" parent="BaseAppTheme">
+	<style name="AppTheme.Light" parent="BaseAppTheme.Light">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@android:color/transparent</item>
+	</style>
+
+	<style name="AppTheme.Dark" parent="BaseAppTheme.Dark">
 		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
 		<item name="android:statusBarColor">@android:color/transparent</item>
 		<item name="android:navigationBarColor">@android:color/transparent</item>

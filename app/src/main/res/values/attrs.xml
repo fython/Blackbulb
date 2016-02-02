@@ -10,4 +10,11 @@
 		<attr name="ball_press_color" format="color"/>
 	</declare-styleable>
 
+	<declare-styleable name="Blackbulb">
+		<attr name="card_background_color" format="color"/>
+		<attr name="progress_bar_color" format="color"/>
+		<attr name="icon_tint" format="color"/>
+		<attr name="overflow_tint" format="color"/>
+	</declare-styleable>
+
 </resources>

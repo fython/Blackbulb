@@ -7,7 +7,9 @@ public class Settings {
 
 	public static final String PREFERENCES_NAME = "settings";
 
-	public static final String KEY_BRIGHTNESS = "brightness", KEY_ALIVE = "alive", KEY_OVERLAY_SYSTEM = "overlay_system";
+	public static final String KEY_BRIGHTNESS = "brightness", KEY_ALIVE = "alive",
+			KEY_OVERLAY_SYSTEM = "overlay_system", KEY_FIRST_RUN = "first_run",
+			KEY_DARK_THEME = "dark_theme";
 
 	private static Settings sInstance;
 

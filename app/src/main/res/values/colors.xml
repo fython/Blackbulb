@@ -13,4 +13,7 @@
 	<color name="deep_orange_100">#FFCCBC</color>
 	<color name="deep_orange_700">#E64A19</color>
 
+	<color name="teal_500">#009688</color>
+	<color name="teal_700">#00796B</color>
+
 </resources>
