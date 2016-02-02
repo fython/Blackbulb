@@ -93,15 +93,11 @@ public class LaunchActivity extends AppCompatActivity implements PopupMenu.OnMen
 										mSettings.putBoolean(Settings.KEY_FIRST_RUN, false);
 									}
 								})
-								.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialogInterface, int i) {
-										hasDismissFirstRunDialog = true;
-									}
-								})
 								.setOnDismissListener(new DialogInterface.OnDismissListener() {
 									@Override
 									public void onDismiss(DialogInterface dialogInterface) {
+										if (hasDismissFirstRunDialog) return;
+										hasDismissFirstRunDialog = true;
 										mSwitch.toggle();
 										if (mSettings.getBoolean(Settings.KEY_FIRST_RUN, true)) {
 											Intent intent = new Intent(LaunchActivity.this, MaskService.class);

@@ -23,7 +23,7 @@
 		<item name="card_background_color">#212121</item>
 		<item name="progress_bar_color">#eeeeee</item>
 		<item name="icon_tint">#ffffff</item>
-		<item name="overflow_tint">#6fffffff</item>
+		<item name="overflow_tint">#afffffff</item>
 	</style>
 
 	<style name="AppTheme" parent="BaseAppTheme.Light"></style>
