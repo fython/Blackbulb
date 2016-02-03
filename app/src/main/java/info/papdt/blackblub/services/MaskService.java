@@ -104,8 +104,9 @@ public class MaskService extends Service {
 				| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 		mLayoutParams.format = PixelFormat.TRANSPARENT;
 		// TODO Automatically change by listening to rotating
-		mLayoutParams.height = Utility.getTrueScreenHeight(getApplicationContext()) + 200;
-		mLayoutParams.width = Utility.getTrueScreenHeight(getApplicationContext()) + 200;
+		int maxSize = Math.max(Utility.getTrueScreenHeight(getApplicationContext()), Utility.getTrueScreenWidth(getApplicationContext()));
+		mLayoutParams.height = maxSize + 200;
+		mLayoutParams.width = maxSize + 200;
 		mLayoutParams.gravity = Gravity.CENTER;
 
 		if (mLayout == null) {
