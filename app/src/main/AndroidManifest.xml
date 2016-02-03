@@ -3,6 +3,7 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+	<uses-permission android:name="cyanogenmod.permission.PUBLISH_CUSTOM_TILE"/>
 
 	<application
 		android:allowBackup="true"
@@ -20,7 +21,11 @@
 		</activity>
 
 		<service android:name=".services.MaskService"/>
-
+		<receiver android:name=".receiver.TileReceiver">
+			<intent-filter>
+				<action android:name="info.papdt.blackbulb.ACTION_UPDATE_STATUS"/>
+			</intent-filter>
+		</receiver>
 	</application>
 
 </manifest>

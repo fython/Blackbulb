@@ -27,6 +27,7 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.services.MaskService;
 import info.papdt.blackblub.utils.Settings;
+import info.papdt.blackblub.utils.Utility;
 
 public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
@@ -46,6 +47,9 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	protected void onCreate(Bundle savedInstanceState) {
 		mSettings = Settings.getInstance(getApplicationContext());
 
+		// A foolish method to check if it was enabled. Sometimes it may get a wrong result.
+		isRunning = mSettings.getBoolean(Settings.KEY_ALIVE, false);
+
 		// Don't worry too much. Min SDK is 21.
 		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 		getWindow().setStatusBarColor(Color.TRANSPARENT);
@@ -55,11 +59,15 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			setTheme(R.style.AppTheme_Dark);
 		}
 
+		// Publish CM Tiles
+		try {
+			Utility.createStatusBarTiles(this, isRunning);
+		} catch (Exception e) {
+
+		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
-
-		// A foolish method to check if it was enabled. Sometimes it may get a wrong result.
-		isRunning = mSettings.getBoolean(Settings.KEY_ALIVE, false);
 
 		mSwitch = (MaterialAnimatedSwitch) findViewById(R.id.toggle);
 		if (isRunning) {

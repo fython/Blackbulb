@@ -23,4 +23,5 @@ dependencies {
 	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile 'com.android.support:cardview-v7:23.1.1'
 	compile 'org.adw.library:discrete-seekbar:1.0.0'
+	compile 'org.cyanogenmod:platform.sdk:2.0'
 }

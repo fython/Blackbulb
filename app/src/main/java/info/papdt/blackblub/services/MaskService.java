@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.Icon;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,6 +18,7 @@ import android.widget.LinearLayout;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
+import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.ui.LaunchActivity;
 import info.papdt.blackblub.utils.Settings;
 import info.papdt.blackblub.utils.Utility;
@@ -57,6 +57,11 @@ public class MaskService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		try {
+			Utility.createStatusBarTiles(this, false);
+		} catch (Exception e) {
+
+		}
 		cancelNotification();
 		if (mLayout != null) {
 			mSettings.putBoolean(Settings.KEY_ALIVE, false);
@@ -135,13 +140,14 @@ public class MaskService extends Service {
 	private void createNotification() {
 		Intent openIntent = new Intent(this, LaunchActivity.class);
 
-		Intent closeIntent = new Intent(this, MaskService.class);
+		Intent closeIntent = new Intent();
+		closeIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
 		closeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
 
 		Notification.Action closeAction = new Notification.Action(
 				R.drawable.ic_wb_incandescent_black_24dp,
 				getString(R.string.notification_action_turn_off),
-				PendingIntent.getService(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+				PendingIntent.getBroadcast(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 		);
 
 		mNoti = new Notification.Builder(getApplicationContext())
@@ -190,6 +196,7 @@ public class MaskService extends Service {
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
 					showNotification();
 					try {
+						Utility.createStatusBarTiles(this, true);
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 						mLayout.animate()
 								.alpha(targetAlpha)
