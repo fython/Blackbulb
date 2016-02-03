@@ -10,7 +10,7 @@ a Material Design Android app which can prevent your eye from being hurt by scre
 
 ### 支持系统
 
-Android 4.1+ (目前只测试过 Android 5.0 及以上)
+Android 5.0+
 
 ### 项目说明
 

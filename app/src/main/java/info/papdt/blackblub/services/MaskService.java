@@ -52,6 +52,8 @@ public class MaskService extends Service {
 		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
 		createMaskView();
 		createNotification();
+
+		startForeground(NOTIFICATION_NO, mNoti);
 	}
 
 	@Override

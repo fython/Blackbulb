@@ -25,6 +25,7 @@ import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
+import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.services.MaskService;
 import info.papdt.blackblub.utils.Settings;
 import info.papdt.blackblub.utils.Utility;
@@ -83,10 +84,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			@Override
 			public void onCheckedChanged(boolean b) {
 				if (b) {
-					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
+					Intent intent = new Intent();
+					intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
-					intent.putExtra(C.EXTRA_BRIGHTNESS, mSeekbar.getProgress());
-					startService(intent);
+					sendBroadcast(intent);
 					isRunning = true;
 
 					// For safe
@@ -127,9 +128,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						}, 5000);
 					}
 				} else {
-					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
+					Intent intent = new Intent();
+					intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
-					stopService(intent);
+					sendBroadcast(intent);
 					isRunning = false;
 				}
 			}
@@ -138,8 +140,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		mSeekbar = (DiscreteSeekBar) findViewById(R.id.seek_bar);
 		mSeekbar.setProgress(mSettings.getInt(Settings.KEY_BRIGHTNESS, 50));
 		mSeekbar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+			int v = -1;
 			@Override
 			public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+				v = value;
 				if (isRunning) {
 					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_UPDATE);
@@ -155,7 +159,9 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 			@Override
 			public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-
+				if (v != -1) {
+					mSettings.putInt(Settings.KEY_BRIGHTNESS, v);
+				}
 			}
 		});
 
