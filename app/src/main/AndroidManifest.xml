@@ -21,7 +21,7 @@
 			</intent-filter>
 		</activity>
 
-		<service android:name=".services.MaskService" android:process=":standalone"/>
+		<service android:name=".services.MaskService"/>
 		<receiver android:name=".receiver.TileReceiver">
 			<intent-filter>
 				<action android:name="info.papdt.blackbulb.ACTION_UPDATE_STATUS"/>

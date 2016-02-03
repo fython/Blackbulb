@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
@@ -59,6 +60,7 @@ public class MaskService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		mSettings.putBoolean(Settings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
 		} catch (Exception e) {
@@ -66,7 +68,6 @@ public class MaskService extends Service {
 		}
 		cancelNotification();
 		if (mLayout != null) {
-			mSettings.putBoolean(Settings.KEY_ALIVE, false);
 			mLayout.animate()
 					.alpha(0f)
 					.setDuration(ANIMATE_DURATION_MILES)
@@ -243,7 +244,22 @@ public class MaskService extends Service {
 
 	@Override
 	public IBinder onBind(Intent intent) {
-		return null;
+		return mBinder;
+	}
+
+	@Override
+	public boolean onUnbind(Intent intent) {
+		return super.onUnbind(intent);
+	}
+
+	private MaskBinder mBinder = new MaskBinder();
+
+	public class MaskBinder extends Binder {
+
+		public boolean isMaskShowing() {
+			return mLayout.getAlpha() != 0f;
+		}
+
 	}
 
 }
