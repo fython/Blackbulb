@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,6 +39,8 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 	private boolean isRunning = false, hasDismissFirstRunDialog = false;
 	private Settings mSettings;
+
+	private static final int OVERLAY_PERMISSION_REQ_CODE = 1001;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +204,18 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				if (android.provider.Settings.canDrawOverlays(this)) {
+					mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+					popupMenu.getMenu().findItem(R.id.action_overlay_system).setChecked(true);
+				}
+			}
+		}
+	}
+
+	@Override
 	public boolean onMenuItemClick(final MenuItem menuItem) {
 		int id = menuItem.getItemId();
 		if (id == R.id.action_about) {
@@ -219,23 +234,35 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 				mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
 				menuItem.setChecked(false);
 			} else {
-				new AlertDialog.Builder(this)
-						.setTitle(R.string.dialog_overlay_enable_title)
-						.setMessage(R.string.dialog_overlay_enable_message)
-						.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialogInterface, int i) {
-								mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
-								menuItem.setChecked(true);
-							}
-						})
-						.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialogInterface, int i) {
-								// Do nothing....
-							}
-						})
-						.show();
+				// http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6/32065680#32065680
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					if (!android.provider.Settings.canDrawOverlays(this)) {
+						Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+								Uri.parse("package:" + getPackageName()));
+						startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+					} else {
+						mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+						menuItem.setChecked(true);
+					}
+				} else {
+					new AlertDialog.Builder(this)
+							.setTitle(R.string.dialog_overlay_enable_title)
+							.setMessage(R.string.dialog_overlay_enable_message)
+							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+									menuItem.setChecked(true);
+								}
+							})
+							.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialogInterface, int i) {
+									// Do nothing....
+								}
+							})
+							.show();
+				}
 			}
 			return true;
 		} else if (id == R.id.action_dark_theme) {
