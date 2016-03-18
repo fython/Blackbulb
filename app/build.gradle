@@ -8,12 +8,12 @@ android {
 		applicationId "info.papdt.blackblub"
 		minSdkVersion 21
 		targetSdkVersion 23
-		versionCode 3
-		versionName "1.0.2"
+		versionCode 4
+		versionName "1.0.2.1"
 	}
 	buildTypes {
 		release {
-			minifyEnabled true
+			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}

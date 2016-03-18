@@ -37,6 +37,8 @@ public class MaskService extends Service {
 	private Settings mSettings;
 	private boolean enableOverlaySystem;
 
+	private boolean isShowing = false;
+
 	private static final int ANIMATE_DURATION_MILES = 250;
 	private static final int NOTIFICATION_NO = 1024;
 
@@ -53,13 +55,12 @@ public class MaskService extends Service {
 		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
 		createMaskView();
 		createNotification();
-
-		startForeground(NOTIFICATION_NO, mNoti);
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		isShowing = false;
 		mSettings.putBoolean(Settings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
@@ -196,8 +197,10 @@ public class MaskService extends Service {
 						enableOverlaySystem = temp;
 					}
 
+					isShowing = true;
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
 					showNotification();
+					startForeground(NOTIFICATION_NO, mNoti);
 					try {
 						Utility.createStatusBarTiles(this, true);
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
@@ -212,10 +215,12 @@ public class MaskService extends Service {
 					break;
 				case C.ACTION_STOP:
 					Log.i(TAG, "Stop Mask");
+					isShowing = false;
 					this.onDestroy();
 					break;
 				case C.ACTION_UPDATE:
 					Log.i(TAG, "Update Mask");
+					isShowing = true;
 					if (temp != enableOverlaySystem) {
 						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
 						enableOverlaySystem = temp;
@@ -237,6 +242,13 @@ public class MaskService extends Service {
 					}
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
+				case C.ACTION_CHECK:
+					Intent broadcastIntent = new Intent();
+					broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
+					broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_CHECK);
+					broadcastIntent.putExtra("isShowing", isShowing);
+					sendBroadcast(broadcastIntent);
+					break;
 			}
 		}
 		return START_STICKY;
@@ -257,7 +269,7 @@ public class MaskService extends Service {
 	public class MaskBinder extends Binder {
 
 		public boolean isMaskShowing() {
-			return mLayout.getAlpha() != 0f;
+			return isShowing;
 		}
 
 	}

@@ -3,18 +3,15 @@ package info.papdt.blackblub.ui;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -63,30 +60,9 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
 
-		// A foolish method to check if it was enabled. Sometimes it may get a wrong result.
-		ServiceConnection mConnection = new ServiceConnection() {
-			@Override
-			public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-				isRunning = ((MaskService.MaskBinder) iBinder).isMaskShowing();
-				if (isRunning) {
-					// If I don't use postDelayed, Switch may cause a NPE because its animator wasn't initialized.
-					new Handler().postDelayed(new Runnable() {
-						@Override
-						public void run() {
-							mSwitch.toggle();
-						}
-					}, 200);
-				}
-			}
-
-			@Override
-			public void onServiceDisconnected(ComponentName componentName) {
-
-			}
-		};
-		Intent i = new Intent();
-		i.setClass(this, MaskService.class);
-		bindService(i, mConnection, BIND_AUTO_CREATE);
+		Intent i = new Intent(this, MaskService.class);
+		i.putExtra(C.EXTRA_ACTION, C.ACTION_CHECK);
+		startService(i);
 
 		// Publish CM Tiles
 		try {
@@ -144,10 +120,9 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						}, 5000);
 					}
 				} else {
-					Intent intent = new Intent();
-					intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
-					sendBroadcast(intent);
+					stopService(intent);
 					isRunning = false;
 				}
 			}
@@ -331,6 +306,18 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						mSettings.putBoolean(Settings.KEY_ALIVE, false);
 						mSwitch.toggle();
 						isRunning = false;
+					}
+					break;
+				case C.EVENT_CHECK:
+					isRunning = intent.getBooleanExtra("isShowing", false);
+					if (isRunning) {
+						// If I don't use postDelayed, Switch may cause a NPE because its animator wasn't initialized.
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								mSwitch.toggle();
+							}
+						}, 100);
 					}
 					break;
 			}
