@@ -13,7 +13,9 @@
 		android:persistent="true"
 		android:theme="@style/AppTheme.Light">
 
-		<activity android:name=".ui.LaunchActivity">
+		<activity
+			android:name=".ui.LaunchActivity"
+			android:excludeFromRecents="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
