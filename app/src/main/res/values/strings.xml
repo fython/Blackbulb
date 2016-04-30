@@ -1,28 +1,28 @@
 <resources>
 
-	<string name="app_name">Night Screen</string>
+	<string name="app_name">Noćni Zaslon</string>
 
-	<string name="action_about">About</string>
-	<string name="action_overlay_system">Overlay Status Bar</string>
-	<string name="action_dark_theme">Dark theme</string>
+	<string name="action_about">O aplikaciji</string>
+	<string name="action_overlay_system">Prekrij statusnu traku</string>
+	<string name="action_dark_theme">Tamna tema</string>
 
-	<string name="text_light">LIGHT</string>
-	<string name="text_dark">DARK</string>
+	<string name="text_light">SVIJETLO</string>
+	<string name="text_dark">TAMNO</string>
 
-	<string name="about_author">Author: Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Night Screen can help protect you from the harm of strong light at night.\nSome devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send some money to my Alipay: 316643843\@qq.com"</string>
-	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogo Designer: Google+ Youlun Zhai</string>
+	<string name="about_author">Autor: Paper Airplane Dev - Fung Jichun</string>
+	<string name="about_text">"Noćni Zaslon vam može pomoći da se zaštitite od jakog zaslonskog osvjetljenja po noći.\nNajniža svjetlina nekih uređaja je svejedno previsoka pa ju mi možemo učiniti nižom stvaranjem presvlake preko zaslona.\n\nAko želite podržati ovu aplikaciju, mogli bi mi poslaati nešo novca na moj Alipay: 316643843\@qq.com"</string>
+	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMoj blog: <a href="http://feng.moe">http://feng.moe</a>\nMoj sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogo Dizajner: Google+ Youlun Zhai</string>
 
-	<string name="dialog_overlay_enable_title">Enable Overlay Status Bar</string>
-	<string name="dialog_overlay_enable_message">Enabling this can mask the top of screen, but it may need a permission on some devices (such as MIUI and Android 6.0)\nIf it won\'t work on first try, please allow this app to show system alert windows.</string>
+	<string name="dialog_overlay_enable_title">Omogući prekrivanje statusne trake</string>
+	<string name="dialog_overlay_enable_message">Omogućavanjem ovoga se stvara presvlaku pri vrhu zaslona, ali će možda biti potrebna neka dopuštenja na nekim uređajima (kao što su MIUI i Android 6.0)\nAko pri prvom pokušaju aplikacija ne radi, molimo dopustite ovoj aplikaciji prikazivanje prozora upozorenja sustava.</string>
 
-	<string name="mask_fail_to_start">Failed to start mask. Please check whether the system has denied the permissions.</string>
+	<string name="mask_fail_to_start">Nije moguće stvoriti presvlaku. Molimo provjerie da li je sustav odbio neka dopuštenja.</string>
 
-	<string name="dialog_first_run_title">First run</string>
-	<string name="dialog_first_run_message">Can you see this message? If you can, Night Screen is working well.\nIt will automatically stop after 5 seconds if you don\'t press OK.</string>
+	<string name="dialog_first_run_title">Prvo pokretanje</string>
+	<string name="dialog_first_run_message">Možete li vidjeti ovu poruku? Ako možete, Noćni Zaslon odlično radi.\nAutomatski će se isključiti ako nakon 5 sekundi ne pritisnete OK.</string>
 
-	<string name="notification_running_title">Night Screen is working</string>
-	<string name="notification_running_msg">Click here to open settings</string>
-	<string name="notification_action_turn_off">Turn off</string>
+	<string name="notification_running_title">Noćni zaslon je uključen</string>
+	<string name="notification_running_msg">Pritisnite ovdje za otvaranje postavki</string>
+	<string name="notification_action_turn_off">Isključi</string>
 
 </resources>
