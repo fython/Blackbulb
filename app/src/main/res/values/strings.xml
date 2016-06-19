@@ -14,7 +14,7 @@
 	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogo Designer: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Enable Overlay Status Bar</string>
-	<string name="dialog_overlay_enable_message">Enabling this can mask the top of screen, but it may need a permission on some devices (such as MIUI and Android 6.0)\nIf it won\'t work on first try, please allow this app to show system alert windows.</string>
+	<string name="dialog_overlay_enable_message">Enabling this can mask the top of screen, but it may need a permission on some devices (such as MIUI and Android 6.0)\nIf it doesn\'t work on the first try, please allow this app to show system alert windows.</string>
 
 	<string name="mask_fail_to_start">Failed to start mask. Please check whether the system has denied the permissions.</string>
 
