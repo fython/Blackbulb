@@ -224,6 +224,7 @@ public class MaskService extends Service {
 			brightness = intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0);
 			float targetAlpha = (100 - brightness) * 0.01f;
 			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, false);
+
 			switch (action) {
 				case C.ACTION_START:
 					Log.i(TAG, "Start Mask");
@@ -231,7 +232,6 @@ public class MaskService extends Service {
 						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
 						enableOverlaySystem = temp;
 					}
-
 					isShowing = true;
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
 					cancelNotification();
