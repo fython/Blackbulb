@@ -41,6 +41,7 @@ public class MaskService extends Service {
 
 	private static final int ANIMATE_DURATION_MILES = 250;
 	private static final int NOTIFICATION_NO = 1024;
+	private static int brightness = 50;
 
 	private static final String TAG = MaskService.class.getSimpleName();
 
@@ -54,7 +55,6 @@ public class MaskService extends Service {
 		mSettings = Settings.getInstance(getApplicationContext());
 		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
 		createMaskView();
-		createNotification();
 	}
 
 	@Override
@@ -143,34 +143,68 @@ public class MaskService extends Service {
 
 	private void createNotification() {
 		Intent openIntent = new Intent(this, LaunchActivity.class);
+		Intent pauseIntent = new Intent();
+		pauseIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+		Log.i(TAG, "Create "+C.ACTION_PAUSE+" action");
+		pauseIntent.putExtra(C.EXTRA_ACTION, C.ACTION_PAUSE);
+		pauseIntent.putExtra(C.EXTRA_BRIGHTNESS, brightness);
 
-		Intent closeIntent = new Intent();
-		closeIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
-		closeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
-
-		Notification.Action closeAction = new Notification.Action(
+		Notification.Action pauseAction = new Notification.Action(
 				R.drawable.ic_wb_incandescent_black_24dp,
 				getString(R.string.notification_action_turn_off),
-				PendingIntent.getBroadcast(getApplicationContext(), 0, closeIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+				PendingIntent.getBroadcast(getApplicationContext(), 0, pauseIntent, PendingIntent.FLAG_CANCEL_CURRENT)
 		);
 
 		mNoti = new Notification.Builder(getApplicationContext())
 				.setContentTitle(getString(R.string.notification_running_title))
 				.setContentText(getString(R.string.notification_running_msg))
 				.setSmallIcon(R.drawable.ic_brightness_2_white_36dp)
-				.addAction(closeAction)
+				.addAction(pauseAction)
 				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT))
 				.setAutoCancel(false)
-				.setOngoing(true)
+				.setOngoing(false)
 				.setOnlyAlertOnce(true)
 				.setShowWhen(false)
 				.build();
 
 	}
 
+	// implement pause notification
+	private void createPauseNotification(){
+		Log.i(TAG, "Create pause notification");
+		Intent openIntent = new Intent(this, LaunchActivity.class);
+		Intent resumeIntent = new Intent();
+		resumeIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+		resumeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
+		resumeIntent.putExtra(C.EXTRA_BRIGHTNESS, brightness);
+
+		Notification.Action resumeAction = new Notification.Action(R.drawable.ic_wb_incandescent_black_24dp,
+				getString(R.string.notification_action_turn_on),
+				PendingIntent.getBroadcast(getApplicationContext(), 0, resumeIntent, PendingIntent.FLAG_CANCEL_CURRENT));
+
+		mNoti = new Notification.Builder(getApplicationContext())
+				.setContentTitle(getString(R.string.notification_paused_title))
+				.setContentText(getString(R.string.notification_paused_msg))
+				.setSmallIcon(R.drawable.ic_brightness_2_white_36dp)
+				.addAction(resumeAction)
+				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT))
+				.setAutoCancel(false)
+				.setOngoing(false)
+				.setOnlyAlertOnce(true)
+				.setShowWhen(false)
+				.build();
+	}
+
 	private void showNotification() {
 		if (mNoti == null) {
 			createNotification();
+		}
+		mNotificationManager.notify(NOTIFICATION_NO, mNoti);
+	}
+
+	private void showPausedNotification() {
+		if (mNoti == null) {
+			createPauseNotification();
 		}
 		mNotificationManager.notify(NOTIFICATION_NO, mNoti);
 	}
@@ -187,7 +221,8 @@ public class MaskService extends Service {
 	public int onStartCommand(Intent intent, int flags, int arg) {
 		if (intent != null) {
 			String action = intent.getStringExtra(C.EXTRA_ACTION);
-			float targetAlpha = (100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)) * 0.01f;
+			brightness = intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0);
+			float targetAlpha = (100 - brightness) * 0.01f;
 			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, false);
 			switch (action) {
 				case C.ACTION_START:
@@ -199,6 +234,7 @@ public class MaskService extends Service {
 
 					isShowing = true;
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
+					cancelNotification();
 					showNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
@@ -213,10 +249,18 @@ public class MaskService extends Service {
 					}
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
+				case C.ACTION_PAUSE:
+					Log.i(TAG, "Pause Mask");
+					cancelNotification();
+					showPausedNotification();
+					isShowing = false;
+					mLayout.setAlpha(0f);
+					mSettings.putBoolean(Settings.KEY_ALIVE, false);
+					break;
 				case C.ACTION_STOP:
 					Log.i(TAG, "Stop Mask");
 					isShowing = false;
-					this.onDestroy();
+					stopSelf();
 					break;
 				case C.ACTION_UPDATE:
 					Log.i(TAG, "Update Mask");

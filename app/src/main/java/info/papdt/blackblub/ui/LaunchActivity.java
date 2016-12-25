@@ -12,12 +12,12 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
@@ -30,14 +30,14 @@ import info.papdt.blackblub.services.MaskService;
 import info.papdt.blackblub.utils.Settings;
 import info.papdt.blackblub.utils.Utility;
 
-public class LaunchActivity extends Activity {
+public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
 	private MessageReceiver mReceiver;
 
 	private DiscreteSeekBar mSeekbar;
 	private MaterialAnimatedSwitch mSwitch;
 
-	private Menu mMenu;
+	private PopupMenu popupMenu;
 
 	private boolean isRunning = false, hasDismissFirstRunDialog = false;
 	private Settings mSettings;
@@ -60,9 +60,6 @@ public class LaunchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_setting);
 
-		setActionBar((Toolbar) findViewById(R.id.toolbar));
-		getActionBar().setDisplayShowTitleEnabled(false);
-
 		Intent i = new Intent(this, MaskService.class);
 		i.putExtra(C.EXTRA_ACTION, C.ACTION_CHECK);
 		startService(i);
@@ -74,85 +71,7 @@ public class LaunchActivity extends Activity {
 
 		}
 
-		mSeekbar = (DiscreteSeekBar) findViewById(R.id.seek_bar);
-		mSeekbar.setProgress(mSettings.getInt(Settings.KEY_BRIGHTNESS, 50));
-		mSeekbar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-			int v = -1;
-			@Override
-			public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-				v = value;
-				if (isRunning) {
-					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
-					intent.putExtra(C.EXTRA_ACTION, C.ACTION_UPDATE);
-					intent.putExtra(C.EXTRA_BRIGHTNESS, mSeekbar.getProgress());
-					startService(intent);
-				}
-			}
-
-			@Override
-			public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-
-			}
-
-			@Override
-			public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
-				if (v != -1) {
-					mSettings.putInt(Settings.KEY_BRIGHTNESS, v);
-				}
-			}
-		});
-
-		FrameLayout rootLayout = (FrameLayout) findViewById(R.id.root_layout);
-		rootLayout.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
-		if (mReceiver == null) {
-			mReceiver = new MessageReceiver();
-		}
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(LaunchActivity.class.getCanonicalName());
-		registerReceiver(mReceiver, filter);
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		mSettings.putInt(Settings.KEY_BRIGHTNESS, mSeekbar.getProgress());
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
-		unregisterReceiver(mReceiver);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				if (android.provider.Settings.canDrawOverlays(this)) {
-					mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
-					mMenu.findItem(R.id.action_overlay_system).setChecked(true);
-				}
-			}
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		mMenu = menu;
-
-		getMenuInflater().inflate(R.menu.menu_settings, menu);
-
-		mSwitch = (MaterialAnimatedSwitch) menu.findItem(R.id.action_toggle).getActionView();
+		mSwitch = (MaterialAnimatedSwitch) findViewById(R.id.toggle);
 		mSwitch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(boolean b) {
@@ -209,16 +128,100 @@ public class LaunchActivity extends Activity {
 			}
 		});
 
-		menu.findItem(R.id.action_overlay_system)
-				.setChecked(mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false));
-		menu.findItem(R.id.action_dark_theme)
-				.setChecked(mSettings.getBoolean(Settings.KEY_DARK_THEME, false));
+		mSeekbar = (DiscreteSeekBar) findViewById(R.id.seek_bar);
+		mSeekbar.setProgress(mSettings.getInt(Settings.KEY_BRIGHTNESS, 50));
+		mSeekbar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+			int v = -1;
+			@Override
+			public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+				v = value;
+				if (isRunning) {
+					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
+					intent.putExtra(C.EXTRA_ACTION, C.ACTION_UPDATE);
+					intent.putExtra(C.EXTRA_BRIGHTNESS, mSeekbar.getProgress());
+					startService(intent);
+				}
+			}
 
-		return true;
+			@Override
+			public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+			}
+
+			@Override
+			public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+				if (v != -1) {
+					mSettings.putInt(Settings.KEY_BRIGHTNESS, v);
+				}
+			}
+		});
+
+		ImageButton menuBtn = (ImageButton) findViewById(R.id.btn_menu);
+		popupMenu = new PopupMenu(this, menuBtn);
+		popupMenu.getMenuInflater().inflate(R.menu.menu_settings, popupMenu.getMenu());
+		popupMenu.getMenu()
+				.findItem(R.id.action_overlay_system)
+				.setChecked(mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false));
+		popupMenu.getMenu()
+				.findItem(R.id.action_dark_theme)
+				.setChecked(mSettings.getBoolean(Settings.KEY_DARK_THEME, false));
+		popupMenu.setOnMenuItemClickListener(this);
+		menuBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				popupMenu.show();
+			}
+		});
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+			menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
+		}
+
+		FrameLayout rootLayout = (FrameLayout) findViewById(R.id.root_layout);
+		rootLayout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 
 	@Override
-	public boolean onMenuItemSelected(int featureId, final MenuItem menuItem) {
+	public void onStart() {
+		super.onStart();
+		if (mReceiver == null) {
+			mReceiver = new MessageReceiver();
+		}
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(LaunchActivity.class.getCanonicalName());
+		registerReceiver(mReceiver, filter);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		mSettings.putInt(Settings.KEY_BRIGHTNESS, mSeekbar.getProgress());
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		unregisterReceiver(mReceiver);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				if (android.provider.Settings.canDrawOverlays(this)) {
+					mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+					popupMenu.getMenu().findItem(R.id.action_overlay_system).setChecked(true);
+				}
+			}
+		}
+	}
+
+	@Override
+	public boolean onMenuItemClick(final MenuItem menuItem) {
 		int id = menuItem.getItemId();
 		if (id == R.id.action_about) {
 			new AlertDialog.Builder(this)
