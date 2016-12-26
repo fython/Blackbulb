@@ -54,50 +54,12 @@ public class MaskService extends Service {
 
 		mSettings = Settings.getInstance(getApplicationContext());
 		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
-		createMaskView();
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		isShowing = false;
-		mSettings.putBoolean(Settings.KEY_ALIVE, false);
-		try {
-			Utility.createStatusBarTiles(this, false);
-		} catch (Exception e) {
-
-		}
-		cancelNotification();
-		if (mLayout != null) {
-			mLayout.animate()
-					.alpha(0f)
-					.setDuration(ANIMATE_DURATION_MILES)
-					.setListener(new Animator.AnimatorListener() {
-						@Override
-						public void onAnimationStart(Animator animator) {
-
-						}
-
-						@Override
-						public void onAnimationEnd(Animator animator) {
-							try {
-								mWindowManager.removeViewImmediate(mLayout);
-							} catch (Exception e) {
-
-							}
-						}
-
-						@Override
-						public void onAnimationCancel(Animator animator) {
-
-						}
-
-						@Override
-						public void onAnimationRepeat(Animator animator) {
-
-						}
-					});
-		}
+		destroyMaskView();
 
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
@@ -141,6 +103,48 @@ public class MaskService extends Service {
 		}
 	}
 
+	private void destroyMaskView() {
+		isShowing = false;
+		mSettings.putBoolean(Settings.KEY_ALIVE, false);
+		try {
+			Utility.createStatusBarTiles(this, false);
+		} catch (Exception e) {
+
+		}
+		cancelNotification();
+		if (mLayout != null) {
+			mLayout.animate()
+					.alpha(0f)
+					.setDuration(ANIMATE_DURATION_MILES)
+					.setListener(new Animator.AnimatorListener() {
+						@Override
+						public void onAnimationStart(Animator animator) {
+
+						}
+
+						@Override
+						public void onAnimationEnd(Animator animator) {
+							try {
+								mWindowManager.removeViewImmediate(mLayout);
+								mLayout = null;
+							} catch (Exception e) {
+
+							}
+						}
+
+						@Override
+						public void onAnimationCancel(Animator animator) {
+
+						}
+
+						@Override
+						public void onAnimationRepeat(Animator animator) {
+
+						}
+					});
+		}
+	}
+
 	private void createNotification() {
 		Log.i(TAG, "Create running notification");
 		Intent openIntent = new Intent(this, LaunchActivity.class);
@@ -169,6 +173,7 @@ public class MaskService extends Service {
 				.build();
 
 	}
+
 
 	// implement pause notification
 	private void createPauseNotification(){
@@ -233,6 +238,10 @@ public class MaskService extends Service {
 			switch (action) {
 				case C.ACTION_START:
 					Log.i(TAG, "Start Mask");
+					//Todo: I request author to check whether it is safe or not
+					if(mLayout == null){
+						createMaskView();
+					}
 					if (temp != enableOverlaySystem) {
 						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
 						enableOverlaySystem = temp;
@@ -256,11 +265,10 @@ public class MaskService extends Service {
 				case C.ACTION_PAUSE:
 					Log.i(TAG, "Pause Mask");
 					stopForeground(true);
-					cancelNotification();
+					destroyMaskView();
 					createPauseNotification();
 					showPausedNotification();
 					isShowing = false;
-					mLayout.setAlpha(0f);
 					mSettings.putBoolean(Settings.KEY_ALIVE, false);
 					break;
 				case C.ACTION_STOP:
