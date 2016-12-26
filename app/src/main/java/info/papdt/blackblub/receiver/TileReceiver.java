@@ -29,12 +29,10 @@ public class TileReceiver extends BroadcastReceiver {
 					intent1.putExtra(C.EXTRA_BRIGHTNESS, Settings.getInstance(context).getInt(Settings.KEY_BRIGHTNESS, brightness));
 					context.startService(intent1);
 					break;
-				//Todo fix bug: receiver never receive ACTION_PAUSE which is the value of "turn off" action in notification
 				case C.ACTION_PAUSE:
 					Intent intent2 = new Intent(context, MaskService.class);
 					intent2.putExtra(C.EXTRA_ACTION, C.ACTION_PAUSE);
 					intent2.putExtra(C.EXTRA_BRIGHTNESS, Settings.getInstance(context).getInt(Settings.KEY_BRIGHTNESS, brightness));
-					context.stopService(intent2);
 					context.startService(intent2);
 					break;
 				case C.ACTION_STOP:

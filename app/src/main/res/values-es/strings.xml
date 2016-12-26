@@ -24,5 +24,6 @@
 	<string name="notification_running_title">Night Screen está activo</string>
 	<string name="notification_running_msg">Toca aquí para abrir los ajustes</string>
 	<string name="notification_action_turn_off">Desactivar</string>
+	<string name="notification_action_turn_on">Encender</string>
 
 </resources>

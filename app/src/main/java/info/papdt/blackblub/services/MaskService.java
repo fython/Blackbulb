@@ -142,6 +142,7 @@ public class MaskService extends Service {
 	}
 
 	private void createNotification() {
+		Log.i(TAG, "Create running notification");
 		Intent openIntent = new Intent(this, LaunchActivity.class);
 		Intent pauseIntent = new Intent();
 		pauseIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
@@ -152,7 +153,7 @@ public class MaskService extends Service {
 		Notification.Action pauseAction = new Notification.Action(
 				R.drawable.ic_wb_incandescent_black_24dp,
 				getString(R.string.notification_action_turn_off),
-				PendingIntent.getBroadcast(getApplicationContext(), 0, pauseIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+				PendingIntent.getBroadcast(getBaseContext(), 0, pauseIntent, Intent.FILL_IN_DATA)
 		);
 
 		mNoti = new Notification.Builder(getApplicationContext())
@@ -160,9 +161,9 @@ public class MaskService extends Service {
 				.setContentText(getString(R.string.notification_running_msg))
 				.setSmallIcon(R.drawable.ic_brightness_2_white_36dp)
 				.addAction(pauseAction)
-				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT))
+				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT))
 				.setAutoCancel(false)
-				.setOngoing(false)
+				.setOngoing(true)
 				.setOnlyAlertOnce(true)
 				.setShowWhen(false)
 				.build();
@@ -171,27 +172,31 @@ public class MaskService extends Service {
 
 	// implement pause notification
 	private void createPauseNotification(){
-		Log.i(TAG, "Create pause notification");
+		Log.i(TAG, "Create paused notification");
 		Intent openIntent = new Intent(this, LaunchActivity.class);
 		Intent resumeIntent = new Intent();
 		resumeIntent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
 		resumeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
 		resumeIntent.putExtra(C.EXTRA_BRIGHTNESS, brightness);
 
+		Intent closeIntent = new Intent(this, MaskService.class);
+		closeIntent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
+
 		Notification.Action resumeAction = new Notification.Action(R.drawable.ic_wb_incandescent_black_24dp,
 				getString(R.string.notification_action_turn_on),
-				PendingIntent.getBroadcast(getApplicationContext(), 0, resumeIntent, PendingIntent.FLAG_CANCEL_CURRENT));
+				PendingIntent.getBroadcast(getBaseContext(), 0, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
 		mNoti = new Notification.Builder(getApplicationContext())
 				.setContentTitle(getString(R.string.notification_paused_title))
 				.setContentText(getString(R.string.notification_paused_msg))
 				.setSmallIcon(R.drawable.ic_brightness_2_white_36dp)
 				.addAction(resumeAction)
-				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_CANCEL_CURRENT))
-				.setAutoCancel(false)
+				.setContentIntent(PendingIntent.getActivity(getApplicationContext(), 0, openIntent, PendingIntent.FLAG_UPDATE_CURRENT))
+				.setAutoCancel(true)
 				.setOngoing(false)
 				.setOnlyAlertOnce(true)
 				.setShowWhen(false)
+				.setDeleteIntent(PendingIntent.getService(getBaseContext(), 0, closeIntent, PendingIntent.FLAG_UPDATE_CURRENT))
 				.build();
 	}
 
@@ -202,7 +207,7 @@ public class MaskService extends Service {
 		mNotificationManager.notify(NOTIFICATION_NO, mNoti);
 	}
 
-	private void showPausedNotification() {
+	private void showPausedNotification(){
 		if (mNoti == null) {
 			createPauseNotification();
 		}
@@ -234,16 +239,15 @@ public class MaskService extends Service {
 					}
 					isShowing = true;
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
-					cancelNotification();
-					showNotification();
+					createNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
-						Utility.createStatusBarTiles(this, true);
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 						mLayout.animate()
 								.alpha(targetAlpha)
 								.setDuration(ANIMATE_DURATION_MILES)
 								.start();
+						Utility.createStatusBarTiles(this, true);
 					} catch (Exception e) {
 						// do nothing....
 					}
@@ -251,7 +255,9 @@ public class MaskService extends Service {
 					break;
 				case C.ACTION_PAUSE:
 					Log.i(TAG, "Pause Mask");
+					stopForeground(true);
 					cancelNotification();
+					createPauseNotification();
 					showPausedNotification();
 					isShowing = false;
 					mLayout.setAlpha(0f);
