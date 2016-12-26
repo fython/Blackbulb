@@ -24,5 +24,6 @@
 	<string name="notification_running_title">Night Screen çalışıyor.</string>
 	<string name="notification_running_msg">Buraya tıklayarak Ayarları açabilirsiniz.</string>
 	<string name="notification_action_turn_off">Kapat</string>
+	<string name="notification_action_turn_on">açmak</string>
 
 </resources>

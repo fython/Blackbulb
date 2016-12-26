@@ -23,6 +23,11 @@
 
 	<string name="notification_running_title">夜间屏幕已启动</string>
 	<string name="notification_running_msg">点击通知打开设置</string>
+
+    <string name="notification_paused_title">夜间屏幕已暂停</string>
+    <string name="notification_paused_msg">滑动关闭夜间屏幕 或 点击通知打开设置</string>
+
 	<string name="notification_action_turn_off">开灯</string>
+	<string name="notification_action_turn_on">关灯</string>
 
 </resources>

@@ -6,7 +6,7 @@ public class C {
 	public static final String EXTRA_ACTION = "action", EXTRA_BRIGHTNESS = "brightness"
 			, EXTRA_USE_OVERLAY_SYSTEM = "overlay_system";
 
-	public static final String ACTION_START = "start", ACTION_UPDATE = "update", ACTION_STOP = "stop", ACTION_CHECK = "check";
+	public static final String ACTION_START = "start", ACTION_UPDATE = "update", ACTION_PAUSE = "pause", ACTION_STOP = "stop", ACTION_CHECK = "check";
 
 	/** Broadcast */
 	public static final String EXTRA_EVENT_ID = "event_id";
