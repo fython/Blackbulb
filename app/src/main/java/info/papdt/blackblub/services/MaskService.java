@@ -35,7 +35,7 @@ public class MaskService extends Service {
 	private WindowManager.LayoutParams mLayoutParams;
 
 	private Settings mSettings;
-	private boolean enableOverlaySystem;
+	private boolean enableOverlaySystem = false;
 
 	private boolean isShowing = false;
 
@@ -53,7 +53,7 @@ public class MaskService extends Service {
 		mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
 
 		mSettings = Settings.getInstance(getApplicationContext());
-		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
+		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, enableOverlaySystem);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class MaskService extends Service {
 		try {
 			Utility.createStatusBarTiles(this, false);
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 		cancelNotification();
 		if (mLayout != null) {
@@ -233,7 +233,7 @@ public class MaskService extends Service {
 			String action = intent.getStringExtra(C.EXTRA_ACTION);
 			brightness = intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0);
 			float targetAlpha = (100 - brightness) * 0.01f;
-			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, false);
+			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, enableOverlaySystem);
 
 			switch (action) {
 				case C.ACTION_START:
@@ -259,6 +259,7 @@ public class MaskService extends Service {
 						Utility.createStatusBarTiles(this, true);
 					} catch (Exception e) {
 						// do nothing....
+						e.printStackTrace();
 					}
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
