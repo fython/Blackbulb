@@ -22,7 +22,6 @@ public class TileReceiver extends BroadcastReceiver {
 
 			Log.i(TAG, "handle \"" + action + "\" action");
 			switch (action) {
-				//Todo fix bug: launch "launchActivity twice"
 				case C.ACTION_START:
 					Intent intent1 = new Intent(context, MaskService.class);
 					intent1.putExtra(C.EXTRA_ACTION, C.ACTION_START);

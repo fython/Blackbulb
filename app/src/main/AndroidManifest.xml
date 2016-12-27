@@ -15,7 +15,8 @@
 
 		<activity
 			android:name=".ui.LaunchActivity"
-			android:excludeFromRecents="true">
+			android:excludeFromRecents="true"
+			android:launchMode="singleInstance">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 
