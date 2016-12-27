@@ -64,6 +64,7 @@ public class MaskService extends Service {
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
 		broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_DESTORY_SERVICE);
+		mSettings.putBoolean(C.ACTION_PAUSE, false);
 		sendBroadcast(broadcastIntent);
 	}
 
@@ -248,6 +249,7 @@ public class MaskService extends Service {
 					}
 					isShowing = true;
 					mSettings.putBoolean(Settings.KEY_ALIVE, true);
+					mSettings.putBoolean(C.ACTION_PAUSE, false);
 					createNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
@@ -271,6 +273,7 @@ public class MaskService extends Service {
 					showPausedNotification();
 					isShowing = false;
 					mSettings.putBoolean(Settings.KEY_ALIVE, false);
+					mSettings.putBoolean(C.ACTION_PAUSE, true);
 					break;
 				case C.ACTION_STOP:
 					Log.i(TAG, "Stop Mask");
