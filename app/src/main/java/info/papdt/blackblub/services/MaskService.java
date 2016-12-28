@@ -1,27 +1,36 @@
 package info.papdt.blackblub.services;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Binder;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.ui.LaunchActivity;
-import info.papdt.blackblub.utils.Settings;
+import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 
 public class MaskService extends Service {
@@ -34,7 +43,7 @@ public class MaskService extends Service {
 	private LinearLayout mLayout;
 	private WindowManager.LayoutParams mLayoutParams;
 
-	private Settings mSettings;
+	private NightScreenSettings mNightScreenSettings;
 	private boolean enableOverlaySystem = false;
 
 	private boolean isShowing = false;
@@ -42,6 +51,9 @@ public class MaskService extends Service {
 	private static final int ANIMATE_DURATION_MILES = 250;
 	private static final int NOTIFICATION_NO = 1024;
 	private static int brightness = 50;
+	private static int systemBrightness;
+	private static int systemBrightnessMode;
+	private ContentResolver mContentResolver;
 
 	private static final String TAG = MaskService.class.getSimpleName();
 
@@ -52,19 +64,18 @@ public class MaskService extends Service {
 		mWindowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
 		mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
 
-		mSettings = Settings.getInstance(getApplicationContext());
-		enableOverlaySystem = mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, enableOverlaySystem);
+		mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
+		enableOverlaySystem = mNightScreenSettings.getBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, enableOverlaySystem);
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 		destroyMaskView();
-
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
 		broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_DESTORY_SERVICE);
-		mSettings.putBoolean(C.ACTION_PAUSE, false);
+		mNightScreenSettings.putBoolean(C.ACTION_PAUSE, false);
 		sendBroadcast(broadcastIntent);
 	}
 
@@ -80,6 +91,8 @@ public class MaskService extends Service {
 		mLayoutParams.height = maxSize + 200;
 		mLayoutParams.width = maxSize + 200;
 		mLayoutParams.gravity = Gravity.CENTER;
+
+		setMinSystemBrightness();
 
 		if (mLayout == null) {
 			mLayout = new LinearLayout(this);
@@ -104,14 +117,42 @@ public class MaskService extends Service {
 		}
 	}
 
+	private void setMinSystemBrightness() {
+		mContentResolver = getContentResolver();
+		try {
+			systemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
+		} catch (Settings.SettingNotFoundException e) {
+			Log.e(TAG, "Can not access to system brightness");
+			e.printStackTrace();
+			systemBrightness = 255/2;
+		}
+		try {
+			systemBrightnessMode = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE);
+		} catch (Settings.SettingNotFoundException e) {
+			Log.e(TAG, "Can not access to system brightness mode");
+			e.printStackTrace();
+			systemBrightnessMode = Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
+		}
+
+		try {
+			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, 0);
+			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+		} catch (Exception e){
+			Log.e(TAG, "Can not write to system settings");
+			e.printStackTrace();
+			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
+		}
+	}
+
 	private void destroyMaskView() {
 		isShowing = false;
-		mSettings.putBoolean(Settings.KEY_ALIVE, false);
+		mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		restoreSystemBrightness();
 		cancelNotification();
 		if (mLayout != null) {
 			mLayout.animate()
@@ -143,6 +184,17 @@ public class MaskService extends Service {
 
 						}
 					});
+		}
+	}
+
+	private void restoreSystemBrightness() {
+		try {
+			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, systemBrightness);
+			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, systemBrightnessMode);
+		} catch (Exception e){
+			Log.e(TAG, "Error when setting system settings");
+			e.printStackTrace();
+			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -243,13 +295,14 @@ public class MaskService extends Service {
 					if(mLayout == null){
 						createMaskView();
 					}
+
 					if (temp != enableOverlaySystem) {
 						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
 						enableOverlaySystem = temp;
 					}
 					isShowing = true;
-					mSettings.putBoolean(Settings.KEY_ALIVE, true);
-					mSettings.putBoolean(C.ACTION_PAUSE, false);
+					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, true);
+					mNightScreenSettings.putBoolean(C.ACTION_PAUSE, false);
 					createNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
@@ -272,8 +325,8 @@ public class MaskService extends Service {
 					createPauseNotification();
 					showPausedNotification();
 					isShowing = false;
-					mSettings.putBoolean(Settings.KEY_ALIVE, false);
-					mSettings.putBoolean(C.ACTION_PAUSE, true);
+					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
+					mNightScreenSettings.putBoolean(C.ACTION_PAUSE, true);
 					break;
 				case C.ACTION_STOP:
 					Log.i(TAG, "Stop Mask");
@@ -293,7 +346,7 @@ public class MaskService extends Service {
 						}
 					}
 
-					mSettings.putBoolean(Settings.KEY_ALIVE, true);
+					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, true);
 					if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
 						mLayout.setAlpha(targetAlpha);
 					} else {

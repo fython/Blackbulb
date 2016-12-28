@@ -7,7 +7,7 @@ import android.util.Log;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.services.MaskService;
-import info.papdt.blackblub.utils.Settings;
+import info.papdt.blackblub.utils.NightScreenSettings;
 
 public class TileReceiver extends BroadcastReceiver {
 
@@ -25,13 +25,13 @@ public class TileReceiver extends BroadcastReceiver {
 				case C.ACTION_START:
 					Intent intent1 = new Intent(context, MaskService.class);
 					intent1.putExtra(C.EXTRA_ACTION, C.ACTION_START);
-					intent1.putExtra(C.EXTRA_BRIGHTNESS, Settings.getInstance(context).getInt(Settings.KEY_BRIGHTNESS, brightness));
+					intent1.putExtra(C.EXTRA_BRIGHTNESS, NightScreenSettings.getInstance(context).getInt(NightScreenSettings.KEY_BRIGHTNESS, brightness));
 					context.startService(intent1);
 					break;
 				case C.ACTION_PAUSE:
 					Intent intent2 = new Intent(context, MaskService.class);
 					intent2.putExtra(C.EXTRA_ACTION, C.ACTION_PAUSE);
-					intent2.putExtra(C.EXTRA_BRIGHTNESS, Settings.getInstance(context).getInt(Settings.KEY_BRIGHTNESS, brightness));
+					intent2.putExtra(C.EXTRA_BRIGHTNESS, NightScreenSettings.getInstance(context).getInt(NightScreenSettings.KEY_BRIGHTNESS, brightness));
 					context.startService(intent2);
 					break;
 				case C.ACTION_STOP:

@@ -27,7 +27,7 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.services.MaskService;
-import info.papdt.blackblub.utils.Settings;
+import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 
 public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
@@ -40,20 +40,20 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	private PopupMenu popupMenu;
 
 	private boolean isRunning = false, hasDismissFirstRunDialog = false;
-	private Settings mSettings;
+	private NightScreenSettings mNightScreenSettings;
 
 	private static final int OVERLAY_PERMISSION_REQ_CODE = 1001;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		mSettings = Settings.getInstance(getApplicationContext());
+		mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
 
 		// Don't worry too much. Min SDK is 21.
 		getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 		getWindow().setStatusBarColor(Color.TRANSPARENT);
 		getWindow().setNavigationBarColor(Color.TRANSPARENT);
 
-		if (mSettings.getBoolean(Settings.KEY_DARK_THEME, false)) {
+		if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false)) {
 			setTheme(R.style.AppTheme_Dark);
 		}
 
@@ -83,7 +83,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 					isRunning = true;
 
 					// For safe
-					if (mSettings.getBoolean(Settings.KEY_FIRST_RUN, true)) {
+					if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_FIRST_RUN, true)) {
 						hasDismissFirstRunDialog = false;
 						final AlertDialog dialog = new AlertDialog.Builder(LaunchActivity.this)
 								.setTitle(R.string.dialog_first_run_title)
@@ -92,7 +92,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i) {
 										hasDismissFirstRunDialog = true;
-										mSettings.putBoolean(Settings.KEY_FIRST_RUN, false);
+										mNightScreenSettings.putBoolean(NightScreenSettings.KEY_FIRST_RUN, false);
 									}
 								})
 								.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -101,7 +101,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 										if (hasDismissFirstRunDialog) return;
 										hasDismissFirstRunDialog = true;
 										mSwitch.toggle();
-										if (mSettings.getBoolean(Settings.KEY_FIRST_RUN, true)) {
+										if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_FIRST_RUN, true)) {
 											Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 											intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
 											stopService(intent);
@@ -129,7 +129,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		});
 
 		mSeekbar = (DiscreteSeekBar) findViewById(R.id.seek_bar);
-		mSeekbar.setProgress(mSettings.getInt(Settings.KEY_BRIGHTNESS, 50));
+		mSeekbar.setProgress(mNightScreenSettings.getInt(NightScreenSettings.KEY_BRIGHTNESS, 50));
 		mSeekbar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
 			int v = -1;
 			@Override
@@ -151,7 +151,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			@Override
 			public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
 				if (v != -1) {
-					mSettings.putInt(Settings.KEY_BRIGHTNESS, v);
+					mNightScreenSettings.putInt(NightScreenSettings.KEY_BRIGHTNESS, v);
 				}
 			}
 		});
@@ -161,10 +161,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		popupMenu.getMenuInflater().inflate(R.menu.menu_settings, popupMenu.getMenu());
 		popupMenu.getMenu()
 				.findItem(R.id.action_overlay_system)
-				.setChecked(mSettings.getBoolean(Settings.KEY_OVERLAY_SYSTEM, false));
+				.setChecked(mNightScreenSettings.getBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, false));
 		popupMenu.getMenu()
 				.findItem(R.id.action_dark_theme)
-				.setChecked(mSettings.getBoolean(Settings.KEY_DARK_THEME, false));
+				.setChecked(mNightScreenSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false));
 		popupMenu.setOnMenuItemClickListener(this);
 		menuBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -199,7 +199,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	@Override
 	public void onPause() {
 		super.onPause();
-		mSettings.putInt(Settings.KEY_BRIGHTNESS, mSeekbar.getProgress());
+		mNightScreenSettings.putInt(NightScreenSettings.KEY_BRIGHTNESS, mSeekbar.getProgress());
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				if (android.provider.Settings.canDrawOverlays(this)) {
-					mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
 					popupMenu.getMenu().findItem(R.id.action_overlay_system).setChecked(true);
 				}
 			}
@@ -236,7 +236,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			return true;
 		} else if (id == R.id.action_overlay_system) {
 			if (menuItem.isChecked()) {
-				mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, false);
+				mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, false);
 				menuItem.setChecked(false);
 			} else {
 				// http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6/32065680#32065680
@@ -246,7 +246,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 								Uri.parse("package:" + getPackageName()));
 						startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
 					} else {
-						mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+						mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
 						menuItem.setChecked(true);
 					}
 				} else {
@@ -256,7 +256,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialogInterface, int i) {
-									mSettings.putBoolean(Settings.KEY_OVERLAY_SYSTEM, true);
+									mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
 									menuItem.setChecked(true);
 								}
 							})
@@ -271,7 +271,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}
 			return true;
 		} else if (id == R.id.action_dark_theme) {
-			mSettings.putBoolean(Settings.KEY_DARK_THEME, !menuItem.isChecked());
+			mNightScreenSettings.putBoolean(NightScreenSettings.KEY_DARK_THEME, !menuItem.isChecked());
 			menuItem.setChecked(!menuItem.isChecked());
 			finish();
 			startActivity(new Intent(this, LaunchActivity.class));
@@ -288,7 +288,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			switch (eventId) {
 				case C.EVENT_CANNOT_START:
 					// Receive a error from MaskService
-					mSettings.putBoolean(Settings.KEY_ALIVE, false);
+					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 					isRunning = false;
 					try {
 						mSwitch.toggle();
@@ -303,7 +303,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 					break;
 				case C.EVENT_DESTORY_SERVICE:
 					if (isRunning) {
-						mSettings.putBoolean(Settings.KEY_ALIVE, false);
+						mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 						mSwitch.toggle();
 						isRunning = false;
 					}
