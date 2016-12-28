@@ -7,20 +7,19 @@ import android.os.Build;
 import android.service.quicksettings.Tile;
 import 	android.service.quicksettings.TileService;
 import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
-import info.papdt.blackblub.utils.Settings;
+import info.papdt.blackblub.utils.NightScreenSettings;
 
 @SuppressLint("Override")
 @TargetApi(Build.VERSION_CODES.N)
 public class MaskTileService extends TileService {
     private Tile tile;
     private static final String TAG = MaskTileService.class.getSimpleName();
-    private Settings mSettings;
+    private NightScreenSettings mNightScreenSettings;
     @Override
     public void onClick(){
         Log.i(TAG, "Tile service onClick method called");
@@ -74,9 +73,9 @@ public class MaskTileService extends TileService {
     @Override
     public void onStartListening(){
         tile = getQsTile();
-        mSettings = Settings.getInstance(getApplicationContext());
-        boolean isAlive = mSettings.getBoolean(Settings.KEY_ALIVE, false);
-        boolean isPaused = mSettings.getBoolean(C.ACTION_PAUSE, false);
+        mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
+        boolean isAlive = mNightScreenSettings.getBoolean(NightScreenSettings.KEY_ALIVE, false);
+        boolean isPaused = mNightScreenSettings.getBoolean(C.ACTION_PAUSE, false);
 
         if (isAlive){
             updateActiveTile(tile);

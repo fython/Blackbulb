@@ -3,7 +3,7 @@ package info.papdt.blackblub.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Settings {
+public class NightScreenSettings {
 
 	public static final String PREFERENCES_NAME = "settings";
 
@@ -11,22 +11,22 @@ public class Settings {
 			KEY_OVERLAY_SYSTEM = "overlay_system", KEY_FIRST_RUN = "first_run",
 			KEY_DARK_THEME = "dark_theme";
 
-	private static Settings sInstance;
+	private static NightScreenSettings sInstance;
 
 	private SharedPreferences mPrefs;
 
-	public static Settings getInstance(Context context) {
+	public static NightScreenSettings getInstance(Context context) {
 		if (sInstance == null) {
-			sInstance = new Settings(context);
+			sInstance = new NightScreenSettings(context);
 		}
 		return sInstance;
 	}
 
-	private Settings(Context context) {
+	private NightScreenSettings(Context context) {
 		mPrefs = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
 	}
 
-	public Settings putBoolean(String key, boolean value) {
+	public NightScreenSettings putBoolean(String key, boolean value) {
 		mPrefs.edit().putBoolean(key, value).commit();
 		return this;
 	}
@@ -35,7 +35,7 @@ public class Settings {
 		return mPrefs.getBoolean(key, def);
 	}
 
-	public Settings putInt(String key, int value) {
+	public NightScreenSettings putInt(String key, int value) {
 		mPrefs.edit().putInt(key, value).commit();
 		return this;
 	}
@@ -44,7 +44,7 @@ public class Settings {
 		return mPrefs.getInt(key, defValue);
 	}
 
-	public Settings putString(String key, String value) {
+	public NightScreenSettings putString(String key, String value) {
 		mPrefs.edit().putString(key, value).commit();
 		return this;
 	}

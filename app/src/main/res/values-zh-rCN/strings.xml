@@ -29,5 +29,6 @@
 
 	<string name="notification_action_turn_off">开灯</string>
 	<string name="notification_action_turn_on">关灯</string>
+	<string name="write_settings_warning">无法设置亮度，请确定你已经给了我写入系统设置的权限。</string>
 
 </resources>
