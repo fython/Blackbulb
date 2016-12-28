@@ -32,6 +32,6 @@
 	<string name="notification_action_turn_off">Turn off</string>
 	<string name="notification_action_turn_on">Turn on</string>
 
-	<string name="write_settings_warning">Can not set minimum brightness, please ensure that you have given me the permission to write system settings.</string>
+	<string name="write_settings_warning">Can not set brightness, please ensure that you have given me the permission to write system settings.</string>
 
 </resources>

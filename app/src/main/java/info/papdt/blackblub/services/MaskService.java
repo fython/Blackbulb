@@ -9,16 +9,12 @@ import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Binder;
-import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -91,6 +87,7 @@ public class MaskService extends Service {
 		mLayoutParams.height = maxSize + 200;
 		mLayoutParams.width = maxSize + 200;
 		mLayoutParams.gravity = Gravity.CENTER;
+		mContentResolver = getContentResolver();
 
 		setMinSystemBrightness();
 
@@ -118,7 +115,6 @@ public class MaskService extends Service {
 	}
 
 	private void setMinSystemBrightness() {
-		mContentResolver = getContentResolver();
 		try {
 			systemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
 		} catch (Settings.SettingNotFoundException e) {
@@ -141,11 +137,23 @@ public class MaskService extends Service {
 			Log.e(TAG, "Can not write to system settings");
 			e.printStackTrace();
 			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
+			requestWriteSettingsPermission();
+		}
+	}
+
+	private void requestWriteSettingsPermission() {
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+			Intent enableIntent = new Intent(
+                    Settings.ACTION_MANAGE_WRITE_SETTINGS,
+                    Uri.parse("package:" + getPackageName()))
+					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(enableIntent);
 		}
 	}
 
 	private void destroyMaskView() {
 		isShowing = false;
+		mContentResolver = getContentResolver();
 		mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
@@ -195,6 +203,7 @@ public class MaskService extends Service {
 			Log.e(TAG, "Error when setting system settings");
 			e.printStackTrace();
 			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
+			requestWriteSettingsPermission();
 		}
 	}
 

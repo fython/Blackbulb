@@ -29,6 +29,6 @@
 	<string name="notification_paused_title">夜間屏幕已暫停</string>
 	<string name="notification_paused_msg">滑動關閉夜間屏幕 或 點擊通知打開設置</string>
 	<string name="notification_action_turn_on">關燈</string>
-	<string name="write_settings_warning">無法設置最低亮度，請確定你已經給予我寫入系統設置的權限。</string>
+	<string name="write_settings_warning">無法設置亮度，請確定你已經給予我寫入系統設置的權限。</string>
 
 </resources>
