@@ -1,26 +1,21 @@
 package info.papdt.blackblub.services;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.ViewGroup;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.view.accessibility.AccessibilityManager;
 
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
@@ -29,14 +24,17 @@ import info.papdt.blackblub.ui.LaunchActivity;
 import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 
+import static android.view.WindowManager.LayoutParams;
+
 public class MaskService extends Service {
 
 	private WindowManager mWindowManager;
 	private NotificationManager mNotificationManager;
+	private AccessibilityManager mAccessibilityManager;
 
 	private Notification mNoti;
 
-	private LinearLayout mLayout;
+	private View mLayout;
 	private WindowManager.LayoutParams mLayoutParams;
 
 	private NightScreenSettings mNightScreenSettings;
@@ -56,6 +54,7 @@ public class MaskService extends Service {
 
 		mWindowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
 		mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
+		mAccessibilityManager = (AccessibilityManager) getApplication().getSystemService(Context.ACCESSIBILITY_SERVICE);
 
 		mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
 		enableOverlaySystem = mNightScreenSettings.getBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, enableOverlaySystem);
@@ -73,28 +72,22 @@ public class MaskService extends Service {
 	}
 
 	private void createMaskView() {
+		mAccessibilityManager.isEnabled();
+
 		mLayoutParams = new WindowManager.LayoutParams();
-		mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
-		mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-				| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-				| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-		mLayoutParams.format = PixelFormat.TRANSPARENT;
-		// TODO Automatically change by listening to rotating
-		int maxSize = Math.max(Utility.getTrueScreenHeight(getApplicationContext()), Utility.getTrueScreenWidth(getApplicationContext()));
-		mLayoutParams.height = maxSize + 200;
-		mLayoutParams.width = maxSize + 200;
+		mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+		mLayoutParams.width = 0;
+		mLayoutParams.height = 0;
+		mLayoutParams.flags |= LayoutParams.FLAG_DIM_BEHIND;
+		mLayoutParams.flags |= LayoutParams.FLAG_NOT_FOCUSABLE;
+		mLayoutParams.flags |= LayoutParams.FLAG_NOT_TOUCHABLE;
+		mLayoutParams.flags &= 0xFFDFFFFF;
+		mLayoutParams.flags &= 0xFFFFFF7F;
+		mLayoutParams.format = PixelFormat.OPAQUE;
 		mLayoutParams.gravity = Gravity.CENTER;
 
 		if (mLayout == null) {
-			mLayout = new LinearLayout(this);
-			mLayout.setLayoutParams(
-					new LinearLayout.LayoutParams(
-							ViewGroup.LayoutParams.MATCH_PARENT,
-							ViewGroup.LayoutParams.MATCH_PARENT
-					)
-			);
-			mLayout.setBackgroundColor(Color.BLACK);
-			mLayout.setAlpha(0f);
+			mLayout = new View(this);
 		}
 
 		try {
@@ -108,14 +101,19 @@ public class MaskService extends Service {
 		}
 	}
 
-	private void requestWriteSettingsPermission() {
-		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-			Intent enableIntent = new Intent(
-                    Settings.ACTION_MANAGE_WRITE_SETTINGS,
-                    Uri.parse("package:" + getPackageName()))
-					.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			startActivity(enableIntent);
+	private void setBrightness(int paramInt) {
+		this.mAccessibilityManager.isEnabled();
+		mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F, 0.0F, 0.9F);
+	}
+
+	private float constrain(float paramFloat1, float paramFloat2, float paramFloat3) {
+		if (paramFloat1 < paramFloat2) {
+			return paramFloat2;
 		}
+		if (paramFloat1 > paramFloat3) {
+			return paramFloat3;
+		}
+		return paramFloat1;
 	}
 
 	private void destroyMaskView() {
@@ -220,13 +218,6 @@ public class MaskService extends Service {
 				.build();
 	}
 
-	private void showNotification() {
-		if (mNoti == null) {
-			createNotification();
-		}
-		mNotificationManager.notify(NOTIFICATION_NO, mNoti);
-	}
-
 	private void showPausedNotification(){
 		if (mNoti == null) {
 			createPauseNotification();
@@ -247,7 +238,6 @@ public class MaskService extends Service {
 		if (intent != null) {
 			String action = intent.getStringExtra(C.EXTRA_ACTION);
 			brightness = intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0);
-			float targetAlpha = (100 - brightness) * 0.01f;
 			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, enableOverlaySystem);
 
 			switch (action) {
@@ -267,11 +257,8 @@ public class MaskService extends Service {
 					createNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
+						setBrightness(brightness);
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
-						mLayout.animate()
-								.alpha(targetAlpha)
-								.setDuration(ANIMATE_DURATION_MILES)
-								.start();
 						Utility.createStatusBarTiles(this, true);
 					} catch (Exception e) {
 						// do nothing....
@@ -295,6 +282,7 @@ public class MaskService extends Service {
 					stopSelf();
 					break;
 				case C.ACTION_UPDATE:
+					mAccessibilityManager.isEnabled();
 					Log.i(TAG, "Update Mask");
 					isShowing = true;
 					if (temp != enableOverlaySystem) {
@@ -308,14 +296,8 @@ public class MaskService extends Service {
 					}
 
 					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, true);
-					if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
-						mLayout.setAlpha(targetAlpha);
-					} else {
-						mLayout.animate()
-								.alpha(targetAlpha)
-								.setDuration(100)
-								.start();
-					}
+					setBrightness(brightness);
+					mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
 				case C.ACTION_CHECK:
