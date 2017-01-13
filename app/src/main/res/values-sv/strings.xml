@@ -24,5 +24,6 @@
 	<string name="notification_running_title">Nattskärm</string>
 	<string name="notification_running_msg">Tryck här för inställningar</string>
 	<string name="notification_action_turn_off">Stäng av</string>
+	<string name="shortcut_label_switch">Växla</string>
 
 </resources>

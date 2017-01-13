@@ -21,7 +21,20 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
         </activity>
+
+	    <activity android:name=".ui.shortcut.ToggleActivity"
+	              android:label="@string/shortcut_label_switch"
+	              android:icon="@drawable/ic_shortcut_switch"
+	              android:excludeFromRecents="true"
+		          android:theme="@style/AppTheme.Empty">
+		    <intent-filter>
+			    <action android:name="android.intent.action.MAIN" />
+			    <action android:name="android.intent.action.CREATE_SHORTCUT"/>
+		    </intent-filter>
+	    </activity>
 
         <service android:name=".services.MaskService" />
 

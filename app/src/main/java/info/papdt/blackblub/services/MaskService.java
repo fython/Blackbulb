@@ -253,8 +253,7 @@ public class MaskService extends Service {
 			switch (action) {
 				case C.ACTION_START:
 					Log.i(TAG, "Start Mask");
-					//Todo: I request author to check whether it is safe or not
-					if(mLayout == null){
+					if (mLayout == null){
 						createMaskView();
 					}
 

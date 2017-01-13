@@ -25,5 +25,6 @@
 	<string name="notification_running_msg">Appuyez pour ouvrir les paramètres</string>
 	<string name="notification_action_turn_off">Désactiver</string>
 	<string name="notification_action_turn_on">Allumer</string>
+	<string name="shortcut_label_switch">Cabillot</string>
 
 </resources>
