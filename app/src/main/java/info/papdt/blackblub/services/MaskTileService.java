@@ -17,9 +17,11 @@ import info.papdt.blackblub.utils.NightScreenSettings;
 @SuppressLint("Override")
 @TargetApi(Build.VERSION_CODES.N)
 public class MaskTileService extends TileService {
+
     private Tile tile;
     private static final String TAG = MaskTileService.class.getSimpleName();
     private NightScreenSettings mNightScreenSettings;
+
     @Override
     public void onClick(){
         Log.i(TAG, "Tile service onClick method called");
@@ -29,10 +31,10 @@ public class MaskTileService extends TileService {
         Log.i(TAG, "status:"+status+"\t receive");
 
         switch (status){
-            case Tile.STATE_ACTIVE:
+            case Tile.STATE_INACTIVE:
                 updateActiveTile(tile);
                 break;
-            case Tile.STATE_INACTIVE:
+            case Tile.STATE_ACTIVE:
                 updateInactiveTile(tile);
                 break;
             default:
@@ -48,10 +50,10 @@ public class MaskTileService extends TileService {
 
         Icon inActiveIcon = Icon
                 .createWithResource(getApplicationContext(),
-                        R.drawable.ic_wb_sunny_white_36dp);
+                        R.drawable.ic_qs_night_mode_off);
 
         tile.setIcon(inActiveIcon);
-        tile.setState(Tile.STATE_ACTIVE);
+        tile.setState(Tile.STATE_INACTIVE);
         tile.updateTile();
     }
 
@@ -63,10 +65,10 @@ public class MaskTileService extends TileService {
 
         Icon activeIcon = Icon
                 .createWithResource(getApplicationContext(),
-                        R.drawable.ic_brightness_2_white_36dp);
+                        R.drawable.ic_qs_night_mode_on);
 
         tile.setIcon(activeIcon);
-        tile.setState(Tile.STATE_INACTIVE);
+        tile.setState(Tile.STATE_ACTIVE);
         tile.updateTile();
     }
 
