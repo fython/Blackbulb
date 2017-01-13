@@ -47,9 +47,6 @@ public class MaskService extends Service {
 	private static final int ANIMATE_DURATION_MILES = 250;
 	private static final int NOTIFICATION_NO = 1024;
 	private static int brightness = 50;
-	private static int systemBrightness;
-	private static int systemBrightnessMode;
-	private ContentResolver mContentResolver;
 
 	private static final String TAG = MaskService.class.getSimpleName();
 
@@ -87,9 +84,6 @@ public class MaskService extends Service {
 		mLayoutParams.height = maxSize + 200;
 		mLayoutParams.width = maxSize + 200;
 		mLayoutParams.gravity = Gravity.CENTER;
-		mContentResolver = getContentResolver();
-
-		setMinSystemBrightness();
 
 		if (mLayout == null) {
 			mLayout = new LinearLayout(this);
@@ -114,33 +108,6 @@ public class MaskService extends Service {
 		}
 	}
 
-	private void setMinSystemBrightness() {
-		try {
-			systemBrightness = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS);
-		} catch (Settings.SettingNotFoundException e) {
-			Log.e(TAG, "Can not access to system brightness");
-			e.printStackTrace();
-			systemBrightness = 255/2;
-		}
-		try {
-			systemBrightnessMode = Settings.System.getInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE);
-		} catch (Settings.SettingNotFoundException e) {
-			Log.e(TAG, "Can not access to system brightness mode");
-			e.printStackTrace();
-			systemBrightnessMode = Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
-		}
-
-		try {
-			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, 0);
-			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
-		} catch (Exception e){
-			Log.e(TAG, "Can not write to system settings");
-			e.printStackTrace();
-			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
-			requestWriteSettingsPermission();
-		}
-	}
-
 	private void requestWriteSettingsPermission() {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
 			Intent enableIntent = new Intent(
@@ -153,14 +120,12 @@ public class MaskService extends Service {
 
 	private void destroyMaskView() {
 		isShowing = false;
-		mContentResolver = getContentResolver();
 		mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		restoreSystemBrightness();
 		cancelNotification();
 		if (mLayout != null) {
 			mLayout.animate()
@@ -192,18 +157,6 @@ public class MaskService extends Service {
 
 						}
 					});
-		}
-	}
-
-	private void restoreSystemBrightness() {
-		try {
-			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS, systemBrightness);
-			Settings.System.putInt(mContentResolver, Settings.System.SCREEN_BRIGHTNESS_MODE, systemBrightnessMode);
-		} catch (Exception e){
-			Log.e(TAG, "Error when setting system settings");
-			e.printStackTrace();
-			Toast.makeText(getApplicationContext(),R.string.write_settings_warning,Toast.LENGTH_LONG).show();
-			requestWriteSettingsPermission();
 		}
 	}
 
