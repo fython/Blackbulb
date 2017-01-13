@@ -15,7 +15,7 @@
 
 	<string name="about_author">Author: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen can help protect you from the harm of strong light at night.\nSome devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send some money to my Alipay: 316643843\@qq.com"</string>
-	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogo Designer: Google+ Youlun Zhai</string>
+	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Designer: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Enable Overlay Status Bar</string>
 	<string name="dialog_overlay_enable_message">Enabling this can mask the top of screen, but it may need a permission on some devices (such as MIUI and Android 6.0)\nIf it doesn\'t work on the first try, please allow this app to show system alert windows.</string>
@@ -33,7 +33,5 @@
 
 	<string name="notification_action_turn_off">Turn off</string>
 	<string name="notification_action_turn_on">Turn on</string>
-
-	<string name="write_settings_warning">Can not set brightness, please ensure that you have given me the permission to write system settings.</string>
 
 </resources>

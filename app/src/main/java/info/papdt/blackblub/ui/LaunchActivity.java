@@ -38,6 +38,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	private MaterialAnimatedSwitch mSwitch;
 
 	private PopupMenu popupMenu;
+	private AlertDialog mAlertDialog;
 
 	private boolean isRunning = false, hasDismissFirstRunDialog = false;
 	private NightScreenSettings mNightScreenSettings;
@@ -84,8 +85,11 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 					// For safe
 					if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_FIRST_RUN, true)) {
+						if (mAlertDialog != null && mAlertDialog.isShowing()) {
+							return;
+						}
 						hasDismissFirstRunDialog = false;
-						final AlertDialog dialog = new AlertDialog.Builder(LaunchActivity.this)
+						mAlertDialog = new AlertDialog.Builder(LaunchActivity.this)
 								.setTitle(R.string.dialog_first_run_title)
 								.setMessage(R.string.dialog_first_run_message)
 								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -113,8 +117,8 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						new Handler().postDelayed(new Runnable() {
 							@Override
 							public void run() {
-								if (dialog.isShowing() && !hasDismissFirstRunDialog) {
-									dialog.dismiss();
+								if (mAlertDialog.isShowing() && !hasDismissFirstRunDialog) {
+									mAlertDialog.dismiss();
 								}
 							}
 						}, 5000);
