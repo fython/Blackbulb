@@ -6,12 +6,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -32,15 +33,14 @@ import info.papdt.blackblub.utils.Utility;
 
 public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClickListener {
 
-	private MessageReceiver mReceiver;
-
 	private DiscreteSeekBar mSeekbar;
-	private MaterialAnimatedSwitch mSwitch;
+	private static MaterialAnimatedSwitch mSwitch;
 
 	private PopupMenu popupMenu;
 	private AlertDialog mAlertDialog;
 
-	private boolean isRunning = false, hasDismissFirstRunDialog = false;
+	private static boolean isRunning = false, hasDismissFirstRunDialog = false;
+	private int targetMode;
 	private NightScreenSettings mNightScreenSettings;
 
 	private static final int OVERLAY_PERMISSION_REQ_CODE = 1001;
@@ -62,7 +62,6 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		setContentView(R.layout.activity_setting);
 
 		Intent i = new Intent(this, MaskService.class);
-		i.putExtra(C.EXTRA_ACTION, C.ACTION_CHECK);
 		startService(i);
 
 		// Publish CM Tiles
@@ -80,6 +79,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 					Intent intent = new Intent();
 					intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_START);
+					intent.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, true);
 					sendBroadcast(intent);
 					isRunning = true;
 
@@ -126,6 +126,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 				} else {
 					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
+					intent.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, true);
 					stopService(intent);
 					isRunning = false;
 				}
@@ -143,6 +144,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 					Intent intent = new Intent(LaunchActivity.this, MaskService.class);
 					intent.putExtra(C.EXTRA_ACTION, C.ACTION_UPDATE);
 					intent.putExtra(C.EXTRA_BRIGHTNESS, mSeekbar.getProgress());
+					intent.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, true);
 					startService(intent);
 				}
 			}
@@ -165,7 +167,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		popupMenu.getMenuInflater().inflate(R.menu.menu_settings, popupMenu.getMenu());
 		popupMenu.getMenu()
 				.findItem(R.id.action_overlay_system)
-				.setChecked(mNightScreenSettings.getBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, false));
+				.setChecked(mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION) == C.MODE_OVERLAY_ALL);
 		popupMenu.getMenu()
 				.findItem(R.id.action_dark_theme)
 				.setChecked(mNightScreenSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false));
@@ -190,26 +192,15 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	}
 
 	@Override
-	public void onStart() {
-		super.onStart();
-		if (mReceiver == null) {
-			mReceiver = new MessageReceiver();
-		}
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(LaunchActivity.class.getCanonicalName());
-		registerReceiver(mReceiver, filter);
-	}
-
-	@Override
 	public void onPause() {
 		super.onPause();
 		mNightScreenSettings.putInt(NightScreenSettings.KEY_BRIGHTNESS, mSeekbar.getProgress());
 	}
 
 	@Override
-	public void onStop() {
-		super.onStop();
-		unregisterReceiver(mReceiver);
+	public void onDestroy() {
+		super.onDestroy();
+		mSwitch = null;
 	}
 
 	@Override
@@ -217,7 +208,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				if (android.provider.Settings.canDrawOverlays(this)) {
-					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
+					mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, targetMode);
 					popupMenu.getMenu().findItem(R.id.action_overlay_system).setChecked(true);
 				}
 			}
@@ -240,17 +231,18 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			return true;
 		} else if (id == R.id.action_overlay_system) {
 			if (menuItem.isChecked()) {
-				mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, false);
+				mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION);
 				menuItem.setChecked(false);
 			} else {
 				// http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6/32065680#32065680
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 					if (!android.provider.Settings.canDrawOverlays(this)) {
+						targetMode = C.MODE_OVERLAY_ALL;
 						Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
 								Uri.parse("package:" + getPackageName()));
 						startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
 					} else {
-						mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
+						mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_OVERLAY_ALL);
 						menuItem.setChecked(true);
 					}
 				} else {
@@ -260,7 +252,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialogInterface, int i) {
-									mNightScreenSettings.putBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, true);
+									mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_OVERLAY_ALL);
 									menuItem.setChecked(true);
 								}
 							})
@@ -284,20 +276,20 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		return false;
 	}
 
-	private class MessageReceiver extends BroadcastReceiver {
+	public static class MessageReceiver extends BroadcastReceiver {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
+			if (mSwitch == null) return;
 			int eventId = intent.getIntExtra(C.EXTRA_EVENT_ID, -1);
 			switch (eventId) {
 				case C.EVENT_CANNOT_START:
 					// Receive a error from MaskService
-					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 					isRunning = false;
 					try {
 						mSwitch.toggle();
 						Toast.makeText(
-								LaunchActivity.this,
+								context.getApplicationContext(),
 								R.string.mask_fail_to_start,
 								Toast.LENGTH_LONG
 						).show();
@@ -307,26 +299,31 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 					break;
 				case C.EVENT_DESTORY_SERVICE:
 					if (isRunning) {
-						mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 						mSwitch.toggle();
 						isRunning = false;
 					}
 					break;
 				case C.EVENT_CHECK:
-					isRunning = intent.getBooleanExtra("isShowing", false);
-					if (isRunning) {
+					Log.i("C", "Checked" + intent.getBooleanExtra("isShowing", false));
+					if (isRunning = intent.getBooleanExtra("isShowing", false) != mSwitch.isChecked()) {
 						// If I don't use postDelayed, Switch may cause a NPE because its animator wasn't initialized.
-						new Handler().postDelayed(new Runnable() {
-							@Override
-							public void run() {
-								mSwitch.toggle();
-							}
-						}, 100);
+						mHandler.sendEmptyMessageDelayed(1, 100);
 					}
 					break;
 			}
 		}
 
 	}
+
+	private static Handler mHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				mSwitch.toggle();
+			}
+		}
+
+	};
 
 }

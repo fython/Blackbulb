@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 
@@ -21,7 +22,6 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.ui.LaunchActivity;
-import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 
 import static android.view.WindowManager.LayoutParams;
@@ -37,8 +37,7 @@ public class MaskService extends Service {
 	private View mLayout;
 	private WindowManager.LayoutParams mLayoutParams;
 
-	private NightScreenSettings mNightScreenSettings;
-	private boolean enableOverlaySystem = false;
+	private int mode = C.MODE_NO_PERMISSION;
 
 	private boolean isShowing = false;
 
@@ -52,12 +51,9 @@ public class MaskService extends Service {
 	public void onCreate() {
 		super.onCreate();
 
-		mWindowManager = (WindowManager) getApplication().getSystemService(Context.WINDOW_SERVICE);
-		mNotificationManager = (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
-		mAccessibilityManager = (AccessibilityManager) getApplication().getSystemService(Context.ACCESSIBILITY_SERVICE);
-
-		mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
-		enableOverlaySystem = mNightScreenSettings.getBoolean(NightScreenSettings.KEY_OVERLAY_SYSTEM, enableOverlaySystem);
+		mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+		mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		mAccessibilityManager = (AccessibilityManager) getSystemService(Context.ACCESSIBILITY_SERVICE);
 	}
 
 	@Override
@@ -67,27 +63,25 @@ public class MaskService extends Service {
 		Intent broadcastIntent = new Intent();
 		broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
 		broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_DESTORY_SERVICE);
-		mNightScreenSettings.putBoolean(C.ACTION_PAUSE, false);
 		sendBroadcast(broadcastIntent);
 	}
 
 	private void createMaskView() {
 		mAccessibilityManager.isEnabled();
 
-		mLayoutParams = new WindowManager.LayoutParams();
-		mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
-		mLayoutParams.width = 0;
-		mLayoutParams.height = 0;
-		mLayoutParams.flags |= LayoutParams.FLAG_DIM_BEHIND;
-		mLayoutParams.flags |= LayoutParams.FLAG_NOT_FOCUSABLE;
-		mLayoutParams.flags |= LayoutParams.FLAG_NOT_TOUCHABLE;
-		mLayoutParams.flags &= 0xFFDFFFFF;
-		mLayoutParams.flags &= 0xFFFFFF7F;
-		mLayoutParams.format = PixelFormat.OPAQUE;
+		updateLayoutParams(mode, -1);
 		mLayoutParams.gravity = Gravity.CENTER;
 
 		if (mLayout == null) {
 			mLayout = new View(this);
+			mLayout.setLayoutParams(
+					new ViewGroup.LayoutParams(
+							ViewGroup.LayoutParams.MATCH_PARENT,
+							ViewGroup.LayoutParams.MATCH_PARENT
+					)
+			);
+			mLayout.setBackgroundColor(Color.BLACK);
+			mLayout.setAlpha(0f);
 		}
 
 		try {
@@ -101,9 +95,55 @@ public class MaskService extends Service {
 		}
 	}
 
-	private void setBrightness(int paramInt) {
+	private void updateLayoutParams(int mode, int paramInt) {
+		if (mLayoutParams == null) {
+			mLayoutParams = new LayoutParams();
+		}
+
 		this.mAccessibilityManager.isEnabled();
-		mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F, 0.0F, 0.9F);
+
+		switch (mode) {
+			case C.MODE_NO_PERMISSION:
+				mLayoutParams.type = LayoutParams.TYPE_TOAST;
+				break;
+			case C.MODE_NORMAL:
+			case C.MODE_EYES_CARE:
+				mLayoutParams.type = LayoutParams.TYPE_SYSTEM_ALERT;
+				break;
+			case C.MODE_OVERLAY_ALL:
+				mLayoutParams.type = LayoutParams.TYPE_SYSTEM_ERROR;
+				break;
+		}
+		if (mode == C.MODE_OVERLAY_ALL) {
+			mLayoutParams.width = 0;
+			mLayoutParams.height = 0;
+			mLayoutParams.flags |= LayoutParams.FLAG_DIM_BEHIND;
+			mLayoutParams.flags |= LayoutParams.FLAG_NOT_FOCUSABLE;
+			mLayoutParams.flags |= LayoutParams.FLAG_NOT_TOUCHABLE;
+			mLayoutParams.flags &= 0xFFDFFFFF;
+			mLayoutParams.flags &= 0xFFFFFF7F;
+			mLayoutParams.format = PixelFormat.OPAQUE;
+			mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F, 0.0F, 0.9F);
+		} else {
+			int max = Math.max(Utility.getTrueScreenWidth(this), Utility.getTrueScreenHeight(this));
+			mLayoutParams.height = mLayoutParams.width = max + 200;
+			mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+					| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+					| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+			mLayoutParams.format = PixelFormat.TRANSPARENT;
+			float targetAlpha = (100 - brightness) * 0.01f;
+			if (paramInt != -1) {
+				if (isShowing) {
+					if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
+						mLayout.setAlpha(targetAlpha);
+					} else {
+						mLayout.animate().alpha(targetAlpha).setDuration(100).start();
+					}
+				} else {
+					mLayout.animate().alpha(targetAlpha).setDuration(ANIMATE_DURATION_MILES).start();
+				}
+			}
+		}
 	}
 
 	private float constrain(float paramFloat1, float paramFloat2, float paramFloat3) {
@@ -118,7 +158,6 @@ public class MaskService extends Service {
 
 	private void destroyMaskView() {
 		isShowing = false;
-		mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
 		try {
 			Utility.createStatusBarTiles(this, false);
 		} catch (Exception e) {
@@ -235,10 +274,10 @@ public class MaskService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int arg) {
-		if (intent != null) {
+		if (intent != null && intent.hasExtra(C.EXTRA_ACTION)) {
 			String action = intent.getStringExtra(C.EXTRA_ACTION);
 			brightness = intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0);
-			boolean temp = intent.getBooleanExtra(C.EXTRA_USE_OVERLAY_SYSTEM, enableOverlaySystem);
+			mode = intent.getIntExtra(C.EXTRA_MODE, mode);
 
 			switch (action) {
 				case C.ACTION_START:
@@ -247,23 +286,17 @@ public class MaskService extends Service {
 						createMaskView();
 					}
 
-					if (temp != enableOverlaySystem) {
-						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
-						enableOverlaySystem = temp;
-					}
-					isShowing = true;
-					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, true);
-					mNightScreenSettings.putBoolean(C.ACTION_PAUSE, false);
 					createNotification();
 					startForeground(NOTIFICATION_NO, mNoti);
 					try {
-						setBrightness(brightness);
+						updateLayoutParams(mode, brightness);
 						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 						Utility.createStatusBarTiles(this, true);
 					} catch (Exception e) {
 						// do nothing....
 						e.printStackTrace();
 					}
+					isShowing = true;
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
 				case C.ACTION_PAUSE:
@@ -273,8 +306,6 @@ public class MaskService extends Service {
 					createPauseNotification();
 					showPausedNotification();
 					isShowing = false;
-					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, false);
-					mNightScreenSettings.putBoolean(C.ACTION_PAUSE, true);
 					break;
 				case C.ACTION_STOP:
 					Log.i(TAG, "Stop Mask");
@@ -285,30 +316,31 @@ public class MaskService extends Service {
 					mAccessibilityManager.isEnabled();
 					Log.i(TAG, "Update Mask");
 					isShowing = true;
-					if (temp != enableOverlaySystem) {
-						mLayoutParams.type = !enableOverlaySystem ? WindowManager.LayoutParams.TYPE_TOAST : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
-						enableOverlaySystem = temp;
-						try {
-							mWindowManager.updateViewLayout(mLayout, mLayoutParams);
-						} catch (Exception e) {
-							// do nothing....
-						}
+					try {
+						updateLayoutParams(mode, brightness);
+						mWindowManager.updateViewLayout(mLayout, mLayoutParams);
+					} catch (Exception e) {
+						// do nothing....
 					}
-
-					mNightScreenSettings.putBoolean(NightScreenSettings.KEY_ALIVE, true);
-					setBrightness(brightness);
-					mWindowManager.updateViewLayout(mLayout, mLayoutParams);
 					Log.i(TAG, "Set alpha:" + String.valueOf(100 - intent.getIntExtra(C.EXTRA_BRIGHTNESS, 0)));
 					break;
-				case C.ACTION_CHECK:
-					Intent broadcastIntent = new Intent();
-					broadcastIntent.setAction(LaunchActivity.class.getCanonicalName());
-					broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_CHECK);
-					broadcastIntent.putExtra("isShowing", isShowing);
-					sendBroadcast(broadcastIntent);
-					break;
 			}
+
 		}
+
+		if (intent != null && !intent.getBooleanExtra(C.EXTRA_DO_NOT_SEND_CHECK, false)) {
+			Log.i(TAG, "Check Mask. Check from toggle:" + intent.getBooleanExtra(C.EXTRA_CHECK_FROM_TOGGLE, false));
+			Intent broadcastIntent = new Intent();
+			broadcastIntent.setAction(
+					intent.getBooleanExtra(C.EXTRA_CHECK_FROM_TOGGLE, false)
+							? "info.papdt.blackbulb.ACTION_TOGGLE"
+							: "info.papdt.blackbulb.ACTION_UPDATE_ACTIVITY_TOGGLE"
+			);
+			broadcastIntent.putExtra(C.EXTRA_EVENT_ID, C.EVENT_CHECK);
+			broadcastIntent.putExtra("isShowing", isShowing);
+			sendBroadcast(broadcastIntent);
+		}
+
 		return START_STICKY;
 	}
 

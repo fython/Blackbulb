@@ -17,10 +17,13 @@
 	    tools:ignore="ManifestResource">
         <activity
             android:name=".ui.LaunchActivity"
+            android:finishOnTaskLaunch="true"
             android:excludeFromRecents="true"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:stateNotNeeded="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+	            <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -31,6 +34,8 @@
 	    <activity android:name=".ui.shortcut.ToggleActivity"
 	              android:label="@string/shortcut_label_switch"
 	              android:icon="@drawable/ic_shortcut_switch"
+	              android:launchMode="singleInstance"
+	              android:finishOnTaskLaunch="true"
 	              android:excludeFromRecents="true"
 		          android:theme="@style/AppTheme.Empty">
 		    <intent-filter>
@@ -39,13 +44,27 @@
 		    </intent-filter>
 	    </activity>
 
-        <service android:name=".services.MaskService" />
+        <service android:name=".services.MaskService" android:process=":mask"/>
 
-        <receiver android:name=".receiver.TileReceiver">
+        <receiver android:name=".receiver.TileReceiver"
+	              android:exported="false">
             <intent-filter>
                 <action android:name="info.papdt.blackbulb.ACTION_UPDATE_STATUS" />
             </intent-filter>
         </receiver>
+
+
+	    <receiver android:name=".ui.LaunchActivity$MessageReceiver">
+		    <intent-filter>
+			    <action android:name="info.papdt.blackbulb.ACTION_UPDATE_ACTIVITY_TOGGLE" />
+		    </intent-filter>
+	    </receiver>
+
+	    <receiver android:name=".ui.shortcut.ToggleActivity$MessageReceiver">
+		    <intent-filter>
+			    <action android:name="info.papdt.blackbulb.ACTION_TOGGLE" />
+		    </intent-filter>
+	    </receiver>
 
         <service
             android:name=".services.MaskTileService"

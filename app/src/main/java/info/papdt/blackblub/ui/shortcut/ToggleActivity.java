@@ -1,6 +1,8 @@
 package info.papdt.blackblub.ui.shortcut;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -8,7 +10,7 @@ import android.os.Parcelable;
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
-import info.papdt.blackblub.utils.NightScreenSettings;
+import info.papdt.blackblub.services.MaskService;
 
 public class ToggleActivity extends Activity {
 
@@ -29,17 +31,32 @@ public class ToggleActivity extends Activity {
 			intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, launchIntent);
 
 			setResult(RESULT_OK, intent);
+			finish();
 		} else {
-			NightScreenSettings settings = NightScreenSettings.getInstance(getApplicationContext());
-			boolean isAlive = settings.getBoolean(NightScreenSettings.KEY_ALIVE, false);
-
-			Intent intent = new Intent();
-			intent.setAction(TileReceiver.ACTION_UPDATE_STATUS);
-			intent.putExtra(C.EXTRA_ACTION, isAlive ? C.ACTION_STOP : C.ACTION_START);
-			sendBroadcast(intent);
+			Intent i = new Intent(this, MaskService.class);
+			i.putExtra(C.EXTRA_ACTION, C.ACTION_CHECK);
+			i.putExtra(C.EXTRA_CHECK_FROM_TOGGLE, true);
+			startService(i);
+			finish();
 		}
 
-		finish();
+	}
+
+	public static class MessageReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			int eventId = intent.getIntExtra(C.EXTRA_EVENT_ID, -1);
+			switch (eventId) {
+				case C.EVENT_CHECK:
+					Intent i = new Intent();
+					i.setAction(TileReceiver.ACTION_UPDATE_STATUS);
+					i.putExtra(C.EXTRA_ACTION, intent.getBooleanExtra("isShowing", false) ? C.ACTION_STOP : C.ACTION_START);
+					context.sendBroadcast(i);
+					break;
+			}
+		}
+
 	}
 
 }

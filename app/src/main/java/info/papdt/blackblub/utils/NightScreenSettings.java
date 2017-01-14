@@ -7,23 +7,27 @@ public class NightScreenSettings {
 
 	public static final String PREFERENCES_NAME = "settings";
 
-	public static final String KEY_BRIGHTNESS = "brightness", KEY_ALIVE = "alive",
-			KEY_OVERLAY_SYSTEM = "overlay_system", KEY_FIRST_RUN = "first_run",
+	public static final String KEY_BRIGHTNESS = "brightness",
+			KEY_MODE = "mode", KEY_FIRST_RUN = "first_run",
 			KEY_DARK_THEME = "dark_theme";
 
-	private static NightScreenSettings sInstance;
+	private volatile static NightScreenSettings sInstance;
 
 	private SharedPreferences mPrefs;
 
 	public static NightScreenSettings getInstance(Context context) {
 		if (sInstance == null) {
-			sInstance = new NightScreenSettings(context);
+			synchronized (NightScreenSettings.class) {
+				if (sInstance == null) {
+					sInstance = new NightScreenSettings(context);
+				}
+			}
 		}
 		return sInstance;
 	}
 
 	private NightScreenSettings(Context context) {
-		mPrefs = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
+		mPrefs = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_MULTI_PROCESS);
 	}
 
 	public NightScreenSettings putBoolean(String key, boolean value) {

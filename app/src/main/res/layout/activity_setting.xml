@@ -40,16 +40,12 @@
 					android:scaleType="centerInside"/>
 
 				<TextView
-					android:layout_width="wrap_content"
+					android:layout_width="0dp"
+					android:layout_weight="1"
 					android:layout_height="wrap_content"
 					android:layout_marginRight="@dimen/activity_horizontal_margin"
 					android:text="@string/app_name"
 					android:textAppearance="@android:style/TextAppearance.Material.Medium"/>
-
-				<Space
-					android:layout_width="0dp"
-					android:layout_height="0dp"
-					android:layout_weight="1"/>
 
 				<include
 					layout="@layout/widget_switch"
@@ -83,7 +79,7 @@
 				app:dsb_min="25"
 				app:dsb_max="100"/>
 
-			<LinearLayout
+			<FrameLayout
 				android:layout_width="match_parent"
 				android:layout_height="24dp"
 				android:layout_marginLeft="20dp"
@@ -95,20 +91,17 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/text_dark"
+					android:layout_gravity="start"
 					android:textColor="?attr/icon_tint"/>
-
-				<View
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-				    android:layout_weight="1"/>
 
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:text="@string/text_light"
+					android:layout_gravity="end"
 					android:textColor="?attr/icon_tint"/>
 
-			</LinearLayout>
+			</FrameLayout>
 
 		</LinearLayout>
 
