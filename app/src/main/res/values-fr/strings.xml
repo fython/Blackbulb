@@ -1,6 +1,8 @@
 <resources>
 
 	<string name="app_name">Night Screen</string>
+	
+	<string name="shortcut_label_switch">Activer</string>	
 
 	<string name="action_about">À propos</string>
 	<string name="action_overlay_system">Couvrir la barre d\'état</string>
@@ -11,7 +13,7 @@
 
 	<string name="about_author">Auteur : Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen peut vous aider à prévenir les méfaits de la lumière forte la nuit.\nLa luminosité minimale sur certains appareils reste élevée nous pouvons donc la rendre plus faible en créant un masque sur l\'écran.\n\nSi vous souhaitez soutenir cette application, vous pouvez envoyer un peu d\'argent sur mon Alipay : 316643843\@qq.com"</string>
-	<string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMon blog : <a href="http://feng.moe">http://feng.moe</a>\nMon sina weibo : <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
+	<string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBlog : <a href="http://feng.moe">http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Activer Couvrir la barre d\'état</string>
 	<string name="dialog_overlay_enable_message">Activer cela permet de couvrir le haut de l\'écran, mais peut requérir une autorisation sur certains appareils (tels que MIUI et Android 6.0)\nSi cela ne fonctionne pas, veuillez autoriser à cette application d\'afficher la fenêtre d\'alerte système.</string>
@@ -23,8 +25,11 @@
 
 	<string name="notification_running_title">Night Screen est en exécution</string>
 	<string name="notification_running_msg">Appuyez pour ouvrir les paramètres</string>
+	
+	<string name="notification_paused_title">Night Screen est interrompu</string>
+	<string name="notification_paused_msg">Appuyez pour ouvrir les paramètres ou glissez pour arrêter</string>	
+	
 	<string name="notification_action_turn_off">Désactiver</string>
-	<string name="notification_action_turn_on">Allumer</string>
-	<string name="shortcut_label_switch">Cabillot</string>
+	<string name="notification_action_turn_on">Activer</string>
 
 </resources>
