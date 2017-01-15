@@ -12,4 +12,10 @@
 	<color name="teal_500">#009688</color>
 	<color name="teal_700">#00796B</color>
 
+	<color name="dsb_progress_color">#ff009688</color>
+	<color name="dsb_track_color">#ff939393</color>
+	<color name="dsb_disabled_color">#66939393</color>
+	<color name="dsb_ripple_color_pressed">#77939393</color>
+	<color name="dsb_ripple_color_focused">#99999999</color>
+
 </resources>
