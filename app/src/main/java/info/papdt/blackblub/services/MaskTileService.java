@@ -1,5 +1,6 @@
 package info.papdt.blackblub.services;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.drawable.Icon;
 import android.os.Build;
@@ -12,6 +13,7 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 
+@SuppressLint("Override")
 @TargetApi(Build.VERSION_CODES.N)
 public class MaskTileService extends TileService {
 
@@ -23,6 +25,7 @@ public class MaskTileService extends TileService {
         Log.i(TAG, "Tile service onClick method called");
         super.onClick();
 	    Tile tile = getQsTile();
+	    if (tile == null) return;
         int status = tile.getState();
         Log.i(TAG, "status:"+status+"\t receive");
 

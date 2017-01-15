@@ -42,3 +42,9 @@
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+
+-keep class info.papdt.blackblub.receiver.** {*;}
+-keep class info.papdt.blackblub.services.** {*;}
+-keep class info.papdt.blackblub.ui.** {*;}
+-keep class info.papdt.blackblub.ui.LaunchActivity$MessageReceiver {*;}
+-keep class info.papdt.blackblub.ui.shortcut.ToggleActivity$MessageReceiver {*;}

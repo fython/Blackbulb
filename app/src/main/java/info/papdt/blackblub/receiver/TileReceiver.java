@@ -3,6 +3,7 @@ package info.papdt.blackblub.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import info.papdt.blackblub.C;
@@ -49,9 +50,11 @@ public class TileReceiver extends BroadcastReceiver {
 					break;
 			}
 
-			Intent tileUpdateIntent = new Intent(context, MaskTileService.class);
-			tileUpdateIntent.putExtra(C.EXTRA_ACTION, action);
-			context.startService(tileUpdateIntent);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+				Intent tileUpdateIntent = new Intent(context, MaskTileService.class);
+				tileUpdateIntent.putExtra(C.EXTRA_ACTION, action);
+				context.startService(tileUpdateIntent);
+			}
 		}
 	}
 
