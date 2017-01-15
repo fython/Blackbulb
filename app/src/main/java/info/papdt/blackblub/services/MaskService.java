@@ -144,6 +144,10 @@ public class MaskService extends Service {
 				}
 			}
 		}
+
+		if (mLayout != null) {
+			mLayout.setBackgroundColor(mode == C.MODE_EYES_CARE ? Color.argb(220, 200, 100, 0) : Color.BLACK);
+		}
 	}
 
 	private float constrain(float paramFloat1, float paramFloat2, float paramFloat3) {
