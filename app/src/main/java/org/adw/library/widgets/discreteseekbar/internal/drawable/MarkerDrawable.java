@@ -123,8 +123,7 @@ public class MarkerDrawable extends StateDrawable implements Animatable {
         int totalSize = Math.min(bounds.width(), bounds.height());
 
         float initial = mClosedStateSize;
-        float destination = totalSize;
-        float currentSize = initial + (destination - initial) * currentScale;
+        float currentSize = initial + ((float) totalSize - initial) * currentScale;
 
         float halfSize = currentSize / 2f;
         float inverseScale = 1f - currentScale;
@@ -242,8 +241,8 @@ public class MarkerDrawable extends StateDrawable implements Animatable {
      * This is the "poor's man" AnimatorListener for this Drawable
      */
     public interface MarkerAnimationListener {
-        public void onClosingComplete();
+        void onClosingComplete();
 
-        public void onOpeningComplete();
+        void onOpeningComplete();
     }
 }

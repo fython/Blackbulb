@@ -53,7 +53,7 @@ public class ModeListAdapter extends BaseAdapter implements ListAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_mode, null);
+			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_mode, parent, false);
 			holder = new ViewHolder();
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.description = (TextView) convertView.findViewById(R.id.description);

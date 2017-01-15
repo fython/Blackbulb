@@ -1,5 +1,6 @@
 package info.papdt.blackblub.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -349,6 +350,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 	}
 
+	@SuppressLint("HandlerLeak")
 	private static Handler mHandler = new Handler() {
 
 		@Override

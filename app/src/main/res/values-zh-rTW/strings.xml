@@ -3,7 +3,6 @@
 	<string name="app_name">夜間螢幕</string>
 
 	<string name="action_about">關於</string>
-	<string name="action_overlay_system">覆蓋系統狀態列</string>
 	<string name="action_dark_theme">暗色主題</string>
 
 	<string name="text_light">亮</string>

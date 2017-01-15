@@ -3,7 +3,6 @@
 	<string name="app_name">Night Screen</string>
 
 	<string name="action_about">Hakkında</string>
-	<string name="action_overlay_system">Durum çubuğunu kapla.</string>
 	<string name="action_dark_theme">Karanlık Tema</string>
 
 	<string name="text_light">AYDINLIK</string>

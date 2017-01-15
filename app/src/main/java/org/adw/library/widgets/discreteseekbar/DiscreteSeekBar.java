@@ -61,11 +61,11 @@ public class DiscreteSeekBar extends View {
          * @param value    the new value
          * @param fromUser if the change was made from the user or not (i.e. the developer calling {@link #setProgress(int)}
          */
-        public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser);
+        void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser);
 
-        public void onStartTrackingTouch(DiscreteSeekBar seekBar);
+        void onStartTrackingTouch(DiscreteSeekBar seekBar);
 
-        public void onStopTrackingTouch(DiscreteSeekBar seekBar);
+        void onStopTrackingTouch(DiscreteSeekBar seekBar);
     }
 
     /**
@@ -270,6 +270,18 @@ public class DiscreteSeekBar extends View {
         if (!editMode) {
             mIndicator = new PopupIndicator(context, attrs, defStyleAttr, convertValueToMessage(mMax),
                     thumbSize, thumbSize + mAddedTouchBounds + separation);
+            MarkerDrawable.MarkerAnimationListener mFloaterListener = new MarkerDrawable.MarkerAnimationListener() {
+                @Override
+                public void onClosingComplete() {
+                    mThumb.animateToNormal();
+                }
+
+                @Override
+                public void onOpeningComplete() {
+
+                }
+
+            };
             mIndicator.setListener(mFloaterListener);
         }
         a.recycle();
@@ -979,19 +991,6 @@ public class DiscreteSeekBar extends View {
             notifyBubble(false);
         }
     }
-
-    private MarkerDrawable.MarkerAnimationListener mFloaterListener = new MarkerDrawable.MarkerAnimationListener() {
-        @Override
-        public void onClosingComplete() {
-            mThumb.animateToNormal();
-        }
-
-        @Override
-        public void onOpeningComplete() {
-
-        }
-
-    };
 
     @Override
     protected void onDetachedFromWindow() {

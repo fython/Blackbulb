@@ -8,13 +8,14 @@
 
     <application
 	    android:allowBackup="true"
+	    android:fullBackupContent="@xml/full_backup_contents"
 	    android:icon="@mipmap/ic_launcher"
 	    android:roundIcon="@mipmap/ic_launcher_circle"
 	    android:label="@string/app_name"
 	    android:persistent="true"
 	    android:supportsRtl="true"
 	    android:theme="@style/AppTheme.Light"
-	    tools:ignore="ManifestResource">
+	    tools:ignore="ManifestResource,UnusedAttribute">
         <activity
             android:name=".ui.LaunchActivity"
             android:finishOnTaskLaunch="true"

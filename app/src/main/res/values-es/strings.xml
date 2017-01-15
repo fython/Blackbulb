@@ -3,7 +3,6 @@
 	<string name="app_name">Night Screen</string>
 
 	<string name="action_about">Acerca de</string>
-	<string name="action_overlay_system">Cubrir la barra de estado</string>
 	<string name="action_dark_theme">Tema oscuro</string>
 
 	<string name="text_light">CLARO</string>

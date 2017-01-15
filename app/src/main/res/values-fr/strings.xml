@@ -5,7 +5,6 @@
 	<string name="shortcut_label_switch">Activer</string>	
 
 	<string name="action_about">À propos</string>
-	<string name="action_overlay_system">Couvrir la barre d\'état</string>
 	<string name="action_dark_theme">Thème sombre</string>
 
 	<string name="text_light">CLAIR</string>

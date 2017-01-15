@@ -127,16 +127,10 @@ public class SeekBarCompat {
     }
 
     public static boolean isInScrollingContainer(ViewParent p) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return SeekBarCompatDontCrash.isInScrollingContainer(p);
-        }
-        return false;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH && SeekBarCompatDontCrash.isInScrollingContainer(p);
     }
 
     public static boolean isHardwareAccelerated(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return SeekBarCompatDontCrash.isHardwareAccelerated(view);
-        }
-        return false;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB && SeekBarCompatDontCrash.isHardwareAccelerated(view);
     }
 }

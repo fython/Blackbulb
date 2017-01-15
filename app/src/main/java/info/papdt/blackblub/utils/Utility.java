@@ -15,8 +15,8 @@ import cyanogenmod.app.CustomTile;
 import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
-import info.papdt.blackblub.services.MaskService;
 
+@SuppressWarnings("unchecked")
 public class Utility {
 
 	public static final int CM_TILE_CODE = 1001;
