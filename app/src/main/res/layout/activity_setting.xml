@@ -20,7 +20,6 @@
 		<LinearLayout
 			android:orientation="vertical"
 			android:layout_marginTop="16dp"
-			android:layout_marginBottom="16dp"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
@@ -84,6 +83,7 @@
 				android:layout_height="24dp"
 				android:layout_marginLeft="20dp"
 				android:layout_marginRight="20dp"
+				android:layout_marginBottom="16dp"
 				android:orientation="horizontal"
 				android:layout_gravity="center">
 
@@ -100,6 +100,27 @@
 					android:text="@string/text_light"
 					android:layout_gravity="end"
 					android:textColor="?attr/icon_tint"/>
+
+			</FrameLayout>
+
+			<FrameLayout
+				android:layout_width="match_parent"
+				android:layout_height="56dp"
+				android:id="@+id/mode_view_container"
+				android:background="#2a000000"
+				android:foreground="?android:attr/selectableItemBackground">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:id="@+id/mode_view"
+					android:text="@string/mode_text_no_permission"
+					android:drawableRight="@drawable/ic_chevron_right_black_24dp"
+					android:drawablePadding="16dp"
+					android:textAppearance="@android:style/TextAppearance.Material"
+					android:drawableTint="?android:attr/textColorPrimary"/>
 
 			</FrameLayout>
 

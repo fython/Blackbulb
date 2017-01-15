@@ -31,4 +31,16 @@
 	<string name="notification_action_turn_on">关灯</string>
 	<string name="shortcut_label_switch">切换</string>
 
+	<string name="dialog_choose_mode">选择模式</string>
+
+	<string name="mode_text_no_permission">零权限模式</string>
+	<string name="mode_text_normal">正常模式</string>
+	<string name="mode_text_overlay_all">全覆盖模式</string>
+	<string name="mode_text_eyes_care">护眼模式</string>
+
+	<string name="mode_desc_no_permission">不需要任何权限，但无法覆盖锁定界面、状态栏和导航栏。而且在 Android 7.0 后的系统无法工作。</string>
+	<string name="mode_desc_normal">推荐模式。这是最稳定的，尽管无法变暗导航栏且导致无法进行敏感操作（如手动安装应用、同意权限请求）。</string>
+	<string name="mode_desc_overlay_all">状态栏和导航栏都可以变暗，但在部分应用中会出现闪烁现象。</string>
+	<string name="mode_desc_eyes_care">接近于正常模式，可以过滤蓝光保护你的眼睛。</string>
+
 </resources>

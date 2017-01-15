@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
@@ -28,6 +29,7 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.services.MaskService;
+import info.papdt.blackblub.ui.adapter.ModeListAdapter;
 import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 
@@ -35,9 +37,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 	private DiscreteSeekBar mSeekbar;
 	private static MaterialAnimatedSwitch mSwitch;
+	private TextView mModeText;
 
 	private PopupMenu popupMenu;
-	private AlertDialog mAlertDialog;
+	private AlertDialog mAlertDialog, mModeDialog;
 
 	private static boolean isRunning = false, hasDismissFirstRunDialog = false;
 	private int targetMode;
@@ -162,12 +165,67 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}
 		});
 
+		mModeText = (TextView) findViewById(R.id.mode_view);
+		mModeText.setText(getResources().getStringArray(R.array.mode_text)[mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION)]);
+		findViewById(R.id.mode_view_container).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int current = mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION);
+				mModeDialog = new AlertDialog.Builder(LaunchActivity.this)
+						.setTitle(R.string.dialog_choose_mode)
+						.setSingleChoiceItems(
+								new ModeListAdapter(current),
+								current,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										if (which == 0) {
+											((ModeListAdapter) mModeDialog.getListView().getAdapter())
+													.setCurrent(which);
+											applyNewMode(which);
+										} else {
+											// http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6/32065680#32065680
+											if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+												if (!android.provider.Settings.canDrawOverlays(LaunchActivity.this)) {
+													targetMode = which;
+													Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+															Uri.parse("package:" + getPackageName()));
+													startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+												} else {
+													applyNewMode(which);
+												}
+											} else {
+												targetMode = which;
+												new AlertDialog.Builder(LaunchActivity.this)
+														.setTitle(R.string.dialog_overlay_enable_title)
+														.setMessage(R.string.dialog_overlay_enable_message)
+														.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+															@Override
+															public void onClick(DialogInterface dialogInterface, int i) {
+																applyNewMode(targetMode);
+															}
+														})
+														.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+															@Override
+															public void onClick(DialogInterface dialogInterface, int i) {
+																// Do nothing....
+															}
+														})
+														.show();
+											}
+										}
+										mModeDialog.dismiss();
+									}
+								}
+						)
+						.setNegativeButton(android.R.string.cancel, null)
+						.show();
+			}
+		});
+
 		ImageButton menuBtn = (ImageButton) findViewById(R.id.btn_menu);
 		popupMenu = new PopupMenu(this, menuBtn);
 		popupMenu.getMenuInflater().inflate(R.menu.menu_settings, popupMenu.getMenu());
-		popupMenu.getMenu()
-				.findItem(R.id.action_overlay_system)
-				.setChecked(mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION) == C.MODE_OVERLAY_ALL);
 		popupMenu.getMenu()
 				.findItem(R.id.action_dark_theme)
 				.setChecked(mNightScreenSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false));
@@ -208,11 +266,24 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 				if (android.provider.Settings.canDrawOverlays(this)) {
-					mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, targetMode);
-					popupMenu.getMenu().findItem(R.id.action_overlay_system).setChecked(true);
+					applyNewMode(targetMode);
 				}
 			}
 		}
+	}
+
+	private void applyNewMode(int targetMode) {
+		if (isRunning && targetMode != mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION)) {
+			mSwitch.toggle();
+			mHandler.postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mSwitch.toggle();
+				}
+			}, 500);
+		}
+		mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, targetMode);
+		mModeText.setText(getResources().getStringArray(R.array.mode_text)[targetMode]);
 	}
 
 	@Override
@@ -228,43 +299,6 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						}
 					})
 					.show();
-			return true;
-		} else if (id == R.id.action_overlay_system) {
-			if (menuItem.isChecked()) {
-				mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION);
-				menuItem.setChecked(false);
-			} else {
-				// http://stackoverflow.com/questions/32061934/permission-from-manifest-doesnt-work-in-android-6/32065680#32065680
-				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-					if (!android.provider.Settings.canDrawOverlays(this)) {
-						targetMode = C.MODE_OVERLAY_ALL;
-						Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-								Uri.parse("package:" + getPackageName()));
-						startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-					} else {
-						mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_OVERLAY_ALL);
-						menuItem.setChecked(true);
-					}
-				} else {
-					new AlertDialog.Builder(this)
-							.setTitle(R.string.dialog_overlay_enable_title)
-							.setMessage(R.string.dialog_overlay_enable_message)
-							.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
-									mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, C.MODE_OVERLAY_ALL);
-									menuItem.setChecked(true);
-								}
-							})
-							.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialogInterface, int i) {
-									// Do nothing....
-								}
-							})
-							.show();
-				}
-			}
 			return true;
 		} else if (id == R.id.action_dark_theme) {
 			mNightScreenSettings.putBoolean(NightScreenSettings.KEY_DARK_THEME, !menuItem.isChecked());
@@ -319,8 +353,12 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 		@Override
 		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				mSwitch.toggle();
+			if (msg.what < 10) {
+				if (mSwitch == null) {
+					mHandler.sendEmptyMessageDelayed(msg.what + 1, 100);
+				} else {
+					mSwitch.toggle();
+				}
 			}
 		}
 

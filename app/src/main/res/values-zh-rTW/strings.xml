@@ -24,11 +24,22 @@
 	<string name="notification_running_title">夜間螢幕正運作</string>
 	<string name="notification_running_msg">點擊通知打開設定</string>
 
-
 	<string name="notification_action_turn_off">開燈</string>
-	<string name="notification_paused_title">夜間屏幕已暫停</string>
-	<string name="notification_paused_msg">滑動關閉夜間屏幕 或 點擊通知打開設置</string>
+	<string name="notification_paused_title">夜間螢幕已暫停</string>
+	<string name="notification_paused_msg">滑動關閉夜間螢幕 或 點擊通知打開設置</string>
 	<string name="notification_action_turn_on">關燈</string>
 	<string name="shortcut_label_switch">切換</string>
+
+	<string name="dialog_choose_mode">選擇工作模式</string>
+
+	<string name="mode_text_no_permission">零權限模式</string>
+	<string name="mode_text_normal">常規模式</string>
+	<string name="mode_text_overlay_all">全覆蓋模式</string>
+	<string name="mode_text_eyes_care">護眼模式</string>
+
+	<string name="mode_desc_no_permission">不需要任何權限，但無法覆蓋鎖定介面、狀態欄與導航欄。而且在 Android 7.0 後的系統可能無法工作。</string>
+	<string name="mode_desc_normal">推薦模式。這是最穩定的，儘管無法變暗導航欄且導致無法進行敏感操作（如手動安裝應用程式、同意權限請求）。</string>
+	<string name="mode_desc_overlay_all">狀態欄與導航欄都可以變暗，但在部分應用程式中會出現閃爍現象。</string>
+	<string name="mode_desc_eyes_care">接近於常規模式，可以過濾藍光保護你的眼睛。</string>
 
 </resources>

@@ -34,4 +34,23 @@
 	<string name="notification_action_turn_off">Turn off</string>
 	<string name="notification_action_turn_on">Turn on</string>
 
+	<string name="dialog_choose_mode">Choose mode</string>
+
+	<string name="mode_text_no_permission">No Permission Mode</string>
+	<string name="mode_text_normal">Normal Mode</string>
+	<string name="mode_text_overlay_all">Overlay System Mode</string>
+	<string name="mode_text_eyes_care">Eyes Care Mode</string>
+
+	<string name="mode_desc_no_permission">No permission is needed. But it cannot dim lockscreen, status bar or navigation bar. And it doesn\'t work in Android 7.0.</string>
+	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim navigation bar and prevent user from clicking \"Install\" or \"Allow\" in permission dialog.</string>
+	<string name="mode_desc_overlay_all">You can dim both status bar and navigation bar. However, it may make screen flashing in some apps.</string>
+	<string name="mode_desc_eyes_care">It is close to Normal Mode. But it can filter blue light and protect your eyes at night.</string>
+
+	<string-array name="mode_text">
+		<item>@string/mode_text_no_permission</item>
+		<item>@string/mode_text_normal</item>
+		<item>@string/mode_text_overlay_all</item>
+		<item>@string/mode_text_eyes_care</item>
+	</string-array>
+
 </resources>

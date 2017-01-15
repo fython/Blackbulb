@@ -108,7 +108,7 @@ public class MaskService extends Service {
 				break;
 			case C.MODE_NORMAL:
 			case C.MODE_EYES_CARE:
-				mLayoutParams.type = LayoutParams.TYPE_SYSTEM_ALERT;
+				mLayoutParams.type = LayoutParams.TYPE_SYSTEM_OVERLAY;
 				break;
 			case C.MODE_OVERLAY_ALL:
 				mLayoutParams.type = LayoutParams.TYPE_SYSTEM_ERROR;
