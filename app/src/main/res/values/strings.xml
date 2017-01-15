@@ -40,6 +40,8 @@
 	<string name="mode_text_overlay_all">Overlay System Mode</string>
 	<string name="mode_text_eyes_care">Eyes Care Mode</string>
 
+	<string name="mode_text_no_permission_warning">(May not work)</string>
+
 	<string name="mode_desc_no_permission">No permission is needed. But it cannot dim lockscreen, status bar or navigation bar. And it doesn\'t work in Android 7.0.</string>
 	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim navigation bar and prevent user from clicking \"Install\" or \"Allow\" in permission dialog.</string>
 	<string name="mode_desc_overlay_all">You can dim both status bar and navigation bar. However, it may make screen flashing in some apps.</string>

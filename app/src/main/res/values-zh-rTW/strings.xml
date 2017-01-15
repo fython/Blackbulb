@@ -36,6 +36,8 @@
 	<string name="mode_text_overlay_all">全覆蓋模式</string>
 	<string name="mode_text_eyes_care">護眼模式</string>
 
+	<string name="mode_text_no_permission_warning">(可能無法工作)</string>
+
 	<string name="mode_desc_no_permission">不需要任何權限，但無法覆蓋鎖定介面、狀態欄與導航欄。而且在 Android 7.0 後的系統可能無法工作。</string>
 	<string name="mode_desc_normal">推薦模式。這是最穩定的，儘管無法變暗導航欄且導致無法進行敏感操作（如手動安裝應用程式、同意權限請求）。</string>
 	<string name="mode_desc_overlay_all">狀態欄與導航欄都可以變暗，但在部分應用程式中會出現閃爍現象。</string>

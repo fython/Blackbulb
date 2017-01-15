@@ -49,6 +49,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 	private static final int OVERLAY_PERMISSION_REQ_CODE = 1001;
 
+	@SuppressLint("SetTextI18n")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		mNightScreenSettings = NightScreenSettings.getInstance(getApplicationContext());
@@ -167,7 +168,11 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		});
 
 		mModeText = (TextView) findViewById(R.id.mode_view);
-		mModeText.setText(getResources().getStringArray(R.array.mode_text)[mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION)]);
+		int mode = mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION);
+		mModeText.setText(getResources().getStringArray(R.array.mode_text)[mode]
+		+ ((mode == C.MODE_NO_PERMISSION && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+				? " " + getString(R.string.mode_text_no_permission_warning)
+				: ""));
 		findViewById(R.id.mode_view_container).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -273,6 +278,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		}
 	}
 
+	@SuppressLint("SetTextI18n")
 	private void applyNewMode(int targetMode) {
 		if (isRunning && targetMode != mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION)) {
 			mSwitch.toggle();
@@ -284,7 +290,10 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}, 500);
 		}
 		mNightScreenSettings.putInt(NightScreenSettings.KEY_MODE, targetMode);
-		mModeText.setText(getResources().getStringArray(R.array.mode_text)[targetMode]);
+		mModeText.setText(getResources().getStringArray(R.array.mode_text)[targetMode]
+				+ ((targetMode == C.MODE_NO_PERMISSION && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+				? " " + getString(R.string.mode_text_no_permission_warning)
+				: ""));
 	}
 
 	@Override
