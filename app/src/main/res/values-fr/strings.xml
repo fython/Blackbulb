@@ -25,10 +25,24 @@
 	<string name="notification_running_title">Night Screen est en exécution</string>
 	<string name="notification_running_msg">Appuyez pour ouvrir les paramètres</string>
 	
-	<string name="notification_paused_title">Night Screen est interrompu</string>
+	<string name="notification_paused_title">Night Screen est en pause</string>
 	<string name="notification_paused_msg">Appuyez pour ouvrir les paramètres ou glissez pour arrêter</string>	
 	
 	<string name="notification_action_turn_off">Désactiver</string>
 	<string name="notification_action_turn_on">Activer</string>
+	
+	<string name="dialog_choose_mode">Choisir un mode</string>
+	
+	<string name="mode_text_no_permission">Mode sans autorisation</string>
+	<string name="mode_text_normal">Mode normal</string>
+	<string name="mode_text_overlay_all">Mode système superposé</string>
+	<string name="mode_text_eyes_care">Mode soin des yeux</string>
+
+	<string name="mode_text_no_permission_warning">(Peut ne pas fonctionner)</string>
+
+	<string name="mode_desc_no_permission">Aucune autorisation requise. Mais il ne recouvre pas l\'écran de verrouillage, les barres d\'état et de navigation. Et il ne fonctionne pas sur Android 7.0.</string>
+	<string name="mode_desc_normal">Mode recommandé. Il est stable, mais il ne recouvre pas la barre de navigation et empêche l\'utilisateur d\'appuyer sur \"Installer\" ou \"Autoriser\" dans une fenêtre de dialogue.</string>
+	<string name="mode_desc_overlay_all">Vous pouvez recouvrir à la fois les barres d\'état et de navigation. Cependant, il peut faire clignoter l\'écran dans certaines applications.</string>
+	<string name="mode_desc_eyes_care">Il est proche du mode normal. Mais il peut filtrer la lumière bleue et protéger vos yeux la nuit.</string>
 
 </resources>
