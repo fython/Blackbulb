@@ -242,9 +242,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 				popupMenu.show();
 			}
 		});
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-			menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
-		}
+		menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
 
 		FrameLayout rootLayout = (FrameLayout) findViewById(R.id.root_layout);
 		rootLayout.setOnClickListener(new View.OnClickListener() {

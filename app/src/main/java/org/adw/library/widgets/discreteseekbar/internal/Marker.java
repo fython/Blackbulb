@@ -21,7 +21,6 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -30,7 +29,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBarCompat;
+import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBar;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.MarkerDrawable;
 
 import info.papdt.blackblub.R;
@@ -77,7 +76,7 @@ public class Marker extends ViewGroup implements MarkerDrawable.MarkerAnimationL
         mNumber.setText(maxValue);
         mNumber.setMaxLines(1);
         mNumber.setSingleLine(true);
-        SeekBarCompat.setTextDirection(mNumber, TEXT_DIRECTION_LOCALE);
+        SeekBar.setTextDirection(mNumber, TEXT_DIRECTION_LOCALE);
         mNumber.setVisibility(View.INVISIBLE);
 
         //add some padding for the elevation shadow not to be clipped
@@ -93,12 +92,9 @@ public class Marker extends ViewGroup implements MarkerDrawable.MarkerAnimationL
         mMarkerDrawable.setMarkerListener(this);
         mMarkerDrawable.setExternalOffset(padding);
 
-        //Elevation for anroid 5+
         float elevation = a.getDimension(R.styleable.DiscreteSeekBar_dsb_indicatorElevation, ELEVATION_DP * displayMetrics.density);
         setElevation(elevation);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            SeekBarCompat.setOutlineProvider(this, mMarkerDrawable);
-        }
+        SeekBar.setOutlineProvider(this, mMarkerDrawable);
         a.recycle();
     }
 

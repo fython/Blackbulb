@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBarCompat;
+import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBar;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.MarkerDrawable;
 
 /**
@@ -240,7 +240,7 @@ public class PopupIndicator {
             mMarker.offsetLeftAndRight(offset - mMarker.getLeft());
             //Without hardware acceleration (or API levels<11), offsetting a view seems to NOT invalidate the proper area.
             //We should calc the proper invalidate Rect but this will be for now...
-            if (!SeekBarCompat.isHardwareAccelerated(this)) {
+            if (!SeekBar.isHardwareAccelerated(this)) {
                 invalidate();
             }
         }

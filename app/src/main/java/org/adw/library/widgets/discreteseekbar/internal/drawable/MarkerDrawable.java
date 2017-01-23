@@ -38,7 +38,7 @@ import android.view.animation.Interpolator;
  * <ul>
  * <li>Animates from a circle shape to a "marker" shape just using a RoundRect</li>
  * <li>Animates color change from the normal state color to the pressed state color</li>
- * <li>Uses a {@link android.graphics.Path} to also serve as Outline for API>=21</li>
+ * <li>Uses a {@link android.graphics.Path} to also serve as Outline</li>
  * </ul>
  *
  * @hide
