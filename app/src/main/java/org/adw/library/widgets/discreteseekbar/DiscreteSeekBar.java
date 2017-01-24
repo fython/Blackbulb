@@ -16,6 +16,7 @@
 
 package org.adw.library.widgets.discreteseekbar;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -23,7 +24,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -37,8 +37,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewParent;
 
 import org.adw.library.widgets.discreteseekbar.internal.PopupIndicator;
-import org.adw.library.widgets.discreteseekbar.internal.compat.AnimatorCompat;
-import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBarCompat;
+import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBar;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.MarkerDrawable;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.ThumbDrawable;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.TrackRectDrawable;
@@ -120,7 +119,6 @@ public class DiscreteSeekBar extends View {
     }
 
 
-    private static final boolean isLollipopOrGreater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     //We want to always use a formatter so the indicator numbers are "translated" to specific locales.
     private static final String DEFAULT_FORMATTER = "%d";
 
@@ -158,7 +156,7 @@ public class DiscreteSeekBar extends View {
     private Rect mInvalidateRect = new Rect();
     private Rect mTempRect = new Rect();
     private PopupIndicator mIndicator;
-    private AnimatorCompat mPositionAnimator;
+    private ValueAnimator mPositionAnimator;
     private float mAnimationPosition;
     private int mAnimationTarget;
     private float mDownX;
@@ -247,12 +245,8 @@ public class DiscreteSeekBar extends View {
             progressColor = new ColorStateList(new int[][]{new int[]{}}, new int[]{DEFAULT_THUMB_COLOR});
         }
 
-        mRipple = SeekBarCompat.getRipple(rippleColor);
-        if (isLollipopOrGreater) {
-            SeekBarCompat.setBackground(this, mRipple);
-        } else {
-            mRipple.setCallback(this);
-        }
+        mRipple = SeekBar.getRipple(rippleColor);
+        SeekBar.setBackground(this, mRipple);
 
         TrackRectDrawable shapeDrawable = new TrackRectDrawable(trackColor);
         mTrack = shapeDrawable;
@@ -491,7 +485,7 @@ public class DiscreteSeekBar extends View {
      * @param colorStateList The ColorStateList the track ripple will be changed to
      */
     public void setRippleColor(@NonNull ColorStateList colorStateList) {
-        SeekBarCompat.setRippleColor(mRipple, colorStateList);
+        SeekBar.setRippleColor(mRipple, colorStateList);
     }
 
     /**
@@ -635,9 +629,6 @@ public class DiscreteSeekBar extends View {
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
-        if (!isLollipopOrGreater) {
-            mRipple.draw(canvas);
-        }
         super.onDraw(canvas);
         mTrack.draw(canvas);
         mScrubber.draw(canvas);
@@ -745,7 +736,7 @@ public class DiscreteSeekBar extends View {
     }
 
     private boolean isInScrollingContainer() {
-        return SeekBarCompat.isInScrollingContainer(getParent());
+        return SeekBar.isInScrollingContainer(getParent());
     }
 
     private boolean startDragging(MotionEvent ev, boolean ignoreTrackIfInScrollContainer) {
@@ -835,13 +826,13 @@ public class DiscreteSeekBar extends View {
         }
 
         mAnimationTarget = progress;
-        mPositionAnimator = AnimatorCompat.create(curProgress,
-                progress, new AnimatorCompat.AnimationFrameUpdateListener() {
-                    @Override
-                    public void onAnimationFrame(float currentValue) {
-                        setAnimationPosition(currentValue);
-                    }
-                });
+        mPositionAnimator = ValueAnimator.ofFloat(curProgress, progress);
+        mPositionAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                setAnimationPosition((Float) animation.getAnimatedValue());
+            }
+        });
         mPositionAnimator.setDuration(PROGRESS_ANIMATION_DURATION);
         mPositionAnimator.start();
     }
@@ -948,7 +939,7 @@ public class DiscreteSeekBar extends View {
         mInvalidateRect.inset(-mAddedTouchBounds, -mAddedTouchBounds);
         finalBounds.inset(-mAddedTouchBounds, -mAddedTouchBounds);
         mInvalidateRect.union(finalBounds);
-        SeekBarCompat.setHotspotBounds(mRipple, finalBounds.left, finalBounds.top, finalBounds.right, finalBounds.bottom);
+        SeekBar.setHotspotBounds(mRipple, finalBounds.left, finalBounds.top, finalBounds.right, finalBounds.bottom);
         invalidate(mInvalidateRect);
     }
 

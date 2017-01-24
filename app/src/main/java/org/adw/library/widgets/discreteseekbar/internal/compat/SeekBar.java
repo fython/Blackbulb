@@ -16,11 +16,11 @@
 
 package org.adw.library.widgets.discreteseekbar.internal.compat;
 
-import android.annotation.TargetApi;
 import android.content.res.ColorStateList;
 import android.graphics.Outline;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
@@ -30,15 +30,18 @@ import android.widget.TextView;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.MarkerDrawable;
 
 /**
- * Wrapper compatibility class to call some API-Specific methods
- * And offer alternate procedures when possible
- *
  * @hide
  */
-@TargetApi(21)
-class SeekBarCompatDontCrash {
-    public static void setOutlineProvider(View marker, final MarkerDrawable markerDrawable) {
-        marker.setOutlineProvider(new ViewOutlineProvider() {
+public class SeekBar {
+
+    /**
+     * Sets the custom Outline provider.
+     *
+     * @param view
+     * @param markerDrawable
+     */
+    public static void setOutlineProvider(View view, final MarkerDrawable markerDrawable) {
+        view.setOutlineProvider(new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {
                 outline.setConvexPath(markerDrawable.getPath());
@@ -50,16 +53,46 @@ class SeekBarCompatDontCrash {
         return new RippleDrawable(colorStateList, null, null);
     }
 
+    /**
+     * Sets the color of the seekbar ripple
+     * @param drawable
+     * @param colorStateList The ColorStateList the track ripple will be changed to
+     */
+    public static void setRippleColor(@NonNull Drawable drawable, ColorStateList colorStateList) {
+        ((RippleDrawable) drawable).setColor(colorStateList);
+    }
+
+    public static void setHotspotBounds(Drawable drawable, int left, int top, int right, int bottom) {
+        //We don't want the full size rect, Lollipop ripple would be too big
+        int size = (right - left) / 8;
+        drawable.setHotspotBounds(left + size, top + size, right - size, bottom - size);
+    }
+
+    /**
+     * android.support.v4.view.ViewCompat SHOULD include this once and for all!!
+     * But it doesn't...
+     *
+     * @param view
+     * @param background
+     */
+    @SuppressWarnings("deprecation")
     public static void setBackground(View view, Drawable background) {
         view.setBackground(background);
     }
 
-    public static void setTextDirection(TextView number, int textDirection) {
-        number.setTextDirection(textDirection);
+    /**
+     * Sets the TextView text direction attribute when possible
+     *
+     * @param textView
+     * @param textDirection
+     * @see android.widget.TextView#setTextDirection(int)
+     */
+    public static void setTextDirection(TextView textView, int textDirection) {
+        textView.setTextDirection(textDirection);
     }
 
     public static boolean isInScrollingContainer(ViewParent p) {
-        while (p != null && p instanceof ViewGroup) {
+        while (p instanceof ViewGroup) {
             if (((ViewGroup) p).shouldDelayChildPressedState()) {
                 return true;
             }
