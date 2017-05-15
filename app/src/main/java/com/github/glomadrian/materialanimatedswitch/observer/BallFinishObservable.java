@@ -19,7 +19,7 @@ public class BallFinishObservable extends Observable {
     return state;
   }
 
-  public static enum BallState {
+  public enum BallState {
     RELEASE, PRESS, MOVE
   }
 }

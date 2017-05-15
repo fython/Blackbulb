@@ -3,7 +3,6 @@
 	<string name="app_name">夜间屏幕</string>
 
 	<string name="action_about">关于</string>
-	<string name="action_overlay_system">覆盖系统状态栏</string>
 	<string name="action_dark_theme">暗色主题</string>
 
 	<string name="text_light">亮</string>
@@ -11,7 +10,7 @@
 
 	<string name="about_author">作者: 纸飞机开发团队 - 烧饼</string>
 	<string name="about_text">"夜间屏幕可以帮助你减少夜晚屏幕强光对眼睛造成的损害。\n一些设备的最低亮度对于用户来讲仍然较高，我们可以通过创建遮罩使亮度更低。\n\n如果你想在物质上支持这个应用，你可以打赏到我的支付宝ww： 316643843\@qq.com"</string>
-	<string name="about_other">Github 项目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\n图标设计: 新浪\@翟宅宅Jack</string>
+	<string name="about_other">Github 项目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n图标设计: 新浪@翟宅宅Jack</string>
 
 	<string name="dialog_overlay_enable_title">启用覆盖系统状态栏</string>
 	<string name="dialog_overlay_enable_message">启用这个可以让遮罩覆盖到屏幕最顶层，但在一些设备上需要得到权限（例如 MIUI 和 Android 6.0）\n如果启用该项后不生效，请自行去设置调整权限。</string>
@@ -29,5 +28,20 @@
 
 	<string name="notification_action_turn_off">开灯</string>
 	<string name="notification_action_turn_on">关灯</string>
+	<string name="shortcut_label_switch">切换</string>
+
+	<string name="dialog_choose_mode">选择模式</string>
+
+	<string name="mode_text_no_permission">零权限模式</string>
+	<string name="mode_text_normal">正常模式</string>
+	<string name="mode_text_overlay_all">全覆盖模式</string>
+	<string name="mode_text_eyes_care">护眼模式</string>
+
+	<string name="mode_text_no_permission_warning">(可能无法工作)</string>
+
+	<string name="mode_desc_no_permission">不需要任何权限，但无法覆盖锁定界面、状态栏和导航栏。而且在 Android 7.0 后的系统可能无法工作。</string>
+	<string name="mode_desc_normal">推荐模式。这是最稳定的，尽管无法变暗导航栏且导致无法进行敏感操作（如手动安装应用、同意权限请求）。</string>
+	<string name="mode_desc_overlay_all">状态栏和导航栏都可以变暗，但在部分应用中会出现闪烁现象。</string>
+	<string name="mode_desc_eyes_care">接近于正常模式，可以过滤蓝光保护你的眼睛。</string>
 
 </resources>
