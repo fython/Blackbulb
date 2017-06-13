@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitch;
 
+import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import info.papdt.blackblub.C;
@@ -138,7 +139,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}
 		});
 
-		mSeekbar = (DiscreteSeekBar) findViewById(R.id.seek_bar);
+		mSeekbar = findViewById(R.id.seek_bar);
 		mSeekbar.setProgress(mNightScreenSettings.getInt(NightScreenSettings.KEY_BRIGHTNESS, 50));
 		mSeekbar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
 			int v = -1;
@@ -244,7 +245,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		});
 		menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
 
-		FrameLayout rootLayout = (FrameLayout) findViewById(R.id.root_layout);
+		FrameLayout rootLayout = findViewById(R.id.root_layout);
 		rootLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -298,15 +299,23 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	public boolean onMenuItemClick(final MenuItem menuItem) {
 		int id = menuItem.getItemId();
 		if (id == R.id.action_about) {
-			new AlertDialog.Builder(this)
-					.setView(R.layout.dialog_about)
-					.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setView(R.layout.dialog_about);
+			builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int i) {
 							// Do nothing....
 						}
-					})
-					.show();
+					});
+			if (AlipayZeroSdk.hasInstalledAlipayClient(this)) {
+				builder.setNeutralButton(R.string.about_donate_alipay, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						AlipayZeroSdk.startAlipayClient(LaunchActivity.this, "aehvyvf4taua18zo6e");
+					}
+				});
+			}
+			builder.show();
 			return true;
 		} else if (id == R.id.action_dark_theme) {
 			mNightScreenSettings.putBoolean(NightScreenSettings.KEY_DARK_THEME, !menuItem.isChecked());
