@@ -55,9 +55,9 @@ public class ModeListAdapter extends BaseAdapter implements ListAdapter {
 		if (convertView == null) {
 			convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_mode, parent, false);
 			holder = new ViewHolder();
-			holder.title = (TextView) convertView.findViewById(R.id.title);
-			holder.description = (TextView) convertView.findViewById(R.id.description);
-			holder.radioButton = (RadioButton) convertView.findViewById(R.id.radio_button);
+			holder.title = convertView.findViewById(R.id.title);
+			holder.description = convertView.findViewById(R.id.description);
+			holder.radioButton = convertView.findViewById(R.id.radio_button);
 			convertView.setTag(holder);
 		} else  {
 			holder = (ViewHolder) convertView.getTag();

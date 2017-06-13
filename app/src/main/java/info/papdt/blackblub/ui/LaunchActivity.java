@@ -245,6 +245,13 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		});
 		menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
 
+		findViewById(R.id.btn_scheduler).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				new SchedulerDialog(LaunchActivity.this).show();
+			}
+		});
+
 		FrameLayout rootLayout = findViewById(R.id.root_layout);
 		rootLayout.setOnClickListener(new View.OnClickListener() {
 			@Override

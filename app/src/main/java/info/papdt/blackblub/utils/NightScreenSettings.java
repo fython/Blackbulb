@@ -11,7 +11,9 @@ public class NightScreenSettings {
 
 	public static final String KEY_BRIGHTNESS = "brightness",
 			KEY_MODE = "mode", KEY_FIRST_RUN = "first_run",
-			KEY_DARK_THEME = "dark_theme";
+			KEY_DARK_THEME = "dark_theme", KEY_AUTO_MODE = "auto_mode",
+			KEY_HOURS_SUNRISE = "hrs_sunrise", KEY_MINUTES_SUNRISE = "min_sunrise",
+			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset";
 
 	private volatile static NightScreenSettings sInstance;
 

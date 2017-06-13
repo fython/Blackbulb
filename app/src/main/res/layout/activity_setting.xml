@@ -54,6 +54,17 @@
 					android:layout_height="wrap_content"/>
 
 				<ImageButton
+						android:layout_width="wrap_content"
+						android:layout_height="match_parent"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:layout_marginEnd="4dp"
+						android:id="@+id/btn_scheduler"
+						android:src="@drawable/ic_alarm_black_24dp"
+						android:tint="?attr/overflow_tint"
+						android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
+				<ImageButton
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
 					android:paddingLeft="12dp"

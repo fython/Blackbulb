@@ -31,4 +31,5 @@ dependencies {
 	compile 'com.android.support:cardview-v7:26.0.0-beta2'
 	compile 'org.cyanogenmod:platform.sdk:2.0'
 	compile 'moe.feng:AlipayZeroSdk:1.1'
+	compile project(":timepicker")
 }

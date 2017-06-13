@@ -56,4 +56,6 @@
 		<item>@string/mode_text_eyes_care</item>
 	</string-array>
 
+	<string name="scheduler_title">Auto mode</string>
+
 </resources>

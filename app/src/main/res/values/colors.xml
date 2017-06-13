@@ -18,4 +18,6 @@
 	<color name="dsb_ripple_color_pressed">#77939393</color>
 	<color name="dsb_ripple_color_focused">#99999999</color>
 
+	<color name="ripple_foreground_light">#6fffffff</color>
+
 </resources>
