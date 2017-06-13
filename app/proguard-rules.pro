@@ -48,3 +48,4 @@
 -keep class info.papdt.blackblub.ui.** {*;}
 -keep class info.papdt.blackblub.ui.LaunchActivity$MessageReceiver {*;}
 -keep class info.papdt.blackblub.ui.shortcut.ToggleActivity$MessageReceiver {*;}
+-keep class com.wdullaer.** {*;}
