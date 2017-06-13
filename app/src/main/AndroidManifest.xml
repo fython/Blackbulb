@@ -9,6 +9,7 @@
     <application
 	    android:allowBackup="true"
 	    android:fullBackupContent="@xml/full_backup_contents"
+	    android:name=".BlackbulbApplication"
 	    android:icon="@mipmap/ic_launcher"
 	    android:roundIcon="@mipmap/ic_launcher_circle"
 	    android:label="@string/app_name"
@@ -51,6 +52,8 @@
 	              android:exported="false">
             <intent-filter>
                 <action android:name="info.papdt.blackbulb.ACTION_UPDATE_STATUS" />
+	            <action android:name="info.papdt.blackbulb.ALARM_ACTION_START" />
+	            <action android:name="info.papdt.blackbulb.ALARM_ACTION_STOP" />
             </intent-filter>
         </receiver>
 

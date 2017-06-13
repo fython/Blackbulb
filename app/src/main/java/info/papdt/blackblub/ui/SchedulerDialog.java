@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.utils.NightScreenSettings;
+import info.papdt.blackblub.utils.Utility;
 
 import java.util.Locale;
 
@@ -60,6 +61,7 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 				mSettings.putBoolean(NightScreenSettings.KEY_AUTO_MODE, b);
+				Utility.updateAlarmSettings(getContext());
 			}
 		});
 
@@ -78,6 +80,9 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 						minSunrise,
 						true
 				);
+				if (mSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false)) {
+					sunrisePicker.setThemeDark(true);
+				}
 				sunrisePicker.setMinTime(4, 0, 0);
 				sunrisePicker.setMaxTime(12, 0, 0);
 				sunrisePicker.show(getOwnerActivity().getFragmentManager(), "sunrise_dialog");
@@ -92,6 +97,9 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 						minSunset,
 						true
 				);
+				if (mSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false)) {
+					sunsetPicker.setThemeDark(true);
+				}
 				sunsetPicker.setMinTime(18, 0,0);
 				sunsetPicker.show(getOwnerActivity().getFragmentManager(), "sunset_dialog");
 			}
@@ -113,6 +121,7 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 			mSettings.putInt(NightScreenSettings.KEY_HOURS_SUNSET, hrsSunset);
 			mSettings.putInt(NightScreenSettings.KEY_MINUTES_SUNSET, minSunset);
 		}
+		Utility.updateAlarmSettings(getContext());
 	}
 
 }

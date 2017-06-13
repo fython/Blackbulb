@@ -6,6 +6,8 @@ public class C {
 	public static final String EXTRA_ACTION = "action", EXTRA_BRIGHTNESS = "brightness"
 			, EXTRA_MODE = "mode", EXTRA_CHECK_FROM_TOGGLE = "check_from_toggle", EXTRA_DO_NOT_SEND_CHECK = "dont_send_check";
 
+	public static final String ALARM_ACTION_START = "info.papdt.blackbulb.ALARM_ACTION_START",
+			ALARM_ACTION_STOP = "info.papdt.blackbulb.ALARM_ACTION_STOP";
 	public static final String ACTION_START = "start", ACTION_UPDATE = "update", ACTION_PAUSE = "pause", ACTION_STOP = "stop", ACTION_CHECK = "check";
 
 	/** Broadcast */
