@@ -76,7 +76,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 
 		}
 
-		mSwitch = (MaterialAnimatedSwitch) findViewById(R.id.toggle);
+		mSwitch = findViewById(R.id.toggle);
 		mSwitch.setOnCheckedChangeListener(new MaterialAnimatedSwitch.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(boolean b) {
@@ -167,7 +167,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}
 		});
 
-		mModeText = (TextView) findViewById(R.id.mode_view);
+		mModeText = findViewById(R.id.mode_view);
 		int mode = mNightScreenSettings.getInt(NightScreenSettings.KEY_MODE, C.MODE_NO_PERMISSION);
 		mModeText.setText(getResources().getStringArray(R.array.mode_text)[mode]
 		+ ((mode == C.MODE_NO_PERMISSION && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
@@ -229,7 +229,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 			}
 		});
 
-		ImageButton menuBtn = (ImageButton) findViewById(R.id.btn_menu);
+		ImageButton menuBtn = findViewById(R.id.btn_menu);
 		popupMenu = new PopupMenu(this, menuBtn);
 		popupMenu.getMenuInflater().inflate(R.menu.menu_settings, popupMenu.getMenu());
 		popupMenu.getMenu()
