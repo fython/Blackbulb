@@ -42,6 +42,8 @@
 	<string name="mode_desc_normal">推薦模式。這是最穩定的，儘管無法變暗導航欄且導致無法進行敏感操作（如手動安裝應用程式、同意權限請求）。</string>
 	<string name="mode_desc_overlay_all">狀態欄與導航欄都可以變暗，但在部分應用程式中會出現閃爍現象。</string>
 	<string name="mode_desc_eyes_care">接近於常規模式，可以過濾藍光保護你的眼睛。</string>
-	<string name="about_donate_alipay">支付寶</string>
+	<string name="about_donate_alipay">透過支付寶支持作者</string>
+
+	<string name="scheduler_title">定時開關</string>
 
 </resources>

@@ -43,6 +43,8 @@
 	<string name="mode_desc_normal">推荐模式。这是最稳定的，尽管无法变暗导航栏且导致无法进行敏感操作（如手动安装应用、同意权限请求）。</string>
 	<string name="mode_desc_overlay_all">状态栏和导航栏都可以变暗，但在部分应用中会出现闪烁现象。</string>
 	<string name="mode_desc_eyes_care">接近于正常模式，可以过滤蓝光保护你的眼睛。</string>
-	<string name="about_donate_alipay">支付宝</string>
+	<string name="about_donate_alipay">通过支付宝支持作者</string>
+
+	<string name="scheduler_title">定时开关</string>
 
 </resources>
