@@ -79,13 +79,13 @@ public class Utility {
 			sunriseCalendar.set(Calendar.MINUTE, minSunrise);
 			sunriseCalendar.set(Calendar.SECOND, 0);
 			sunriseCalendar.set(Calendar.MILLISECOND, 0);
-			//if (sunriseCalendar.before(now)) sunriseCalendar.add(Calendar.DATE, 1);
+			if (sunriseCalendar.before(now)) sunriseCalendar.add(Calendar.DATE, 1);
 
 			sunsetCalendar.set(Calendar.HOUR_OF_DAY, hrsSunset);
 			sunsetCalendar.set(Calendar.MINUTE, minSunset);
 			sunsetCalendar.set(Calendar.SECOND, 0);
 			sunsetCalendar.set(Calendar.MILLISECOND, 0);
-			//if (sunsetCalendar.before(now)) sunsetCalendar.add(Calendar.DATE, 1);
+			if (sunsetCalendar.before(now)) sunsetCalendar.add(Calendar.DATE, 1);
 
 			Log.i(TAG, "Reset alarm");
 
