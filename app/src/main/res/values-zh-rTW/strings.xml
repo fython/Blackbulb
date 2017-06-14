@@ -46,4 +46,8 @@
 
 	<string name="scheduler_title">定時開關</string>
 
+	<string name="dialog_ignore_battery_opt_title">提醒</string>
+	<string name="dialog_ignore_battery_opt_msg">由於 Android 6.0 Doze 模式，定時開關功能可能失效。如果你遇到了問題，可以嘗試請求系統忽略夜間螢幕電池最佳化。</string>
+	<string name="dialog_button_go_to_set">去設定</string>
+
 </resources>

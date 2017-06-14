@@ -3,16 +3,11 @@ package info.papdt.blackblub.ui;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.*;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -248,6 +243,34 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		findViewById(R.id.btn_scheduler).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+					PowerManager pm = getSystemService(PowerManager.class);
+					if (!pm.isIgnoringBatteryOptimizations(getPackageName())) {
+						new AlertDialog.Builder(LaunchActivity.this)
+								.setTitle(R.string.dialog_ignore_battery_opt_title)
+								.setMessage(R.string.dialog_ignore_battery_opt_msg)
+								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										new SchedulerDialog(LaunchActivity.this).show();
+									}
+								})
+								.setNeutralButton(R.string.dialog_button_go_to_set, new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialogInterface, int i) {
+										try {
+											Intent intent = new Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+											intent.setData(Uri.parse("package:" + getPackageName()));
+											startActivity(intent);
+										} catch (ActivityNotFoundException e) {
+											e.printStackTrace();
+										}
+									}
+								})
+								.show();
+						return;
+					}
+				}
 				new SchedulerDialog(LaunchActivity.this).show();
 			}
 		});
