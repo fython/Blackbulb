@@ -10,6 +10,7 @@ import info.papdt.blackblub.C;
 import info.papdt.blackblub.services.MaskService;
 import info.papdt.blackblub.services.MaskTileService;
 import info.papdt.blackblub.utils.NightScreenSettings;
+import info.papdt.blackblub.utils.Utility;
 
 public class TileReceiver extends BroadcastReceiver {
 
@@ -57,6 +58,7 @@ public class TileReceiver extends BroadcastReceiver {
 				context.startService(tileUpdateIntent);
 			}
 		} else if (C.ALARM_ACTION_START.equals(intent.getAction())) {
+			Utility.updateAlarmSettings(context);
 			Intent intent1 = new Intent(context, MaskService.class);
 			intent1.putExtra(C.EXTRA_ACTION, C.ACTION_START);
 			intent1.putExtra(C.EXTRA_BRIGHTNESS, settings.getInt(NightScreenSettings.KEY_BRIGHTNESS, 50));
@@ -69,6 +71,7 @@ public class TileReceiver extends BroadcastReceiver {
 				context.startService(tileUpdateIntent);
 			}
 		} else if (C.ALARM_ACTION_STOP.equals(intent.getAction())) {
+			Utility.updateAlarmSettings(context);
 			Intent intent1 = new Intent(context, MaskService.class);
 			intent1.putExtra(C.EXTRA_ACTION, C.ACTION_STOP);
 			intent1.putExtra(C.EXTRA_DO_NOT_SEND_CHECK, false);
