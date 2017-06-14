@@ -6,11 +6,13 @@
               android:layout_height="wrap_content">
 
 	<FrameLayout
-			android:layout_width="400dp"
+			android:id="@+id/frame_layout"
+			android:layout_width="match_parent"
 			android:layout_height="260dp"
 			android:theme="@android:style/Theme.Material">
 
 		<com.github.florent37.diagonallayout.DiagonalLayout
+				android:id="@+id/left_layout"
 				android:layout_width="220dp"
 				android:layout_height="match_parent"
 				app:diagonal_angle="10"
@@ -52,6 +54,7 @@
 		</com.github.florent37.diagonallayout.DiagonalLayout>
 
 		<com.github.florent37.diagonallayout.DiagonalLayout
+				android:id="@+id/right_layout"
 				android:layout_width="220dp"
 				android:layout_height="match_parent"
 				app:diagonal_angle="10"
@@ -108,7 +111,7 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="end"
 				android:layout_marginTop="24dp"
-				android:layout_marginEnd="32dp"/>
+				android:layout_marginEnd="16dp"/>
 
 	</FrameLayout>
 
@@ -119,6 +122,7 @@
 			android:layout_margin="16dp"
 			android:text="@android:string/ok"
 			android:layout_gravity="end"
+			android:textColor="?android:attr/colorAccent"
 			style="@android:style/Widget.Material.Button.Borderless"/>
 
 </LinearLayout>

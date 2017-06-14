@@ -1,12 +1,17 @@
 package info.papdt.blackblub.ui;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import com.github.florent37.diagonallayout.DiagonalLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.utils.NightScreenSettings;
@@ -14,10 +19,13 @@ import info.papdt.blackblub.utils.Utility;
 
 import java.util.Locale;
 
-public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSetListener {
+public class SchedulerDialog extends AlertDialog implements TimePickerDialog.OnTimeSetListener {
 
 	private TimePickerDialog sunrisePicker, sunsetPicker;
 	private TextView sunriseTime, sunsetTime;
+
+	private FrameLayout mFrameLayout;
+	private DiagonalLayout mLeftLayout, mRightLayout;
 
 	private int hrsSunrise = 6, minSunrise = 0, hrsSunset = 22, minSunset = 0;
 
@@ -48,14 +56,31 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 		hrsSunset = mSettings.getInt(NightScreenSettings.KEY_HOURS_SUNSET, 22);
 		minSunset = mSettings.getInt(NightScreenSettings.KEY_MINUTES_SUNSET, 0);
 
-		setContentView(R.layout.dialog_scheduler);
+		View rootView = getLayoutInflater().inflate(R.layout.dialog_scheduler, null);
+		setView(rootView);
 
-		sunriseTime = findViewById(R.id.sunrise_time);
-		sunsetTime = findViewById(R.id.sunset_time);
+		mLeftLayout = rootView.findViewById(R.id.left_layout);
+		mRightLayout = rootView.findViewById(R.id.right_layout);
+		mFrameLayout = rootView.findViewById(R.id.frame_layout);
+		mFrameLayout.getViewTreeObserver().addOnGlobalLayoutListener(
+				new ViewTreeObserver.OnGlobalLayoutListener() {
+					@Override
+					public void onGlobalLayout() {
+						mFrameLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+						final int measureWidth = mFrameLayout.getMeasuredWidth();
+						final int dp20 = (int) Utility.dpToPx(getContext(), 20);
+						Log.i("TAG", "measureWidth: " + measureWidth);
+						mLeftLayout.getLayoutParams().width = measureWidth / 2 + dp20;
+						mRightLayout.getLayoutParams().width = measureWidth / 2 + dp20;
+					}
+				});
+
+		sunriseTime = rootView.findViewById(R.id.sunrise_time);
+		sunsetTime = rootView.findViewById(R.id.sunset_time);
 		sunriseTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hrsSunrise, minSunrise));
 		sunsetTime.setText(String.format(Locale.getDefault(), "%1$02d:%2$02d", hrsSunset, minSunset));
 
-		Switch switchView = findViewById(R.id.auto_switch);
+		Switch switchView = rootView.findViewById(R.id.auto_switch);
 		switchView.setChecked(mSettings.getBoolean(NightScreenSettings.KEY_AUTO_MODE, false));
 		switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -65,13 +90,13 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 			}
 		});
 
-		findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+		rootView.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				dismiss();
 			}
 		});
-		findViewById(R.id.sunrise_button).setOnClickListener(new View.OnClickListener() {
+		rootView.findViewById(R.id.sunrise_button).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				sunrisePicker = TimePickerDialog.newInstance(
@@ -88,7 +113,7 @@ public class SchedulerDialog extends Dialog implements TimePickerDialog.OnTimeSe
 				sunrisePicker.show(getOwnerActivity().getFragmentManager(), "sunrise_dialog");
 			}
 		});
-		findViewById(R.id.sunset_button).setOnClickListener(new View.OnClickListener() {
+		rootView.findViewById(R.id.sunset_button).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				sunsetPicker = TimePickerDialog.newInstance(

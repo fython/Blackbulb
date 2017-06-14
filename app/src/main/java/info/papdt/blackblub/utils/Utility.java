@@ -4,8 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
 
@@ -119,6 +121,11 @@ public class Utility {
 		AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		am.cancel(PendingIntent.getBroadcast(context,
 				requestCode, new Intent(action), PendingIntent.FLAG_UPDATE_CURRENT));
+	}
+
+	public static float dpToPx(Context context, float dp) {
+		Resources r = context.getResources();
+		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
 	}
 
 }
