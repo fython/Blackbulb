@@ -9,7 +9,7 @@
 	<string name="text_dark">暗</string>
 
 	<string name="about_author">作者: 紙飛機開發團隊 - 燒餅</string>
-	<string name="about_text">"夜间荧幕有助減少夜間螢幕強光對視力造成的損傷。\n一些設備對某些用戶而言仍偏高，我們可以通過創建遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： 316643843\@qq.com"</string>
+	<string name="about_text">"夜间荧幕有助減少夜間螢幕強光對視力造成的損傷。\n一些設備對某些用戶而言仍偏高，我們可以通過創建遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： fythonx\@gmail.com"</string>
 	<string name="about_other">Github 項目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n徽標設計: 新浪@翟宅宅Jack</string>
 
 	<string name="dialog_overlay_enable_title">啟用覆蓋系統狀態列</string>

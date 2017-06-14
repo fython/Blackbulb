@@ -9,7 +9,7 @@
 	<string name="text_dark">OSCURO</string>
 
 	<string name="about_author">Autor: Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Night Screen puede ayudarte a protegerte del daño causado al ver luces brillantes de noche.\nEl nivel de brillo más bajo de algunos dispositivos sigue siendo muy alto así que lo disminuimos colocando una máscara a la pantalla.\n\nSi quieres apoyar el desarrollo de esta aplicación, puedes enviarme algo de dinero a mi Alipay: 316643843\@qq.com"</string>
+	<string name="about_text">"Night Screen puede ayudarte a protegerte del daño causado al ver luces brillantes de noche.\nEl nivel de brillo más bajo de algunos dispositivos sigue siendo muy alto así que lo disminuimos colocando una máscara a la pantalla.\n\nSi quieres apoyar el desarrollo de esta aplicación, puedes enviarme algo de dinero a mi Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Repositorio en Github: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMi blog: <a href="http://feng.moe">http://feng.moe</a>\nMi sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDiseñador del logo: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Cubrir la barra de estado</string>

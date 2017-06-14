@@ -9,7 +9,7 @@
 	<string name="text_dark">MÖRKT</string>
 
 	<string name="about_author">Utvecklare: Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Nattskärm kan skydda dig från starkt ljus under natten.\nVissa enheters mörkaste inställning är än för ljust, och denna app täcker skärmen med ett svart genomskinligt filter.\n\nOm du vill stödja appen så kan du skicka lite pengar till min Alipay: 316643843\@qq.com"</string>
+	<string name="about_text">"Nattskärm kan skydda dig från starkt ljus under natten.\nVissa enheters mörkaste inställning är än för ljust, och denna app täcker skärmen med ett svart genomskinligt filter.\n\nOm du vill stödja appen så kan du skicka lite pengar till min Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMin blogg: <a href="http://feng.moe">http://feng.moe</a>\nMin weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogga-designer: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Aktivera övertäckning av statusfält</string>

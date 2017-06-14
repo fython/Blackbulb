@@ -13,7 +13,7 @@
 	<string name="text_dark">ТЕМНО</string>
 
 	<string name="about_author">Автор: Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Ночной экран поможет защитить вас от вреда сильного света ночью.\nСамая низкая яркость некоторых устройств по-прежнему высока, поэтому мы можем снизить ее, создав маску на экране.\n\nЕсли вы хотите поддержать это приложение, вы можете отправить деньги на мой Alipay: 316643843\@qq.com"</string>
+	<string name="about_text">"Ночной экран поможет защитить вас от вреда сильного света ночью.\nСамая низкая яркость некоторых устройств по-прежнему высока, поэтому мы можем снизить ее, создав маску на экране.\n\nЕсли вы хотите поддержать это приложение, вы можете отправить деньги на мой Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Репозиторий Github: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nМой блог: <a href="http://feng.moe">http://feng.moe</a>\nМой Sina Weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nДизайнер логотипов: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Включить наложение строки состояния</string>
