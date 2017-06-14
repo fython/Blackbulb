@@ -37,6 +37,13 @@ public class SchedulerDialog extends AlertDialog implements TimePickerDialog.OnT
 		init();
 	}
 
+	public SchedulerDialog(Context context, OnDismissListener onDismissListener) {
+		super(context);
+		if (context instanceof Activity) setOwnerActivity((Activity) context);
+		if (onDismissListener != null) setOnDismissListener(onDismissListener);
+		init();
+	}
+
 	public SchedulerDialog(Context context, int themeResId) {
 		super(context, themeResId);
 		if (context instanceof Activity) setOwnerActivity((Activity) context);

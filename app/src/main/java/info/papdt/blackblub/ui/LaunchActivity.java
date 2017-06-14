@@ -35,6 +35,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 	private DiscreteSeekBar mSeekbar;
 	private static MaterialAnimatedSwitch mSwitch;
 	private TextView mModeText;
+	private ImageButton mSchedulerBtn;
 
 	private PopupMenu popupMenu;
 	private AlertDialog mAlertDialog, mModeDialog;
@@ -240,7 +241,13 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 		});
 		menuBtn.setOnTouchListener(popupMenu.getDragToOpenListener());
 
-		findViewById(R.id.btn_scheduler).setOnClickListener(new View.OnClickListener() {
+		mSchedulerBtn = findViewById(R.id.btn_scheduler);
+		if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_AUTO_MODE, false)) {
+			mSchedulerBtn.setImageResource(R.drawable.ic_alarm_black_24dp);
+		} else {
+			mSchedulerBtn.setImageResource(R.drawable.ic_alarm_off_black_24dp);
+		}
+		mSchedulerBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -252,7 +259,7 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 								.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialogInterface, int i) {
-										new SchedulerDialog(LaunchActivity.this).show();
+										showSchedulerDialog();
 									}
 								})
 								.setNeutralButton(R.string.dialog_button_go_to_set, new DialogInterface.OnClickListener() {
@@ -270,8 +277,8 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 								.show();
 						return;
 					}
+					showSchedulerDialog();
 				}
-				new SchedulerDialog(LaunchActivity.this).show();
 			}
 		});
 
@@ -282,6 +289,19 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 				finish();
 			}
 		});
+	}
+
+	private void showSchedulerDialog() {
+		new SchedulerDialog(this, new DialogInterface.OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialogInterface) {
+				if (mNightScreenSettings.getBoolean(NightScreenSettings.KEY_AUTO_MODE, false)) {
+					mSchedulerBtn.setImageResource(R.drawable.ic_alarm_black_24dp);
+				} else {
+					mSchedulerBtn.setImageResource(R.drawable.ic_alarm_off_black_24dp);
+				}
+			}
+		}).show();
 	}
 
 	@Override
