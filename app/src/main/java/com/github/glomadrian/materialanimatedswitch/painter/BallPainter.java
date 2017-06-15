@@ -9,7 +9,7 @@ import com.github.glomadrian.materialanimatedswitch.MaterialAnimatedSwitchState;
 import com.github.glomadrian.materialanimatedswitch.observer.BallFinishObservable;
 import com.github.glomadrian.materialanimatedswitch.observer.BallMoveObservable;
 
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 
 /**
  * @author Adrián García Lomas

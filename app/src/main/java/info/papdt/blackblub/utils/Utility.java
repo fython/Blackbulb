@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import cyanogenmod.app.CMStatusBarManager;
 import cyanogenmod.app.CustomTile;
 import info.papdt.blackblub.C;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 
 import java.util.Calendar;

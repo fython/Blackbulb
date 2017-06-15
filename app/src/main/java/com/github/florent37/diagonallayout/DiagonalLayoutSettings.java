@@ -3,7 +3,7 @@ package com.github.florent37.diagonallayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 
 public class DiagonalLayoutSettings {
 	public final static int LEFT = 1;

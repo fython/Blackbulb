@@ -13,7 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import com.github.florent37.diagonallayout.DiagonalLayout;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 import info.papdt.blackblub.utils.NightScreenSettings;
 import info.papdt.blackblub.utils.Utility;
 

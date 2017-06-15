@@ -5,7 +5,7 @@ android {
 	buildToolsVersion "26.0.0"
 
 	defaultConfig {
-		applicationId "info.papdt.blackblub"
+		applicationId "info.papdt.blackblub.another"
 		minSdkVersion 21
 		targetSdkVersion 26
 		versionCode 11

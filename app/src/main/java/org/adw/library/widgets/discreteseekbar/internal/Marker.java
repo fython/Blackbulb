@@ -32,7 +32,7 @@ import android.widget.TextView;
 import org.adw.library.widgets.discreteseekbar.internal.compat.SeekBar;
 import org.adw.library.widgets.discreteseekbar.internal.drawable.MarkerDrawable;
 
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 
 /**
  * {@link android.view.ViewGroup} to be used as the real indicator.

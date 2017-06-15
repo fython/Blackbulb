@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import info.papdt.blackblub.C;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 
 @SuppressLint("Override")

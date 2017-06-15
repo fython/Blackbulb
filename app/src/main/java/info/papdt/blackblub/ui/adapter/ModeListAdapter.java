@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 
 public class ModeListAdapter extends BaseAdapter implements ListAdapter {
 

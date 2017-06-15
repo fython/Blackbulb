@@ -45,7 +45,7 @@ import org.adw.library.widgets.discreteseekbar.internal.drawable.TrackRectDrawab
 import java.util.Formatter;
 import java.util.Locale;
 
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 
 public class DiscreteSeekBar extends View {
 

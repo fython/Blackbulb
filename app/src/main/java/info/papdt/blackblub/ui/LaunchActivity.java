@@ -23,7 +23,7 @@ import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import info.papdt.blackblub.C;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.services.MaskService;
 import info.papdt.blackblub.ui.adapter.ModeListAdapter;

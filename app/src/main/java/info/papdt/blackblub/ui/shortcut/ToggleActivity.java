@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 
 import info.papdt.blackblub.C;
-import info.papdt.blackblub.R;
+import info.papdt.blackblub.another.R;
 import info.papdt.blackblub.receiver.TileReceiver;
 import info.papdt.blackblub.services.MaskService;
 
