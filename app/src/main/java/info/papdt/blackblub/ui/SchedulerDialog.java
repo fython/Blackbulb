@@ -115,8 +115,6 @@ public class SchedulerDialog extends AlertDialog implements TimePickerDialog.OnT
 				if (mSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false)) {
 					sunrisePicker.setThemeDark(true);
 				}
-				sunrisePicker.setMinTime(4, 0, 0);
-				sunrisePicker.setMaxTime(12, 0, 0);
 				sunrisePicker.show(getOwnerActivity().getFragmentManager(), "sunrise_dialog");
 			}
 		});
@@ -132,7 +130,6 @@ public class SchedulerDialog extends AlertDialog implements TimePickerDialog.OnT
 				if (mSettings.getBoolean(NightScreenSettings.KEY_DARK_THEME, false)) {
 					sunsetPicker.setThemeDark(true);
 				}
-				sunsetPicker.setMinTime(18, 0,0);
 				sunsetPicker.show(getOwnerActivity().getFragmentManager(), "sunset_dialog");
 			}
 		});
