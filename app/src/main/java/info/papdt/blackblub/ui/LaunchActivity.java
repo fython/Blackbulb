@@ -278,6 +278,8 @@ public class LaunchActivity extends Activity implements PopupMenu.OnMenuItemClic
 						return;
 					}
 					showSchedulerDialog();
+				} else {
+					showSchedulerDialog();
 				}
 			}
 		});
