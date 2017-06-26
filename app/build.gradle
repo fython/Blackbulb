@@ -8,8 +8,8 @@ android {
 		applicationId "info.papdt.blackblub.another"
 		minSdkVersion 21
 		targetSdkVersion 26
-		versionCode 12
-		versionName "1.3.0.1"
+		versionCode 13
+		versionName "1.3.0.2"
 	}
 	buildTypes {
 		release {
