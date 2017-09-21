@@ -19,7 +19,8 @@
 -allowaccessmodification
 -optimizations !code/simplification/arithmetic
 -keep class cyanogenmod.** { *; }
--dontwarn cyanogenmod.app.**
+-dontobfuscate
+-dontwarn cyanogenmod.**
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
@@ -41,3 +42,10 @@
 -keepclassmembers class **.R$* {
     public static <fields>;
 }
+
+-keep class info.papdt.blackblub.receiver.** {*;}
+-keep class info.papdt.blackblub.services.** {*;}
+-keep class info.papdt.blackblub.ui.** {*;}
+-keep class info.papdt.blackblub.ui.LaunchActivity$MessageReceiver {*;}
+-keep class info.papdt.blackblub.ui.shortcut.ToggleActivity$MessageReceiver {*;}
+-keep class com.wdullaer.** {*;}

@@ -3,15 +3,14 @@
 	<string name="app_name">夜間螢幕</string>
 
 	<string name="action_about">關於</string>
-	<string name="action_overlay_system">覆蓋系統狀態列</string>
 	<string name="action_dark_theme">暗色主題</string>
 
 	<string name="text_light">亮</string>
 	<string name="text_dark">暗</string>
 
 	<string name="about_author">作者: 紙飛機開發團隊 - 燒餅</string>
-	<string name="about_text">"夜间荧幕有助減少夜間螢幕強光對視力造成的損傷。\n一些設備對某些用戶而言仍偏高，我們可以通過創建遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： 316643843\@qq.com"</string>
-	<string name="about_other">Github 項目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\n徽標設計: 新浪\@翟宅宅Jack</string>
+	<string name="about_text">"夜间荧幕有助減少夜間螢幕強光對視力造成的損傷。\n一些設備對某些用戶而言仍偏高，我們可以通過創建遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： fythonx\@gmail.com"</string>
+	<string name="about_other">Github 項目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n徽標設計: 新浪@翟宅宅Jack</string>
 
 	<string name="dialog_overlay_enable_title">啟用覆蓋系統狀態列</string>
 	<string name="dialog_overlay_enable_message">啟用本項可以令遮罩置頂於螢幕，但在一些設備上需要得到權限（譬如 MIUI 與 Android 6.0）\n如果啟用本項後不生效，請自行去設置權限。</string>
@@ -23,6 +22,32 @@
 
 	<string name="notification_running_title">夜間螢幕正運作</string>
 	<string name="notification_running_msg">點擊通知打開設定</string>
+
 	<string name="notification_action_turn_off">開燈</string>
+	<string name="notification_paused_title">夜間螢幕已暫停</string>
+	<string name="notification_paused_msg">滑動關閉夜間螢幕 或 點擊通知打開設置</string>
+	<string name="notification_action_turn_on">關燈</string>
+	<string name="shortcut_label_switch">切換</string>
+
+	<string name="dialog_choose_mode">選擇工作模式</string>
+
+	<string name="mode_text_no_permission">零權限模式</string>
+	<string name="mode_text_normal">常規模式</string>
+	<string name="mode_text_overlay_all">全覆蓋模式</string>
+	<string name="mode_text_eyes_care">護眼模式</string>
+
+	<string name="mode_text_no_permission_warning">(可能無法工作)</string>
+
+	<string name="mode_desc_no_permission">不需要任何權限，但無法覆蓋鎖定介面、狀態欄與導航欄。而且在 Android 7.0 後的系統可能無法工作。</string>
+	<string name="mode_desc_normal">推薦模式。這是最穩定的，儘管無法變暗導航欄且導致無法進行敏感操作（如手動安裝應用程式、同意權限請求）。</string>
+	<string name="mode_desc_overlay_all">狀態欄與導航欄都可以變暗，但在部分應用程式中會出現閃爍現象。</string>
+	<string name="mode_desc_eyes_care">接近於常規模式，可以過濾藍光保護你的眼睛。</string>
+	<string name="about_donate_alipay">透過支付寶支持作者</string>
+
+	<string name="scheduler_title">定時開關</string>
+
+	<string name="dialog_ignore_battery_opt_title">提醒</string>
+	<string name="dialog_ignore_battery_opt_msg">由於 Android 6.0 Doze 模式，定時開關功能可能失效。如果你遇到了問題，可以嘗試請求系統忽略夜間螢幕電池最佳化。</string>
+	<string name="dialog_button_go_to_set">去設定</string>
 
 </resources>

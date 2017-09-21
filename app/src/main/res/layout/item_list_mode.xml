@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:paddingStart="16dp"
+              android:paddingEnd="16dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+	<RadioButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:id="@+id/radio_button"
+		android:clickable="false"
+		android:focusable="false"/>
+
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_marginTop="8dp"
+		android:layout_marginBottom="8dp"
+		android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_weight="1">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/title"
+			android:text="@string/mode_text_no_permission"
+			android:textAppearance="@android:style/TextAppearance.Material.Body2"
+			android:textSize="16sp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:id="@+id/description"
+			android:text="@string/mode_desc_no_permission"
+			android:textAppearance="@android:style/TextAppearance.Material.Body1"
+			android:alpha="0.67"/>
+
+	</LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<resources>
+
+	<string name="app_name">Nattskärm</string>
+
+	<string name="action_about">Om</string>
+	<string name="action_dark_theme">Mörkt tema</string>
+
+	<string name="text_light">LJUST</string>
+	<string name="text_dark">MÖRKT</string>
+
+	<string name="about_author">Utvecklare: Paper Airplane Dev - Fung Jichun</string>
+	<string name="about_text">"Nattskärm kan skydda dig från starkt ljus under natten.\nVissa enheters mörkaste inställning är än för ljust, och denna app täcker skärmen med ett svart genomskinligt filter.\n\nOm du vill stödja appen så kan du skicka lite pengar till min Alipay: fythonx\@gmail.com"</string>
+	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMin blogg: <a href="http://feng.moe">http://feng.moe</a>\nMin weibo: <a href="http://weibo.com/fython">\@某烧饼</a>\nLogga-designer: Google+ Youlun Zhai</string>
+
+	<string name="dialog_overlay_enable_title">Aktivera övertäckning av statusfält</string>
+	<string name="dialog_overlay_enable_message">Du kan aktivera detta för att kunna täcka över toppen av skärmen, men det kan kräva extra behörigheter på vissa enheter (till exempel MIUI och Android 6.0)\nOm det inte fungerar på en gång, prova att låta appen att rita över andra appar.</string>
+
+	<string name="mask_fail_to_start">Kunde inte utföras. Kontrollera om appen har alla behörigheter som krävs.</string>
+
+	<string name="dialog_first_run_title">Första gången</string>
+	<string name="dialog_first_run_message">Kan du se detta meddelande? Om du kan så fungerar nattskärmen som den ska.\nTryck på OK, eller så återställs det om 5 sekunder.</string>
+
+	<string name="notification_running_title">Nattskärm</string>
+	<string name="notification_running_msg">Tryck här för inställningar</string>
+	<string name="notification_action_turn_off">Stäng av</string>
+	<string name="shortcut_label_switch">Växla</string>
+
+</resources>

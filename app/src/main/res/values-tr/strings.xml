@@ -1,0 +1,29 @@
+<resources>
+
+	<string name="app_name">Night Screen</string>
+
+	<string name="action_about">Hakkında</string>
+	<string name="action_dark_theme">Karanlık Tema</string>
+
+	<string name="text_light">AYDINLIK</string>
+	<string name="text_dark">KARANLIK</string>
+
+	<string name="about_author">Geliştirici: Paper Airplane Dev - Fung Jichun</string>
+	<string name="about_text">"Night Screen; sizi telefonunuzun yüksek ekran parlaklığının zararlarından korur.\nBazı cihazlar\'ın ekranı düşük parlaklığa rağmen aydınlık olabilir, ekranda maske oluşturarak,bu durumun önüne geçebilirsiniz.\n\nEğer uygulamayı desteklemek istiyorsanız bana buradan bağışta bulunabilirsiniz: Alipay: fythonx\@gmail.com"</string>
+	<string name="about_other">Github Kaynak Kodları: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBenim blogum: <a href="http://feng.moe">http://feng.moe</a>\nBenim sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Tasarımcısı: Google+ Youlun Zhai</string>
+
+	<string name="dialog_overlay_enable_title">Durum çubuğunu kaplamayı aç.</string>
+	<string name="dialog_overlay_enable_message">Ekranın üstünde bir maske oluşturur, bazı cihazlarda izinler gerektirebilir. (örn: MIUI ve Android 6.0)\nEğer ilk denemede çalışmazsa, bu uygulamanın sistem uyarı pencerelerini göstermesi için gerekli olan uygulama izinlerini verin.</string>
+
+	<string name="mask_fail_to_start">Maske başlatılamadı.Ayarlarınızdan uygulamanın izinlerini kontrol edin.</string>
+
+	<string name="dialog_first_run_title">İlk kurulum</string>
+	<string name="dialog_first_run_message">Bu mesajı görüyormusun? Eğer görüyorsan; Night Screen sorunsuz çalışıyor demektir.\n OK.\'a tıklamazsan,5 saniye sonra otomatik olarak kapanacak.</string>
+
+	<string name="notification_running_title">Night Screen çalışıyor.</string>
+	<string name="notification_running_msg">Buraya tıklayarak Ayarları açabilirsiniz.</string>
+	<string name="notification_action_turn_off">Kapat</string>
+	<string name="notification_action_turn_on">açmak</string>
+	<string name="shortcut_label_switch">Değiştirmek</string>
+
+</resources>

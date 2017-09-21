@@ -3,8 +3,6 @@ package com.github.glomadrian.materialanimatedswitch.painter;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
-import android.view.View;
-import com.github.glomadrian.materialanimatedswitch.Utils;
 import com.github.glomadrian.materialanimatedswitch.observer.BallFinishObservable;
 import com.github.glomadrian.materialanimatedswitch.observer.BallMoveObservable;
 

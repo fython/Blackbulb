@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+	<FrameLayout
+			android:id="@+id/frame_layout"
+			android:layout_width="match_parent"
+			android:layout_height="260dp"
+			android:theme="@android:style/Theme.Material">
+
+		<com.github.florent37.diagonallayout.DiagonalLayout
+				android:id="@+id/left_layout"
+				android:layout_width="220dp"
+				android:layout_height="match_parent"
+				app:diagonal_angle="10"
+				app:diagonal_direction="left"
+				app:diagonal_position="right"
+				android:layout_gravity="left">
+
+			<FrameLayout
+					android:id="@+id/sunrise_button"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:clickable="true"
+					android:foreground="@drawable/ripple_foreground"
+					android:background="#2196F3">
+
+				<ImageView
+						android:layout_width="56dp"
+						android:layout_height="56dp"
+						android:layout_gravity="center"
+						android:translationX="-8dp"
+						android:scaleType="fitXY"
+						android:src="@drawable/ic_wb_sunny_black_48dp"
+						android:tint="@android:color/white"/>
+
+				<TextView
+						android:id="@+id/sunrise_time"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_horizontal|bottom"
+						android:layout_marginBottom="24dp"
+						android:translationX="-8dp"
+						android:text="06:00"
+						android:fontFamily="serif-monospace"
+						android:textColor="@android:color/white"
+						android:textAppearance="@android:style/TextAppearance.Material.Display1"/>
+
+			</FrameLayout>
+
+		</com.github.florent37.diagonallayout.DiagonalLayout>
+
+		<com.github.florent37.diagonallayout.DiagonalLayout
+				android:id="@+id/right_layout"
+				android:layout_width="220dp"
+				android:layout_height="match_parent"
+				app:diagonal_angle="10"
+				app:diagonal_direction="left"
+				app:diagonal_position="left"
+				android:layout_gravity="right">
+
+			<FrameLayout
+					android:id="@+id/sunset_button"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:clickable="true"
+					android:foreground="@drawable/ripple_foreground"
+					android:background="#283593">
+
+				<ImageView
+						android:layout_width="56dp"
+						android:layout_height="56dp"
+						android:layout_gravity="center"
+						android:translationX="8dp"
+						android:scaleType="fitXY"
+						android:src="@drawable/ic_brightness_2_black_48dp"
+						android:tint="@android:color/white"/>
+
+				<TextView
+						android:id="@+id/sunset_time"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center_horizontal|bottom"
+						android:layout_marginBottom="24dp"
+						android:translationX="8dp"
+						android:text="22:00"
+						android:fontFamily="serif-monospace"
+						android:textColor="@android:color/white"
+						android:textAppearance="@android:style/TextAppearance.Material.Display1"/>
+
+			</FrameLayout>
+
+		</com.github.florent37.diagonallayout.DiagonalLayout>
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/scheduler_title"
+				android:textAppearance="@android:style/TextAppearance.Material.DialogWindowTitle"
+				android:textColor="@android:color/white"
+				android:layout_gravity="start"
+				android:layout_marginTop="24dp"
+				android:layout_marginStart="16dp"/>
+
+		<Switch
+				android:id="@+id/auto_switch"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="end"
+				android:layout_marginTop="24dp"
+				android:layout_marginEnd="16dp"/>
+
+	</FrameLayout>
+
+	<Button
+			android:id="@+id/btn_ok"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="16dp"
+			android:text="@android:string/ok"
+			android:layout_gravity="end"
+			android:textColor="?android:attr/colorAccent"
+			style="@android:style/Widget.Material.Button.Borderless"/>
+
+</LinearLayout>
