@@ -20,7 +20,7 @@
     <string name="mode_desc_normal">おすすめのモードです。安定して動作しますが、ナビゲーションバーの明さは制御できません。また、「インストール」や「許可」の確認表示をタップする際に妨げとなることがあります。</string>
     <string name="dialog_overlay_enable_message">有効にすると画面を最前面からマスクするできるようになります。お使いの機種 (MIUI や Android 6.0 など) によっては権限の許可が必要になります。\n初回動作の確認の際に正しく動作しない場合は、「他のアプリの上に表示」を許可するようこのアプリを設定してください。</string>
     <string name="dialog_overlay_enable_title">ステータスバー上のマスクを有効にする</string>
-    <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさが強いものもあるため、このアプリでは明るさを下げるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。 Alipay: fythonx@gmail.com</string>
+    <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさの強いものがありますが、このアプリでは明るさを抑えるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。 Alipay: fythonx@gmail.com</string>
     <string name="action_dark_theme">ダークテーマ</string>
     <string name="dialog_button_go_to_set">設定</string>
     <string name="dialog_choose_mode">モードの選択</string>
