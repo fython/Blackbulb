@@ -8,7 +8,7 @@
     <string name="notification_running_title">夜用画面は動作しています</string>
     <string name="notification_running_msg">タップすると設定が開きます</string>
     <string name="notification_paused_title">夜用画面は停止しています</string>
-    <string name="notification_paused_msg">タップして設定を開くか、スワイプして夜用画面を終了できます</string>
+    <string name="notification_paused_msg">タップして設定、またはスワイプして夜用画面を終了</string>
     <string name="notification_action_turn_on">開始</string>
     <string name="notification_action_turn_off">停止</string>
     <string name="mode_text_overlay_all">Overlay System モード</string>
