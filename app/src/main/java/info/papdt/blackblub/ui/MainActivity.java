@@ -53,9 +53,12 @@ public class MainActivity extends Activity {
     private View mDarkThemeRow;
     private Switch mDarkThemeSwitch;
 
+    private View mYellowFilterRow;
+    private SeekBar mYellowFilterSeekBar;
+
     private AlertDialog mFirstRunDialog;
 
-    private boolean isExpand = false, hasDismissFirstRunDialog = false;
+    private static boolean isExpand = false, hasDismissFirstRunDialog = false;
 
     // Service states
     private boolean isRunning = false;
@@ -143,6 +146,11 @@ public class MainActivity extends Activity {
 
         // Set up seekBar
         mSeekBar = findViewById(R.id.seek_bar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mSeekBar.setProgress(mSettings.getBrightness(60) - 20, true);
+        } else {
+            mSeekBar.setProgress(mSettings.getYellowFilterAlpha());
+        }
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int currentProgress = -1;
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
@@ -170,17 +178,25 @@ public class MainActivity extends Activity {
         mExpandIcon.setOnClickListener(v -> {
             // Change the states of expandable views
             isExpand = !isExpand;
-            mExpandIcon.switchState();
-            int visibility = isExpand ? View.VISIBLE : View.GONE;
-            mDivider.setVisibility(visibility);
-            mSchedulerRow.setVisibility(visibility);
-            mDarkThemeRow.setVisibility(visibility);
+            updateExpandViews();
         });
 
         mDivider = findViewById(R.id.divider_line);
 
         initSchedulerRow();
         initDarkThemeRow();
+        initYellowFilterRow();
+
+        updateExpandViews();
+    }
+
+    private void updateExpandViews() {
+        mExpandIcon.setState(isExpand ? ExpandIconView.LESS : ExpandIconView.MORE, true);
+        int visibility = isExpand ? View.VISIBLE : View.GONE;
+        mDivider.setVisibility(visibility);
+        mSchedulerRow.setVisibility(visibility);
+        mDarkThemeRow.setVisibility(visibility);
+        mYellowFilterRow.setVisibility(visibility);
     }
 
     private void initSchedulerRow() {
@@ -207,6 +223,37 @@ public class MainActivity extends Activity {
         });
 
         updateSchedulerRow();
+    }
+
+    private void initYellowFilterRow() {
+        mYellowFilterRow = findViewById(R.id.yellow_filter_row);
+        mYellowFilterSeekBar = findViewById(R.id.yellow_filter_seek_bar);
+
+        mYellowFilterSeekBar.setProgress(mSettings.getYellowFilterAlpha());
+
+        mYellowFilterSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            private int currentProgress = -1;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                currentProgress = progress;
+                if (isRunning) {
+                    // Only send broadcast when running
+                    Intent intent = new Intent(MainActivity.this, MaskService.class);
+                    intent.putExtra(Constants.Extra.ACTION, Constants.Action.UPDATE);
+                    intent.putExtra(Constants.Extra.YELLOW_FILTER_ALPHA, currentProgress);
+                    startService(intent);
+                }
+            }
+
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (currentProgress != -1) {
+                    mSettings.setYellowFilterAlpha(currentProgress);
+                }
+            }
+        });
     }
 
     private void updateSchedulerRow() {

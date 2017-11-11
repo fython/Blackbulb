@@ -15,7 +15,8 @@ public class Settings {
 			KEY_ADVANCED_MODE = "advanced_mode", KEY_FIRST_RUN = "first_run",
 			KEY_DARK_THEME = "dark_theme", KEY_AUTO_MODE = "auto_mode",
 			KEY_HOURS_SUNRISE = "hrs_sunrise", KEY_MINUTES_SUNRISE = "min_sunrise",
-			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset";
+			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset",
+			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha";
 
 	private volatile static Settings sInstance;
 
@@ -111,6 +112,18 @@ public class Settings {
                 "%1$02d:%2$02d",
                 getInt(KEY_HOURS_SUNRISE, 0),
                 getInt(KEY_MINUTES_SUNRISE, 0));
+    }
+
+    public int getYellowFilterAlpha() {
+	    return getYellowFilterAlpha(0);
+    }
+
+    public int getYellowFilterAlpha(int defValue) {
+	    return getInt(KEY_YELLOW_FILTER_ALPHA, defValue);
+    }
+
+    public void setYellowFilterAlpha(int alpha) {
+	    putInt(KEY_YELLOW_FILTER_ALPHA, alpha);
     }
 
 }

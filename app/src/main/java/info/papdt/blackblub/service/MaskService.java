@@ -50,6 +50,7 @@ public class MaskService extends Service {
     // Options
     private int mBrightness = 50;
     private int mAdvancedMode = Constants.AdvancedMode.NONE;
+    private int mYellowFilterAlpha = 0;
 
     // Constants
     private static final int ANIMATE_DURATION_MILES = 250;
@@ -82,8 +83,10 @@ public class MaskService extends Service {
         int action = -1;
         if (intent != null && intent.hasExtra(Constants.Extra.ACTION)) {
             action = intent.getIntExtra(Constants.Extra.ACTION, -1);
-            mBrightness = intent.getIntExtra(Constants.Extra.BRIGHTNESS, 0);
+            mBrightness = intent.getIntExtra(Constants.Extra.BRIGHTNESS, mBrightness);
             mAdvancedMode = intent.getIntExtra(Constants.Extra.ADVANCED_MODE, mAdvancedMode);
+            mYellowFilterAlpha = intent.getIntExtra(
+                    Constants.Extra.YELLOW_FILTER_ALPHA, mYellowFilterAlpha);
 
             switch (action) {
                 case Constants.Action.START:

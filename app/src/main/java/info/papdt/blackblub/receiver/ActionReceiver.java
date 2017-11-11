@@ -23,6 +23,7 @@ public class ActionReceiver extends BroadcastReceiver {
         if (Constants.ACTION_UPDATE_STATUS.equals(intent.getAction())) {
             int action = intent.getIntExtra(Constants.Extra.ACTION, -1);
             int brightness = intent.getIntExtra(Constants.Extra.BRIGHTNESS, 50);
+            int yellowFilterAlpha = intent.getIntExtra(Constants.Extra.YELLOW_FILTER_ALPHA, 0);
 
             Log.i(TAG, "handle \"" + action + "\" action");
             switch (action) {
@@ -31,6 +32,8 @@ public class ActionReceiver extends BroadcastReceiver {
                     intent1.putExtra(Constants.Extra.ACTION, Constants.Action.START);
                     intent1.putExtra(Constants.Extra.BRIGHTNESS, settings.getBrightness(brightness));
                     intent1.putExtra(Constants.Extra.ADVANCED_MODE, settings.getAdvancedMode());
+                    intent1.putExtra(Constants.Extra.YELLOW_FILTER_ALPHA,
+                            settings.getYellowFilterAlpha(yellowFilterAlpha));
                     Utility.startForegroundService(context, intent1);
                     break;
                 case Constants.Action.PAUSE:
@@ -38,6 +41,8 @@ public class ActionReceiver extends BroadcastReceiver {
                     intent2.putExtra(Constants.Extra.ACTION, Constants.Action.PAUSE);
                     intent2.putExtra(Constants.Extra.BRIGHTNESS, settings.getBrightness(brightness));
                     intent2.putExtra(Constants.Extra.ADVANCED_MODE, settings.getAdvancedMode());
+                    intent2.putExtra(Constants.Extra.YELLOW_FILTER_ALPHA,
+                            settings.getYellowFilterAlpha(yellowFilterAlpha));
                     Utility.startForegroundService(context, intent2);
                     break;
                 case Constants.Action.STOP:
@@ -58,6 +63,7 @@ public class ActionReceiver extends BroadcastReceiver {
             intent1.putExtra(Constants.Extra.ACTION, Constants.Action.START);
             intent1.putExtra(Constants.Extra.BRIGHTNESS, settings.getBrightness(50));
             intent1.putExtra(Constants.Extra.ADVANCED_MODE, settings.getAdvancedMode());
+            intent1.putExtra(Constants.Extra.YELLOW_FILTER_ALPHA, settings.getYellowFilterAlpha());
             Utility.startForegroundService(context, intent1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 Intent tileUpdateIntent = new Intent(context, MaskTileService.class);

@@ -24,6 +24,7 @@ public final class Constants {
         public static final String BRIGHTNESS = "brightness";
         public static final String ADVANCED_MODE = "advanced_mode";
         public static final String IS_SHOWING = "is_showing";
+        public static final String YELLOW_FILTER_ALPHA = "yellow_filter_alpha";
 
     }
 

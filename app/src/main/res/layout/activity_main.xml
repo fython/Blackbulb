@@ -18,7 +18,7 @@
 		android:layout_marginBottom="16dp"
 		android:padding="8dp"
 		android:clickable="true"
-		android:focusable="true"
+		android:focusable="false"
 		android:elevation="8dp"
 		android:animateLayoutChanges="true"
 		android:orientation="vertical">
@@ -81,7 +81,7 @@
 				android:layout_height="wrap_content"
 				android:layout_weight="1"
 				android:layout_marginEnd="8dp"
-				android:progress="50"
+				android:progress="0"
 				android:max="80"/>
 
 			<com.github.zagum.expandicon.ExpandIconView
@@ -105,6 +105,12 @@
 			android:background="#97AFAFAF"
 			android:visibility="gone"
 			tools:visibility="visible"/>
+
+		<include
+			android:id="@+id/yellow_filter_row"
+			android:visibility="gone"
+			tools:visibility="visible"
+			layout="@layout/include_yellow_filter_row"/>
 
 		<include
 			android:id="@+id/scheduler_row"
