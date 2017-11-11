@@ -29,6 +29,7 @@ public class BlackbulbApplication extends Application {
             channel.setShowBadge(false);
             channel.enableLights(false);
             channel.enableVibration(false);
+            channel.setSound(null, null);
 
             notificationManager.createNotificationChannel(channel);
         }

@@ -2,6 +2,16 @@
 
 	<string name="app_name">夜間螢幕</string>
 
+	<!-- Scheduler Row -->
+	<string name="scheduler_status_on_show_enable_time">自動開啟於 %s。</string>
+	<string name="scheduler_status_on_show_disable_time">將在 %s 時關閉。</string>
+	<string name="scheduler_status_off">已關閉</string>
+	<string name="action_settings">設定</string>
+
+	<!-- Notification Channel -->
+	<string name="notification_channel_running_status">運作狀況</string>
+
+	<!-- Unclassified -->
 	<string name="action_about">關於</string>
 	<string name="action_dark_theme">暗色主題</string>
 
