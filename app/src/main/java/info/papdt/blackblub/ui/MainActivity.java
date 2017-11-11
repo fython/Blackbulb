@@ -20,10 +20,12 @@ import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,9 @@ public class MainActivity extends Activity {
     private View mSchedulerRow;
     private TextView mSchedulerStatus;
     private ImageView mSchedulerIcon;
+
+    private View mDarkThemeRow;
+    private Switch mDarkThemeSwitch;
 
     private AlertDialog mFirstRunDialog;
 
@@ -117,7 +122,7 @@ public class MainActivity extends Activity {
 
         // Set up cardView's top padding and system ui visibility
         LinearLayout cardView = findViewById(R.id.card_view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !mSettings.isDarkTheme()) {
             // PS: When Blackbulb runs on pre-23 API, it will be hard to see status bar icons
             //     because of light background. I don't want to fix it. User experience requires
             //     users to keep system version not out-of-date.
@@ -173,11 +178,13 @@ public class MainActivity extends Activity {
             int visibility = isExpand ? View.VISIBLE : View.GONE;
             mDivider.setVisibility(visibility);
             mSchedulerRow.setVisibility(visibility);
+            mDarkThemeRow.setVisibility(visibility);
         });
 
         mDivider = findViewById(R.id.divider_line);
 
         initSchedulerRow();
+        initDarkThemeRow();
     }
 
     private void initSchedulerRow() {
@@ -220,6 +227,21 @@ public class MainActivity extends Activity {
         } else {
             mSchedulerStatus.setText(R.string.scheduler_status_off);
         }
+    }
+
+    private void initDarkThemeRow() {
+        mDarkThemeRow = findViewById(R.id.dark_theme_row);
+        mDarkThemeSwitch = findViewById(R.id.dark_theme_switch);
+
+        mDarkThemeSwitch.setChecked(mSettings.isDarkTheme());
+
+        mDarkThemeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            mSettings.setDarkTheme(isChecked);
+            // Restart main activity after theme changed
+            Intent intent = Intent.makeRestartActivityTask(getComponentName());
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void showSchedulerDialog() {

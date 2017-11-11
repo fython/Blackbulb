@@ -16,6 +16,7 @@
 		android:layout_height="wrap_content"
 		android:background="?attr/card_background_color"
 		android:layout_marginBottom="16dp"
+		android:padding="8dp"
 		android:clickable="true"
 		android:focusable="true"
 		android:elevation="8dp"
@@ -110,6 +111,12 @@
 			android:visibility="gone"
 			tools:visibility="visible"
 			layout="@layout/include_scheduler_row"/>
+
+		<include
+			android:id="@+id/dark_theme_row"
+			android:visibility="gone"
+			tools:visibility="visible"
+			layout="@layout/include_dark_theme_row"/>
 
 	</LinearLayout>
 
