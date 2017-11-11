@@ -114,6 +114,8 @@ public class MaskService extends Service {
                     Log.i(TAG, "Stop Mask");
                     isShowing = false;
                     destroyMaskView();
+                    cancelNotification();
+                    stopForeground(true);
                     stopSelf();
                     break;
                 case Constants.Action.UPDATE:
