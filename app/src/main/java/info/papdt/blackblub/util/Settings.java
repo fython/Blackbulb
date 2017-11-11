@@ -3,6 +3,8 @@ package info.papdt.blackblub.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Locale;
+
 import info.papdt.blackblub.Constants;
 
 public class Settings {
@@ -77,6 +79,10 @@ public class Settings {
 	    return getBoolean(KEY_DARK_THEME, false);
     }
 
+    public boolean isAutoMode() {
+	    return getBoolean(KEY_AUTO_MODE, false);
+    }
+
     public void setBrightness(int brightness) {
 	    putInt(KEY_BRIGHTNESS, brightness);
     }
@@ -91,6 +97,20 @@ public class Settings {
 
     public void setDarkTheme(boolean useDarkTheme) {
         putBoolean(KEY_DARK_THEME, useDarkTheme);
+    }
+
+    public String getSunsetTimeText() {
+	    return String.format(Locale.getDefault(),
+                "%1$02d:%2$02d",
+                getInt(KEY_HOURS_SUNSET, 0),
+                getInt(KEY_MINUTES_SUNSET, 0));
+    }
+
+    public String getSunriseTimeText() {
+        return String.format(Locale.getDefault(),
+                "%1$02d:%2$02d",
+                getInt(KEY_HOURS_SUNRISE, 0),
+                getInt(KEY_MINUTES_SUNRISE, 0));
     }
 
 }

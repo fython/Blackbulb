@@ -2,9 +2,11 @@ package info.papdt.blackblub.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -13,12 +15,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.zagum.expandicon.ExpandIconView;
@@ -28,8 +34,11 @@ import info.papdt.blackblub.IMaskServiceInterface;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.ActionReceiver;
 import info.papdt.blackblub.service.MaskService;
+import info.papdt.blackblub.ui.dialog.SchedulerDialog;
+import info.papdt.blackblub.util.AlarmUtil;
 import info.papdt.blackblub.util.Settings;
 import info.papdt.blackblub.util.Utility;
+import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 
 public class MainActivity extends Activity {
 
@@ -37,6 +46,11 @@ public class MainActivity extends Activity {
     private ImageButton mToggle;
     private SeekBar mSeekBar;
     private ExpandIconView mExpandIcon;
+    private View mDivider;
+
+    private View mSchedulerRow;
+    private TextView mSchedulerStatus;
+    private ImageView mSchedulerIcon;
 
     private AlertDialog mFirstRunDialog;
 
@@ -78,13 +92,27 @@ public class MainActivity extends Activity {
             setTheme(R.style.AppTheme_Dark);
         }
 
+        // Apply Noto Sans CJK Full font from FontProvider API
+        Utility.applyNotoSansCJK(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up rootView's click event
+        // Set up rootView & aboutButton's click event
         findViewById(R.id.root_layout).setOnClickListener(v -> {
             // When rootView is clicked, exit main activity.
             finish();
+        });
+        findViewById(R.id.btn_about).setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(R.layout.dialog_about);
+            builder.setPositiveButton(android.R.string.ok, (d, i) -> {});
+            if (AlipayZeroSdk.hasInstalledAlipayClient(this)) {
+                builder.setNeutralButton(R.string.about_donate_alipay,
+                        (d, i) -> AlipayZeroSdk.startAlipayClient(
+                                MainActivity.this, "aehvyvf4taua18zo6e"));
+            }
+            builder.show();
         });
 
         // Set up cardView's top padding and system ui visibility
@@ -139,9 +167,63 @@ public class MainActivity extends Activity {
         // Set up expandIcon
         mExpandIcon = findViewById(R.id.expand_icon);
         mExpandIcon.setOnClickListener(v -> {
+            // Change the states of expandable views
             isExpand = !isExpand;
             mExpandIcon.switchState();
+            int visibility = isExpand ? View.VISIBLE : View.GONE;
+            mDivider.setVisibility(visibility);
+            mSchedulerRow.setVisibility(visibility);
         });
+
+        mDivider = findViewById(R.id.divider_line);
+
+        initSchedulerRow();
+    }
+
+    private void initSchedulerRow() {
+        mSchedulerRow = findViewById(R.id.scheduler_row);
+        mSchedulerIcon = findViewById(R.id.scheduler_icon);
+        mSchedulerStatus = findViewById(R.id.tv_scheduler_status);
+        Button mSchedulerSettingsButton = findViewById(R.id.btn_scheduler_settings);
+
+        mSchedulerSettingsButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                PowerManager pm = getSystemService(PowerManager.class);
+                if (pm != null && !pm.isIgnoringBatteryOptimizations(getPackageName())) {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle(R.string.dialog_ignore_battery_opt_title)
+                            .setMessage(R.string.dialog_ignore_battery_opt_msg)
+                            .setPositiveButton(android.R.string.ok, (d, i) -> showSchedulerDialog())
+                            .setNeutralButton(R.string.dialog_button_go_to_set,
+                                    (d, i) -> Utility.requestBatteryOptimization(this))
+                            .show();
+                    return;
+                }
+            }
+            showSchedulerDialog();
+        });
+
+        updateSchedulerRow();
+    }
+
+    private void updateSchedulerRow() {
+        mSchedulerIcon.setImageResource(mSettings.isAutoMode() ?
+                R.drawable.ic_alarm_black_24dp : R.drawable.ic_alarm_off_black_24dp);
+        if (mSettings.isAutoMode()) {
+            if (isRunning && AlarmUtil.isInSleepTime(this)) {
+                mSchedulerStatus.setText(getString(R.string.scheduler_status_on_show_disable_time,
+                        mSettings.getSunriseTimeText()));
+            } else {
+                mSchedulerStatus.setText(getString(R.string.scheduler_status_on_show_enable_time,
+                        mSettings.getSunsetTimeText()));
+            }
+        } else {
+            mSchedulerStatus.setText(R.string.scheduler_status_off);
+        }
+    }
+
+    private void showSchedulerDialog() {
+        new SchedulerDialog(this, dialogInterface -> updateSchedulerRow()).show();
     }
 
     @Override

@@ -2,6 +2,7 @@ package info.papdt.blackblub.util;
 
 import android.app.Activity;
 import android.app.AppOpsManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -15,10 +16,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import moe.shizuku.fontprovider.FontProviderClient;
+
 /**
  * @author Fung Gwo (fython) fython@163.com
  */
 public final class Utility {
+
+    private static boolean sFontInitialized = false;
 
     private static final int UI_VISIBILITY_TRANSPARENT_LOLLIPOP =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -32,6 +37,17 @@ public final class Utility {
         window.getDecorView().setSystemUiVisibility(UI_VISIBILITY_TRANSPARENT_LOLLIPOP);
         window.setStatusBarColor(Color.TRANSPARENT);
         window.setNavigationBarColor(Color.TRANSPARENT);
+    }
+
+    public static void applyNotoSansCJK(Context context) {
+        if (!sFontInitialized) {
+            FontProviderClient client = FontProviderClient.create(context);
+            if (client != null) {
+                client.setNextRequestReplaceFallbackFonts(true);
+                client.replace("Noto Sans CJK", "sans-serif", "sans-serif-medium");
+            }
+            sFontInitialized = true;
+        }
     }
 
     /**
@@ -142,6 +158,21 @@ public final class Utility {
             activity.startActivityForResult(intent, requestCode);
         }
         // TODO Support third-party customize ROM?
+    }
+
+    /**
+     * Request doze mode disable
+     * @param activity Current activity
+     */
+    public static void requestBatteryOptimization(Activity activity) {
+        try {
+            Intent intent = new Intent(
+                    android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + activity.getPackageName()));
+            activity.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

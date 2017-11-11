@@ -16,26 +16,47 @@
 		android:layout_height="wrap_content"
 		android:background="?attr/card_background_color"
 		android:layout_marginBottom="16dp"
+		android:clickable="true"
+		android:focusable="true"
 		android:elevation="8dp"
+		android:animateLayoutChanges="true"
 		android:orientation="vertical">
 
-		<TextView
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:id="@+id/title_bar"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/app_name"
-			android:textAppearance="?android:attr/textAppearanceSmall"
-			android:textSize="12sp"
 			android:layout_marginTop="12dp"
-			android:layout_marginStart="16dp"
 			android:layout_marginBottom="4dp"
-			tools:ignore="SmallSp"/>
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="0dp"
+				android:layout_weight="1"
+				android:layout_height="wrap_content"
+				android:text="@string/app_name"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textSize="12sp"
+				android:layout_marginStart="16dp"/>
+
+			<ImageButton
+				android:id="@+id/btn_about"
+				android:layout_width="16dp"
+				android:layout_height="16dp"
+				android:layout_marginEnd="24dp"
+				android:scaleType="centerInside"
+				android:tint="@android:color/darker_gray"
+				android:importantForAccessibility="no"
+				android:background="?android:attr/selectableItemBackgroundBorderless"
+				android:src="@drawable/ic_info_black_24dp"/>
+
+		</LinearLayout>
 
 		<LinearLayout
 			android:id="@+id/basic_bar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:focusable="true"
-			android:clickable="true"
 			android:gravity="center_vertical"
 			android:orientation="horizontal">
 
@@ -45,6 +66,7 @@
 				android:layout_height="24dp"
 				android:layout_margin="16dp"
 				android:background="?android:attr/selectableItemBackgroundBorderless"
+				android:importantForAccessibility="no"
 				android:scaleType="centerInside"
 				android:src="@drawable/ic_brightness_7_black_24dp"
 				android:tint="?attr/icon_tint"/>
@@ -72,6 +94,20 @@
 				app:eiv_padding="8dp"/>
 
 		</LinearLayout>
+
+		<View
+			android:id="@+id/divider_line"
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="#97AFAFAF"
+			android:visibility="gone"
+			tools:visibility="visible"/>
+
+		<include
+			android:id="@+id/scheduler_row"
+			android:visibility="gone"
+			tools:visibility="visible"
+			layout="@layout/include_scheduler_row"/>
 
 	</LinearLayout>
 

@@ -36,5 +36,6 @@ dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	implementation 'org.cyanogenmod:platform.sdk:2.0'
 	implementation 'moe.feng:AlipayZeroSdk:1.1'
+	implementation 'moe.shizuku.fontprovider:api:8'
 	implementation project(":libraries:timepicker")
 }

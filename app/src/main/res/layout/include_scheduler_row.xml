@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="horizontal"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:paddingStart="16dp"
+	android:paddingEnd="16dp"
+	android:paddingTop="16dp"
+	android:paddingBottom="8dp"
+	tools:background="?attr/card_background_color">
+
+	<ImageView
+		android:id="@+id/scheduler_icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:importantForAccessibility="no"
+		android:src="@drawable/ic_alarm_off_black_24dp"
+		android:tint="?attr/icon_tint"/>
+
+	<LinearLayout
+		android:layout_width="0dp"
+		android:layout_weight="1"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="16dp"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="4dp"
+			android:text="@string/scheduler_title"
+			android:textAppearance="@android:style/TextAppearance.Material.Body2"/>
+
+		<TextView
+			android:id="@+id/tv_scheduler_status"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="@android:style/TextAppearance.Material.Body1"
+			android:layout_marginBottom="8dp"
+			tools:text="OFF"/>
+
+		<Button
+			android:id="@+id/btn_scheduler_settings"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/action_settings"
+			android:layout_gravity="end"
+			android:textColor="?attr/icon_tint"
+			style="@android:style/Widget.Material.Button.Borderless.Small"/>
+
+	</LinearLayout>
+
+</LinearLayout>
