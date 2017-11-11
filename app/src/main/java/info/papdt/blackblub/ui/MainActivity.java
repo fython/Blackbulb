@@ -1,20 +1,82 @@
 package info.papdt.blackblub.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.RemoteException;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
+import com.github.zagum.expandicon.ExpandIconView;
+
+import info.papdt.blackblub.Constants;
+import info.papdt.blackblub.IMaskServiceInterface;
 import info.papdt.blackblub.R;
+import info.papdt.blackblub.receiver.ActionReceiver;
+import info.papdt.blackblub.service.MaskService;
+import info.papdt.blackblub.util.Settings;
 import info.papdt.blackblub.util.Utility;
 
 public class MainActivity extends Activity {
 
+    // Views & States
+    private ImageButton mToggle;
+    private SeekBar mSeekBar;
+    private ExpandIconView mExpandIcon;
+
+    private AlertDialog mFirstRunDialog;
+
+    private boolean isExpand = false, hasDismissFirstRunDialog = false;
+
+    // Service states
+    private boolean isRunning = false;
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            IMaskServiceInterface msi = IMaskServiceInterface.Stub.asInterface(service);
+            try {
+                setToggleIconState(isRunning = msi.isShowing());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        @Override public void onServiceDisconnected(ComponentName name) {}
+    };
+
+    // Settings
+    private Settings mSettings;
+
+    // Local broadcast receivers
+    private MessageReceiver mReceiver;
+
+    // Constants
+    private static final int REQUEST_CODE_OVERLAY_PERMISSION = 1001;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        // Apply transparent system ui
+    protected void onCreate(Bundle savedInstanceState) {
+        mSettings = Settings.getInstance(this);
+
+        // Apply theme and transparent system ui
         Utility.applyTransparentSystemUI(this);
+        if (mSettings.isDarkTheme()) {
+            setTheme(R.style.AppTheme_Dark);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -35,6 +97,178 @@ public class MainActivity extends Activity {
         }
         cardView.setPadding(0, Utility.getStatusBarHeight(this), 0, 0);
 
+        // Set up toggle
+        mToggle = findViewById(R.id.toggle);
+        mToggle.setOnClickListener(v -> {
+            if (!isRunning) {
+                if (!Utility.canDrawOverlays(this)) {
+                    Utility.requestOverlayPermission(
+                            this, REQUEST_CODE_OVERLAY_PERMISSION);
+                    return;
+                }
+                startMaskService();
+            } else {
+                stopMaskService();
+            }
+        });
+
+        // Set up seekBar
+        mSeekBar = findViewById(R.id.seek_bar);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int currentProgress = -1;
+            @Override public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                currentProgress = progress + 20;
+                if (isRunning) {
+                    // Only send broadcast when running
+                    Intent intent = new Intent(MainActivity.this, MaskService.class);
+                    intent.putExtra(Constants.Extra.ACTION, Constants.Action.UPDATE);
+                    intent.putExtra(Constants.Extra.BRIGHTNESS, currentProgress);
+                    startService(intent);
+                }
+            }
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (currentProgress != -1) {
+                    mSettings.setBrightness(currentProgress);
+                }
+            }
+        });
+
+        // Set up expandIcon
+        mExpandIcon = findViewById(R.id.expand_icon);
+        mExpandIcon.setOnClickListener(v -> {
+            isExpand = !isExpand;
+            mExpandIcon.switchState();
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mReceiver == null) {
+            mReceiver = new MessageReceiver();
+        }
+        registerReceiver(mReceiver, new IntentFilter(Constants.ACTION_TOGGLE));
+
+        // Request current state
+        bindService(new Intent(this, MaskService.class),
+                mServiceConnection, MaskService.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mReceiver != null) {
+            try {
+                unregisterReceiver(mReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        unbindService(mServiceConnection);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_OVERLAY_PERMISSION) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (Utility.canDrawOverlays(this)) {
+                    startMaskService();
+                }
+            }
+        }
+    }
+
+    private void setToggleIconState(boolean isRunning) {
+        if (mToggle != null && !isFinishing()) {
+            mToggle.setImageResource(isRunning ?
+                    R.drawable.ic_brightness_2_black_24dp : R.drawable.ic_brightness_7_black_24dp);
+        }
+    }
+
+    private void startMaskService() {
+        Intent intent = new Intent(MainActivity.this, ActionReceiver.class);
+        intent.setAction(Constants.ACTION_UPDATE_STATUS);
+        intent.putExtra(Constants.Extra.ACTION, Constants.Action.START);
+        sendBroadcast(intent);
+        setToggleIconState(isRunning = true);
+
+        // For safe
+        if (mSettings.isFirstRun()) {
+            if (mFirstRunDialog != null && mFirstRunDialog.isShowing()) {
+                return;
+            }
+            hasDismissFirstRunDialog = false;
+            mFirstRunDialog = new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(R.string.dialog_first_run_title)
+                    .setMessage(R.string.dialog_first_run_message)
+                    .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                        hasDismissFirstRunDialog = true;
+                        mSettings.setFirstRun(false);
+                    })
+                    .setOnDismissListener(dialogInterface -> {
+                        if (hasDismissFirstRunDialog) return;
+                        hasDismissFirstRunDialog = true;
+                        if (mSettings.isFirstRun()) {
+                            Intent intent1 =
+                                    new Intent(MainActivity.this, MaskService.class);
+                            intent1.putExtra(Constants.Extra.ACTION, Constants.Action.STOP);
+                            stopService(intent1);
+                            setToggleIconState(isRunning = false);
+                        }
+                    })
+                    .show();
+            new Handler().postDelayed(() -> {
+                if (mFirstRunDialog.isShowing() && !hasDismissFirstRunDialog) {
+                    mFirstRunDialog.dismiss();
+                }
+            }, 5000);
+        }
+    }
+
+    private void stopMaskService() {
+        Intent intent = new Intent(MainActivity.this, MaskService.class);
+        intent.putExtra(Constants.Extra.ACTION, Constants.Action.STOP);
+        startService(intent);
+        setToggleIconState(isRunning = false);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (mToggle == null) return;
+            int eventId = intent.getIntExtra(Constants.Extra.EVENT_ID, -1);
+            switch (eventId) {
+                case Constants.Event.CANNOT_START:
+                    // Receive a error from MaskService
+                    isRunning = false;
+                    setToggleIconState(false);
+                    if (!isFinishing()) {
+                        Toast.makeText(
+                                context.getApplicationContext(),
+                                R.string.mask_fail_to_start,
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                    break;
+                case Constants.Event.DESTROY_SERVICE:
+                    // MaskService is destroying
+                    if (isRunning) {
+                        setToggleIconState(false);
+                        isRunning = false;
+                    }
+                    break;
+                case Constants.Event.CHECK:
+                    // Receive check event and update toggle icon state
+                    isRunning = intent.getBooleanExtra(Constants.Extra.IS_SHOWING, false);
+                    Log.i(TAG, "Checked " + isRunning);
+                    setToggleIconState(isRunning);
+                    break;
+            }
+        }
 
     }
 

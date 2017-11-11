@@ -16,6 +16,17 @@
 		</attr>
 	</declare-styleable>
 
+	<declare-styleable name="ExpandIconView">
+		<attr name="eiv_roundedCorners" format="boolean"/>
+		<attr name="eiv_switchColor" format="boolean"/>
+		<attr name="eiv_color" format="color"/>
+		<attr name="eiv_colorMore" format="color"/>
+		<attr name="eiv_colorLess" format="color"/>
+		<attr name="eiv_colorIntermediate" format="color"/>
+		<attr name="eiv_animationDuration" format="integer"/>
+		<attr name="eiv_padding" format="dimension"/>
+	</declare-styleable>
+
 	<declare-styleable name="Blackbulb">
 		<attr name="card_background_color" format="color"/>
 		<attr name="progress_bar_color" format="color"/>

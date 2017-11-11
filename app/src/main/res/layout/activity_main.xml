@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:id="@+id/root_layout"
 	android:focusable="false"
-	android:foreground="@android:color/transparent">
+	android:foreground="@android:color/transparent"
+	tools:context=".ui.MainActivity">
 
 	<LinearLayout
 		android:id="@+id/card_view"
@@ -13,30 +16,60 @@
 		android:layout_height="wrap_content"
 		android:background="?attr/card_background_color"
 		android:layout_marginBottom="16dp"
-		android:elevation="5dp"
+		android:elevation="8dp"
 		android:orientation="vertical">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/app_name"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textSize="12sp"
+			android:layout_marginTop="12dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginBottom="4dp"
+			tools:ignore="SmallSp"/>
 
 		<LinearLayout
 			android:id="@+id/basic_bar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:focusable="true"
+			android:clickable="true"
 			android:gravity="center_vertical"
 			android:orientation="horizontal">
 
 			<ImageButton
-				android:layout_width="36dp"
-				android:layout_height="36dp"
-				android:layout_margin="12dp"
+				android:id="@+id/toggle"
+				android:layout_width="24dp"
+				android:layout_height="24dp"
+				android:layout_margin="16dp"
 				android:background="?android:attr/selectableItemBackgroundBorderless"
 				android:scaleType="centerInside"
-				android:src="@drawable/ic_logo_teal"
+				android:src="@drawable/ic_brightness_7_black_24dp"
 				android:tint="?attr/icon_tint"/>
 
 			<SeekBar
-				android:layout_width="match_parent"
+				android:id="@+id/seek_bar"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
+				android:layout_weight="1"
 				android:layout_marginStart="8dp"
-				android:layout_marginEnd="16dp"/>
+				android:layout_marginEnd="8dp"
+				android:progress="50"
+				android:max="80"/>
+
+			<com.github.zagum.expandicon.ExpandIconView
+				android:id="@+id/expand_icon"
+				android:layout_width="32dp"
+				android:layout_height="32dp"
+				android:layout_marginEnd="16dp"
+				android:background="?android:attr/selectableItemBackgroundBorderless"
+				app:eiv_color="?attr/icon_tint"
+				app:eiv_colorLess="?attr/icon_tint"
+				app:eiv_colorMore="?attr/icon_tint"
+				app:eiv_colorIntermediate="?attr/icon_tint"
+				app:eiv_padding="8dp"/>
 
 		</LinearLayout>
 

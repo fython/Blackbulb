@@ -4,6 +4,10 @@
 
 	<string name="app_name">Night Screen</string>
 
+	<!-- Notification Channel -->
+	<string name="notification_channel_running_status">Running status</string>
+
+	<!-- Unclassified -->
 	<string name="shortcut_label_switch">Toggle</string>
 
 	<string name="action_about">About</string>
@@ -12,7 +16,7 @@
 	<string name="text_light">LIGHT</string>
 	<string name="text_dark">DARK</string>
 
-	<string name="about_author">Author: Paper Airplane Dev - Fung Jichun</string>
+	<string name="about_author">Author: Paper Airplane Dev - Fung Gwo</string>
 	<string name="about_text">"Night Screen can help protect you from the harm of strong light at night.\nSome devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send some money to my Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Designer: Google+ Youlun Zhai</string>
 
