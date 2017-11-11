@@ -1,16 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-	compileSdkVersion 26
-	buildToolsVersion "26.0.0"
+	compileSdkVersion rootProject.ext.targetSdkVersion
+	buildToolsVersion rootProject.ext.buildToolsVersion
 
 	defaultConfig {
 		applicationId "info.papdt.blackblub"
-		minSdkVersion 21
-		targetSdkVersion 26
-		versionCode 13
-		versionName "1.3.0.2"
+		minSdkVersion rootProject.ext.minSdkVersion
+		targetSdkVersion rootProject.ext.targetSdkVersion
+		versionCode rootProject.ext.versionCode
+		versionName rootProject.ext.versionName
 	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
 	buildTypes {
 		release {
 			minifyEnabled true
@@ -27,9 +33,8 @@ android {
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile 'com.android.support:cardview-v7:26.0.0-beta2'
-	compile 'org.cyanogenmod:platform.sdk:2.0'
-	compile 'moe.feng:AlipayZeroSdk:1.1'
-	compile project(":timepicker")
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation 'org.cyanogenmod:platform.sdk:2.0'
+	implementation 'moe.feng:AlipayZeroSdk:1.1'
+	implementation project(":libraries:timepicker")
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:id="@+id/root_layout"
+	android:focusable="false"
+	android:foreground="@android:color/transparent">
+
+	<LinearLayout
+		android:id="@+id/card_view"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?attr/card_background_color"
+		android:layout_marginBottom="16dp"
+		android:elevation="5dp"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:id="@+id/basic_bar"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<ImageButton
+				android:layout_width="36dp"
+				android:layout_height="36dp"
+				android:layout_margin="12dp"
+				android:background="?android:attr/selectableItemBackgroundBorderless"
+				android:scaleType="centerInside"
+				android:src="@drawable/ic_logo_teal"
+				android:tint="?attr/icon_tint"/>
+
+			<SeekBar
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="16dp"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+</FrameLayout>

@@ -18,8 +18,9 @@
 	    android:supportsRtl="true"
 	    android:theme="@style/AppTheme.Light"
 	    tools:ignore="ManifestResource,UnusedAttribute">
+
         <activity
-            android:name=".ui.LaunchActivity"
+            android:name=".ui.MainActivity"
             android:finishOnTaskLaunch="true"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -34,52 +35,6 @@
             <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
         </activity>
 
-	    <activity android:name=".ui.shortcut.ToggleActivity"
-	              android:label="@string/shortcut_label_switch"
-	              android:icon="@drawable/ic_shortcut_switch"
-	              android:launchMode="singleInstance"
-	              android:finishOnTaskLaunch="true"
-	              android:excludeFromRecents="true"
-		          android:theme="@style/AppTheme.Empty">
-		    <intent-filter>
-			    <action android:name="android.intent.action.MAIN" />
-			    <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-		    </intent-filter>
-	    </activity>
-
-        <service android:name=".services.MaskService" android:process=":mask"/>
-
-        <receiver android:name=".receiver.TileReceiver"
-	              android:exported="false">
-            <intent-filter>
-                <action android:name="info.papdt.blackbulb.ACTION_UPDATE_STATUS" />
-	            <action android:name="info.papdt.blackbulb.ALARM_ACTION_START" />
-	            <action android:name="info.papdt.blackbulb.ALARM_ACTION_STOP" />
-            </intent-filter>
-        </receiver>
-
-
-	    <receiver android:name=".ui.LaunchActivity$MessageReceiver">
-		    <intent-filter>
-			    <action android:name="info.papdt.blackbulb.ACTION_UPDATE_ACTIVITY_TOGGLE" />
-		    </intent-filter>
-	    </receiver>
-
-	    <receiver android:name=".ui.shortcut.ToggleActivity$MessageReceiver">
-		    <intent-filter>
-			    <action android:name="info.papdt.blackbulb.ACTION_TOGGLE" />
-		    </intent-filter>
-	    </receiver>
-
-        <service
-            android:name=".services.MaskTileService"
-            android:icon="@drawable/ic_brightness_2_white_36dp"
-            android:label="@string/app_name"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

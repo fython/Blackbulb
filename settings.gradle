@@ -1,1 +1,2 @@
-include ':app', ':timepicker'
+include ':app',
+		':libraries:timepicker'
