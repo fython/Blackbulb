@@ -132,6 +132,7 @@ public class MaskService extends Service {
             }
         }
 
+        // Send implicit broadcast to Blackbulb's components for updating running status
         if (intent != null) {
             Intent broadcastIntent = new Intent();
             broadcastIntent.setAction(Constants.ACTION_TOGGLE);
@@ -158,10 +159,14 @@ public class MaskService extends Service {
             // Only TYPE_APPLICATION_OVERLAY is available in O.
             return TYPE_APPLICATION_OVERLAY;
         }
+        // Default window type.
         int result = TYPE_SYSTEM_OVERLAY;
-        if (mAdvancedMode == Constants.AdvancedMode.NO_PERMISSION && sdkInt < Build.VERSION_CODES.N) {
+        if (mAdvancedMode == Constants.AdvancedMode.NO_PERMISSION
+                && sdkInt < Build.VERSION_CODES.N) {
+            // Toast Mode cannot work normally after N. Window will be set 10~ secs max timeout.
             result = TYPE_TOAST;
         } else if (mAdvancedMode == Constants.AdvancedMode.OVERLAY_ALL) {
+            // It seems that this mode should use TYPE_SYSTEM_ERROR as window type.
             result = TYPE_SYSTEM_ERROR;
         }
         return result;
@@ -169,7 +174,6 @@ public class MaskService extends Service {
 
     private void createMaskView() {
         updateLayoutParams(-1);
-        mLayoutParams.gravity = Gravity.CENTER;
 
         if (mLayout == null) {
             mLayout = new View(this);
@@ -202,37 +206,51 @@ public class MaskService extends Service {
         // Hacky method. However, I don't know how it works.
         mAccessibilityManager.isEnabled();
 
-        // Apply layout params type
+        // Apply layout params type & gravity
         mLayoutParams.type = getWindowType();
+        mLayoutParams.gravity = Gravity.CENTER;
 
         // Apply layout params attributes
         if (getWindowType() == TYPE_SYSTEM_ERROR) {
+            // This is the reason why it will not affect users' application installation.
+            // Mask window won't cover any views.
             mLayoutParams.width = 0;
             mLayoutParams.height = 0;
             mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
             mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
             mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+            // I haven't found what this two value mean. :p (I got them from another screen filter app)
             mLayoutParams.flags &= 0xFFDFFFFF;
             mLayoutParams.flags &= 0xFFFFFF7F;
             mLayoutParams.format = PixelFormat.OPAQUE;
+            // Screen is dimmed by system.
             mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F, 0.0F, 0.9F);
         } else {
-            int max = Math.max(Utility.getRealScreenWidth(this), Utility.getRealScreenHeight(this));
+            // A dirty fix to deal with screen rotation.
+            int max = Math.max(
+                    Utility.getRealScreenWidth(this),
+                    Utility.getRealScreenHeight(this)
+            );
             mLayoutParams.height = mLayoutParams.width = max + 200;
+
             mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                     | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
                     | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
             mLayoutParams.format = PixelFormat.TRANSPARENT;
+
+            // Set mask alpha to adjust screen brightness
             float targetAlpha = (100 - mBrightness) * 0.01f;
             if (paramInt != -1) {
                 if (isShowing) {
+                    // Start animation when value changes a lot.
                     if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
                         mLayout.setAlpha(targetAlpha);
                     } else {
                         mLayout.animate().alpha(targetAlpha).setDuration(100).start();
                     }
                 } else {
-                    mLayout.animate().alpha(targetAlpha).setDuration(ANIMATE_DURATION_MILES).start();
+                    mLayout.animate().alpha(targetAlpha)
+                            .setDuration(ANIMATE_DURATION_MILES).start();
                 }
             }
         }
