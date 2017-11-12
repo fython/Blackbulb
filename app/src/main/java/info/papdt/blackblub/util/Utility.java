@@ -1,7 +1,10 @@
 package info.papdt.blackblub.util;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AppOpsManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +13,17 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import cyanogenmod.app.CMStatusBarManager;
+import cyanogenmod.app.CustomTile;
+import info.papdt.blackblub.Constants;
+import info.papdt.blackblub.R;
 import moe.shizuku.fontprovider.FontProviderClient;
 
 /**
@@ -24,6 +32,8 @@ import moe.shizuku.fontprovider.FontProviderClient;
 public final class Utility {
 
     private static boolean sFontInitialized = false;
+
+    private static final int CM_TILE_CODE = 1001;
 
     private static final int UI_VISIBILITY_TRANSPARENT_LOLLIPOP =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -39,6 +49,10 @@ public final class Utility {
         window.setNavigationBarColor(Color.TRANSPARENT);
     }
 
+    /**
+     * Apply Noto Sans CJK Full-size font to application for better display
+     * @param context Context
+     */
     public static void applyNotoSansCJK(Context context) {
         if (!sFontInitialized) {
             FontProviderClient client = FontProviderClient.create(context);
@@ -164,6 +178,8 @@ public final class Utility {
      * Request doze mode disable
      * @param activity Current activity
      */
+    @TargetApi(Build.VERSION_CODES.M)
+    @SuppressLint("BatteryLife")
     public static void requestBatteryOptimization(Activity activity) {
         try {
             Intent intent = new Intent(
@@ -184,6 +200,34 @@ public final class Utility {
     public static float dpToPx(Context context, float dp) {
         Resources r = context.getResources();
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics());
+    }
+
+    /**
+     * Create a tiles on the status bar through CyanogenMod SDK -- Fung Jichun
+     * You can learn more from: https://cyngn.com/developer-blog/introducing-the-cyanogen-platform-sdk
+     * @param context Context
+     * @param nowStatus Now
+     */
+    public static void createStatusBarTiles(Context context, boolean nowStatus) {
+        try {
+            Intent intent = new Intent();
+            intent.setAction(Constants.ACTION_UPDATE_STATUS);
+            intent.putExtra(Constants.Extra.ACTION,
+                    nowStatus ? Constants.Action.STOP : Constants.Action.START);
+
+            CustomTile customTile = new CustomTile.Builder(context)
+                    .shouldCollapsePanel(false)
+                    .setLabel(nowStatus ? R.string.notification_action_turn_off : R.string.app_name)
+                    .setIcon(nowStatus ?
+                            R.drawable.ic_qs_night_mode_on : R.drawable.ic_qs_night_mode_off)
+                    .setOnClickIntent(PendingIntent.getBroadcast(
+                            context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                    .build();
+
+            CMStatusBarManager.getInstance(context).publishTile(CM_TILE_CODE, customTile);
+        } catch (Exception e) {
+            Log.d("Utility", "Failed to create CM status bar tile. Ignore it.");
+        }
     }
 
 }

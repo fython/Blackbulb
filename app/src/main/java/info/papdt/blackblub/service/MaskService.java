@@ -100,6 +100,7 @@ public class MaskService extends Service {
                     try {
                         updateLayoutParams(mBrightness);
                         mWindowManager.updateViewLayout(mLayout, mLayoutParams);
+                        Utility.createStatusBarTiles(this, true);
                     } catch (Exception e) {
                         // do nothing....
                         e.printStackTrace();
@@ -276,6 +277,7 @@ public class MaskService extends Service {
 
     private void destroyMaskView() {
         isShowing = false;
+        Utility.createStatusBarTiles(this, false);
         cancelNotification();
         if (mLayout != null) {
             mLayout.animate()

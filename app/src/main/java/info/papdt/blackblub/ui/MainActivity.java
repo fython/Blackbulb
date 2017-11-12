@@ -73,6 +73,7 @@ public class MainActivity extends Activity {
             IMaskServiceInterface msi = IMaskServiceInterface.Stub.asInterface(service);
             try {
                 setToggleIconState(isRunning = msi.isShowing());
+                Utility.createStatusBarTiles(MainActivity.this, isRunning);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
