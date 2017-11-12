@@ -10,7 +10,7 @@ import java.util.Calendar;
 
 import info.papdt.blackblub.Constants;
 
-public class AlarmUtil {
+public final class AlarmUtil {
 
     public static final int REQUEST_ALARM_SUNRISE = 1002, REQUEST_ALARM_SUNSET = 1003;
 

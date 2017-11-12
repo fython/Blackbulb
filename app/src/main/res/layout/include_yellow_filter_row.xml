@@ -18,7 +18,7 @@
 		android:layout_height="wrap_content"
 		android:importantForAccessibility="no"
 		android:layout_marginEnd="8dp"
-		android:src="@drawable/ic_visibility_black_24dp"
+		android:src="@drawable/ic_wb_incandescent_black_24dp"
 		android:tint="?attr/icon_tint"/>
 
 	<SeekBar

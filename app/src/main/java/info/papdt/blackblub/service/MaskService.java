@@ -23,6 +23,7 @@ import info.papdt.blackblub.IMaskServiceInterface;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.ActionReceiver;
 import info.papdt.blackblub.ui.MainActivity;
+import info.papdt.blackblub.util.ColorUtil;
 import info.papdt.blackblub.util.Utility;
 
 import static android.view.WindowManager.LayoutParams.*;
@@ -261,8 +262,15 @@ public class MaskService extends Service {
         }
 
         if (mLayout != null) {
-            // TODO Eyes care mode
-            mLayout.setBackgroundColor(Color.BLACK);
+            int color = Color.BLACK;
+            if (mYellowFilterAlpha > 0) {
+                Log.i(TAG, "Alpha: " + mYellowFilterAlpha);
+                float ratio = ((float) mYellowFilterAlpha) / 100F;
+                int blend = ColorUtil.blendColors(Color.YELLOW, Color.TRANSPARENT, ratio);
+                blend = ColorUtil.blendColors(Color.RED, blend, ratio / 3F);
+                color = ColorUtil.blendColors(blend, color, ratio / 3F);
+            }
+            mLayout.setBackgroundColor(color);
         }
     }
 

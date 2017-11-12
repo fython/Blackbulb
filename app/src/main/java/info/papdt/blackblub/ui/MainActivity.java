@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
     private TextView mAdvancedModeText;
 
     private View mYellowFilterRow;
+    private SeekBar mYellowFilterSeekBar;
 
     private AlertDialog mFirstRunDialog;
 
@@ -188,6 +189,7 @@ public class MainActivity extends Activity {
         mMiniSchedulerStatus = findViewById(R.id.mini_scheduler_status_text);
         mDivider = findViewById(R.id.divider_line);
 
+        // Init rows (Better not change initialization orders)
         initSchedulerRow();
         initDarkThemeRow();
         initYellowFilterRow();
@@ -236,14 +238,15 @@ public class MainActivity extends Activity {
 
     private void initYellowFilterRow() {
         mYellowFilterRow = findViewById(R.id.yellow_filter_row);
-        SeekBar seekBar = findViewById(R.id.yellow_filter_seek_bar);
+        mYellowFilterSeekBar = findViewById(R.id.yellow_filter_seek_bar);
 
-        seekBar.setProgress(mSettings.getYellowFilterAlpha());
+        mYellowFilterSeekBar.setProgress(mSettings.getYellowFilterAlpha());
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mYellowFilterSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private int currentProgress = -1;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (!fromUser) return;
                 currentProgress = progress;
                 if (isRunning) {
                     // Only send broadcast when running
@@ -328,6 +331,13 @@ public class MainActivity extends Activity {
     }
 
     private void updateAdvancedModeRow() {
+        // Color filter is not supported in overlay all mode.
+        mYellowFilterSeekBar.setEnabled(
+                mSettings.getAdvancedMode() != Constants.AdvancedMode.OVERLAY_ALL);
+        mYellowFilterSeekBar.setProgress(
+                mSettings.getAdvancedMode() != Constants.AdvancedMode.OVERLAY_ALL ?
+                        mSettings.getYellowFilterAlpha() : 0);
+
         int textResId;
         switch (mSettings.getAdvancedMode()) {
             case Constants.AdvancedMode.NONE:
