@@ -98,6 +98,35 @@
 
 		</LinearLayout>
 
+		<LinearLayout
+			android:id="@+id/mini_scheduler_info"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="12dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<ImageView
+				android:layout_width="16dp"
+				android:layout_height="16dp"
+				android:layout_marginStart="20dp"
+				android:scaleType="centerInside"
+				android:tint="@android:color/darker_gray"
+				android:importantForAccessibility="no"
+				android:src="@drawable/ic_alarm_black_24dp"/>
+
+			<TextView
+				android:id="@+id/mini_scheduler_status_text"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/scheduler_status_on_show_enable_time"
+				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:tint="@android:color/darker_gray"
+				android:layout_marginStart="16dp"
+				android:textSize="12sp"/>
+
+		</LinearLayout>
+
 		<View
 			android:id="@+id/divider_line"
 			android:layout_width="match_parent"

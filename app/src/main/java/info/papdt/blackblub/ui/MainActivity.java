@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -46,7 +45,8 @@ public class MainActivity extends Activity {
     // Views & States
     private ImageButton mToggle;
     private ExpandIconView mExpandIcon;
-    private View mDivider;
+    private View mDivider, mMiniSchedulerBar;
+    private TextView mMiniSchedulerStatus;
 
     private View mSchedulerRow;
     private TextView mSchedulerStatus;
@@ -184,6 +184,8 @@ public class MainActivity extends Activity {
             updateExpandViews();
         });
 
+        mMiniSchedulerBar = findViewById(R.id.mini_scheduler_info);
+        mMiniSchedulerStatus = findViewById(R.id.mini_scheduler_status_text);
         mDivider = findViewById(R.id.divider_line);
 
         initSchedulerRow();
@@ -197,6 +199,8 @@ public class MainActivity extends Activity {
     private void updateExpandViews() {
         mExpandIcon.setState(isExpand ? ExpandIconView.LESS : ExpandIconView.MORE, true);
         int visibility = isExpand ? View.VISIBLE : View.GONE;
+        mMiniSchedulerBar.setVisibility(
+                !isExpand && mSettings.isAutoMode() ? View.VISIBLE : View.GONE);
         mDivider.setVisibility(visibility);
         mSchedulerRow.setVisibility(visibility);
         mDarkThemeRow.setVisibility(visibility);
@@ -265,13 +269,16 @@ public class MainActivity extends Activity {
         mSchedulerIcon.setImageResource(mSettings.isAutoMode() ?
                 R.drawable.ic_alarm_black_24dp : R.drawable.ic_alarm_off_black_24dp);
         if (mSettings.isAutoMode()) {
+            String text;
             if (isRunning && AlarmUtil.isInSleepTime(this)) {
-                mSchedulerStatus.setText(getString(R.string.scheduler_status_on_show_disable_time,
-                        mSettings.getSunriseTimeText()));
+                text = getString(R.string.scheduler_status_on_show_disable_time,
+                        mSettings.getSunriseTimeText());
             } else {
-                mSchedulerStatus.setText(getString(R.string.scheduler_status_on_show_enable_time,
-                        mSettings.getSunsetTimeText()));
+                text = getString(R.string.scheduler_status_on_show_enable_time,
+                        mSettings.getSunsetTimeText());
             }
+            mSchedulerStatus.setText(text);
+            mMiniSchedulerStatus.setText(text);
         } else {
             mSchedulerStatus.setText(R.string.scheduler_status_off);
         }
@@ -401,6 +408,7 @@ public class MainActivity extends Activity {
 
     private void setToggleIconState(boolean isRunning) {
         if (mToggle != null && !isFinishing()) {
+            updateSchedulerRow();
             mToggle.setImageResource(isRunning ?
                     R.drawable.ic_brightness_2_black_24dp : R.drawable.ic_brightness_7_black_24dp);
         }
