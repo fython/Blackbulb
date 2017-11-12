@@ -29,3 +29,4 @@
 -keep class info.papdt.blackblub.services.** {*;}
 -keep class info.papdt.blackblub.ui.** {*;}
 -keep class com.github.** {*;}
+-keep class com.wdullaer.** {*;}
