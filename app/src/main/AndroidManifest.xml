@@ -37,7 +37,7 @@
 
 	    <activity android:name=".ui.shortcut.ToggleActivity"
 		    android:label="@string/shortcut_label_switch"
-		    android:icon="@drawable/ic_shortcut_switch"
+		    android:icon="@mipmap/ic_shortcut_switch"
 		    android:launchMode="singleInstance"
 		    android:finishOnTaskLaunch="true"
 		    android:excludeFromRecents="true"

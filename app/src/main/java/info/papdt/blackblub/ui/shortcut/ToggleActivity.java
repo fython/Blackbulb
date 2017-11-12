@@ -23,7 +23,8 @@ public class ToggleActivity extends Activity {
 
 		if (Intent.ACTION_CREATE_SHORTCUT.equals(getIntent().getAction())) {
 			Intent intent = new Intent();
-			Parcelable icon = Intent.ShortcutIconResource.fromContext(this, R.drawable.ic_shortcut_switch);
+			Parcelable icon = Intent.ShortcutIconResource
+                    .fromContext(this, R.mipmap.ic_shortcut_switch);
 
 			intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.shortcut_label_switch));
 			intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, icon);
