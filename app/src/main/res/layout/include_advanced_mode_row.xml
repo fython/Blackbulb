@@ -13,26 +13,30 @@
 	tools:background="?attr/card_background_color">
 
 	<ImageView
-		android:id="@+id/dark_theme_icon"
+		android:id="@+id/advanced_mode_icon"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:importantForAccessibility="no"
-		android:src="@drawable/ic_brush_black_24dp"
+		android:src="@drawable/ic_developer_board_black_24dp"
 		android:tint="?attr/icon_tint"/>
 
 	<TextView
+		android:id="@+id/advanced_mode_text"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
 		android:layout_marginStart="16dp"
 		android:layout_marginEnd="16dp"
-		android:text="@string/action_dark_theme"
+		android:text="@string/mode_text_normal"
 		android:textAppearance="@android:style/TextAppearance.Material.Body2"/>
 
-	<Switch
-		android:id="@+id/dark_theme_switch"
+	<ImageButton
+		android:id="@+id/btn_advanced_mode_settings"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_marginEnd="8dp"/>
+		android:layout_marginEnd="8dp"
+		android:src="@drawable/ic_settings_black_24dp"
+		android:tint="?attr/icon_tint"
+		android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
 </LinearLayout>

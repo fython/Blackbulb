@@ -8,6 +8,19 @@
 	<string name="scheduler_status_off">已关闭</string>
 	<string name="action_settings">设置</string>
 
+	<!-- Advanced Mode Row -->
+	<string name="mode_text_no_permission">零权限模式</string>
+	<string name="mode_text_normal">正常模式</string>
+	<string name="mode_text_overlay_all">全覆盖模式</string>
+
+	<string name="mode_desc_no_permission">不需要任何权限，但无法覆盖锁定界面、状态栏和导航栏。而且在 Android 7.0 后的系统可能无法工作。</string>
+	<string name="mode_desc_normal">推荐模式。这是最稳定的，尽管无法变暗导航栏且导致无法进行敏感操作（如手动安装应用、同意权限请求）。</string>
+	<string name="mode_desc_overlay_all">状态栏和导航栏都可以变暗，但在部分应用中会出现闪烁现象。</string>
+
+	<string name="mode_android_oreo_explanation_dialog_title">为什么不能更换高级模式？</string>
+	<string name="mode_android_oreo_explanation_dialog_message">从 Android Oreo (8.0) 开始，系统严格地限制了悬浮窗权限，旧方法已经不再有效。也许未来我们会支持更好的方法来控制亮度。</string>
+	<string name="mode_android_oreo_explanation_read_more">了解更多</string>
+
 	<!-- Notification Channel -->
 	<string name="notification_channel_running_status">运行状态</string>
 
@@ -42,16 +55,10 @@
 
 	<string name="dialog_choose_mode">选择模式</string>
 
-	<string name="mode_text_no_permission">零权限模式</string>
-	<string name="mode_text_normal">正常模式</string>
-	<string name="mode_text_overlay_all">全覆盖模式</string>
 	<string name="mode_text_eyes_care">护眼模式</string>
 
 	<string name="mode_text_no_permission_warning">(可能无法工作)</string>
 
-	<string name="mode_desc_no_permission">不需要任何权限，但无法覆盖锁定界面、状态栏和导航栏。而且在 Android 7.0 后的系统可能无法工作。</string>
-	<string name="mode_desc_normal">推荐模式。这是最稳定的，尽管无法变暗导航栏且导致无法进行敏感操作（如手动安装应用、同意权限请求）。</string>
-	<string name="mode_desc_overlay_all">状态栏和导航栏都可以变暗，但在部分应用中会出现闪烁现象。</string>
 	<string name="mode_desc_eyes_care">接近于正常模式，可以过滤蓝光保护你的眼睛。</string>
 	<string name="about_donate_alipay">通过支付宝支持作者</string>
 

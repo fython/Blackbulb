@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +34,7 @@ import info.papdt.blackblub.IMaskServiceInterface;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.ActionReceiver;
 import info.papdt.blackblub.service.MaskService;
+import info.papdt.blackblub.ui.adapter.ModeListAdapter;
 import info.papdt.blackblub.ui.dialog.SchedulerDialog;
 import info.papdt.blackblub.util.AlarmUtil;
 import info.papdt.blackblub.util.Settings;
@@ -42,7 +45,6 @@ public class MainActivity extends Activity {
 
     // Views & States
     private ImageButton mToggle;
-    private SeekBar mSeekBar;
     private ExpandIconView mExpandIcon;
     private View mDivider;
 
@@ -51,10 +53,11 @@ public class MainActivity extends Activity {
     private ImageView mSchedulerIcon;
 
     private View mDarkThemeRow;
-    private Switch mDarkThemeSwitch;
+
+    private View mAdvancedModeRow;
+    private TextView mAdvancedModeText;
 
     private View mYellowFilterRow;
-    private SeekBar mYellowFilterSeekBar;
 
     private AlertDialog mFirstRunDialog;
 
@@ -145,13 +148,13 @@ public class MainActivity extends Activity {
         });
 
         // Set up seekBar
-        mSeekBar = findViewById(R.id.seek_bar);
+        SeekBar seekBar = findViewById(R.id.seek_bar);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            mSeekBar.setProgress(mSettings.getBrightness(60) - 20, true);
+            seekBar.setProgress(mSettings.getBrightness(60) - 20, true);
         } else {
-            mSeekBar.setProgress(mSettings.getYellowFilterAlpha());
+            seekBar.setProgress(mSettings.getYellowFilterAlpha());
         }
-        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int currentProgress = -1;
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
@@ -186,6 +189,7 @@ public class MainActivity extends Activity {
         initSchedulerRow();
         initDarkThemeRow();
         initYellowFilterRow();
+        initAdvancedModeRow();
 
         updateExpandViews();
     }
@@ -197,15 +201,16 @@ public class MainActivity extends Activity {
         mSchedulerRow.setVisibility(visibility);
         mDarkThemeRow.setVisibility(visibility);
         mYellowFilterRow.setVisibility(visibility);
+        mAdvancedModeRow.setVisibility(visibility);
     }
 
     private void initSchedulerRow() {
         mSchedulerRow = findViewById(R.id.scheduler_row);
         mSchedulerIcon = findViewById(R.id.scheduler_icon);
         mSchedulerStatus = findViewById(R.id.tv_scheduler_status);
-        Button mSchedulerSettingsButton = findViewById(R.id.btn_scheduler_settings);
+        Button settingsButton = findViewById(R.id.btn_scheduler_settings);
 
-        mSchedulerSettingsButton.setOnClickListener(v -> {
+        settingsButton.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PowerManager pm = getSystemService(PowerManager.class);
                 if (pm != null && !pm.isIgnoringBatteryOptimizations(getPackageName())) {
@@ -227,11 +232,11 @@ public class MainActivity extends Activity {
 
     private void initYellowFilterRow() {
         mYellowFilterRow = findViewById(R.id.yellow_filter_row);
-        mYellowFilterSeekBar = findViewById(R.id.yellow_filter_seek_bar);
+        SeekBar seekBar = findViewById(R.id.yellow_filter_seek_bar);
 
-        mYellowFilterSeekBar.setProgress(mSettings.getYellowFilterAlpha());
+        seekBar.setProgress(mSettings.getYellowFilterAlpha());
 
-        mYellowFilterSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             private int currentProgress = -1;
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -274,7 +279,7 @@ public class MainActivity extends Activity {
 
     private void initDarkThemeRow() {
         mDarkThemeRow = findViewById(R.id.dark_theme_row);
-        mDarkThemeSwitch = findViewById(R.id.dark_theme_switch);
+        Switch mDarkThemeSwitch = findViewById(R.id.dark_theme_switch);
 
         mDarkThemeSwitch.setChecked(mSettings.isDarkTheme());
 
@@ -287,8 +292,74 @@ public class MainActivity extends Activity {
         });
     }
 
+    private void initAdvancedModeRow() {
+        mAdvancedModeRow = findViewById(R.id.advanced_mode_row);
+        mAdvancedModeText = findViewById(R.id.advanced_mode_text);
+        ImageButton settingsButton = findViewById(R.id.btn_advanced_mode_settings);
+
+        settingsButton.setOnClickListener(v -> showAdvancedModeDialog());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            settingsButton.setImageResource(R.drawable.ic_help_outline_black_24dp);
+            settingsButton.setOnClickListener(v -> {
+                // Show explanation
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.mode_android_oreo_explanation_dialog_title)
+                        .setMessage(R.string.mode_android_oreo_explanation_dialog_message)
+                        .setNeutralButton(R.string.mode_android_oreo_explanation_read_more,
+                                (d, w) -> startActivity(
+                                        new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                                getString(
+                                                        R.string.mode_android_oreo_explanation_url)
+                                        )))
+                        )
+                        .setPositiveButton(android.R.string.ok, (d, w) -> {})
+                        .show();
+            });
+        }
+
+        updateAdvancedModeRow();
+    }
+
+    private void updateAdvancedModeRow() {
+        int textResId;
+        switch (mSettings.getAdvancedMode()) {
+            case Constants.AdvancedMode.NONE:
+                textResId = R.string.mode_text_normal;
+                break;
+            case Constants.AdvancedMode.NO_PERMISSION:
+                textResId = R.string.mode_text_no_permission;
+                break;
+            case Constants.AdvancedMode.OVERLAY_ALL:
+                textResId = R.string.mode_text_overlay_all;
+                break;
+            default:
+                throw new IllegalStateException("Unsupported advanced mode.");
+        }
+        mAdvancedModeText.setText(textResId);
+    }
+
     private void showSchedulerDialog() {
         new SchedulerDialog(this, dialogInterface -> updateSchedulerRow()).show();
+    }
+
+    private void showAdvancedModeDialog() {
+        int current = mSettings.getAdvancedMode();
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.dialog_choose_mode)
+                .setSingleChoiceItems(new ModeListAdapter(current), current, (dialog, which) -> {
+                    AlertDialog modeDialog = (AlertDialog) dialog;
+                    ModeListAdapter adapter =
+                            (ModeListAdapter) modeDialog.getListView().getAdapter();
+                    // Set mode value
+                    mSettings.setAdvancedMode(adapter.getItem(which).getModeId());
+                    updateAdvancedModeRow();
+                    // Restart service
+                    mToggle.performClick();
+                    mToggle.postDelayed(() -> mToggle.performClick(), 800);
+                    dialog.dismiss();
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     @Override

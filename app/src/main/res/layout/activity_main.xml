@@ -124,6 +124,12 @@
 			tools:visibility="visible"
 			layout="@layout/include_dark_theme_row"/>
 
+		<include
+			android:id="@+id/advanced_mode_row"
+			android:visibility="gone"
+			tools:visibility="visible"
+			layout="@layout/include_advanced_mode_row"/>
+
 	</LinearLayout>
 
 </FrameLayout>
