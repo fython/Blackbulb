@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ public class MainActivity extends Activity {
 
     // Views & States
     private ImageButton mToggle;
+    private SeekBar mSeekBar;
     private ExpandIconView mExpandIcon;
     private View mDivider, mMiniSchedulerBar;
     private TextView mMiniSchedulerStatus, mButtonTip;
@@ -150,13 +152,9 @@ public class MainActivity extends Activity {
         });
 
         // Set up seekBar
-        SeekBar seekBar = findViewById(R.id.seek_bar);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            seekBar.setProgress(mSettings.getBrightness(60) - 20, true);
-        } else {
-            seekBar.setProgress(mSettings.getYellowFilterAlpha());
-        }
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        mSeekBar = findViewById(R.id.seek_bar);
+        setSeekBarProgress(mSettings.getBrightness(60) - 20);
+        mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int currentProgress = -1;
             @Override public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
@@ -418,6 +416,34 @@ public class MainActivity extends Activity {
                     startMaskService();
                 }
             }
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Support control brightness by volume buttons
+        int action = event.getAction();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if (action == KeyEvent.ACTION_DOWN) {
+                    setSeekBarProgress(mSeekBar.getProgress() - 5);
+                }
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if (action == KeyEvent.ACTION_DOWN) {
+                    setSeekBarProgress(mSeekBar.getProgress() + 5);
+                }
+                return true;
+        }
+        return false;
+    }
+
+    private void setSeekBarProgress(int progress) {
+        progress = Math.max(0, Math.min(80, progress));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            mSeekBar.setProgress(progress, true);
+        } else {
+            mSeekBar.setProgress(progress);
         }
     }
 
