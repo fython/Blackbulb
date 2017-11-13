@@ -426,10 +426,7 @@ public class MainActivity extends Activity {
     }
 
     private void startMaskService() {
-        Intent intent = new Intent(MainActivity.this, ActionReceiver.class);
-        intent.setAction(Constants.ACTION_UPDATE_STATUS);
-        intent.putExtra(Constants.Extra.ACTION, Constants.Action.START);
-        sendBroadcast(intent);
+        ActionReceiver.sendActionStart(this);
         setToggleIconState(isRunning = true);
 
         // For safe

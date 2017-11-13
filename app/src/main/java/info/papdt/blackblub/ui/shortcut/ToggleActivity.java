@@ -9,7 +9,6 @@ import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.RemoteException;
 
-import info.papdt.blackblub.Constants;
 import info.papdt.blackblub.IMaskServiceInterface;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.receiver.ActionReceiver;
@@ -48,11 +47,7 @@ public class ToggleActivity extends Activity {
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			IMaskServiceInterface msi = IMaskServiceInterface.Stub.asInterface(service);
 			try {
-                Intent intent = new Intent(ToggleActivity.this, ActionReceiver.class);
-                intent.setAction(Constants.ACTION_UPDATE_STATUS);
-                intent.putExtra(Constants.Extra.ACTION,
-                        !msi.isShowing() ? Constants.Action.START : Constants.Action.STOP);
-                sendBroadcast(intent);
+			    ActionReceiver.sendActionStartOrStop(ToggleActivity.this, !msi.isShowing());
                 unbindService(this);
                 finish();
 			} catch (RemoteException e) {

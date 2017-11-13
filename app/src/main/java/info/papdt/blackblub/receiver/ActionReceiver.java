@@ -9,6 +9,7 @@ import android.util.Log;
 import info.papdt.blackblub.Constants;
 import info.papdt.blackblub.service.MaskService;
 import info.papdt.blackblub.service.MaskTileService;
+import info.papdt.blackblub.util.AlarmUtil;
 import info.papdt.blackblub.util.Settings;
 import info.papdt.blackblub.util.Utility;
 
@@ -58,7 +59,7 @@ public class ActionReceiver extends BroadcastReceiver {
                 context.startService(tileUpdateIntent);
             }
         } else if (Constants.ACTION_ALARM_START.equals(intent.getAction())) {
-            // Utility.updateAlarmSettings(context);
+            AlarmUtil.updateAlarmSettings(context);
             Intent intent1 = new Intent(context, MaskService.class);
             intent1.putExtra(Constants.Extra.ACTION, Constants.Action.START);
             intent1.putExtra(Constants.Extra.BRIGHTNESS, settings.getBrightness(50));
@@ -71,7 +72,7 @@ public class ActionReceiver extends BroadcastReceiver {
                 context.startService(tileUpdateIntent);
             }
         } else if (Constants.ACTION_ALARM_STOP.equals(intent.getAction())) {
-            // Utility.updateAlarmSettings(context);
+            AlarmUtil.updateAlarmSettings(context);
             Intent intent1 = new Intent(context, MaskService.class);
             intent1.putExtra(Constants.Extra.ACTION, Constants.Action.STOP);
             Utility.startForegroundService(context, intent1);
@@ -82,6 +83,55 @@ public class ActionReceiver extends BroadcastReceiver {
                 tileUpdateIntent.putExtra(Constants.Extra.ACTION, Constants.Action.STOP);
                 context.startService(tileUpdateIntent);
             }
+        }
+    }
+
+    /**
+     * Send action to ActionReceiver
+     * @param context Context
+     * @param action Action id
+     */
+    public static void sendAction(Context context, int action) {
+        Intent activeIntent = new Intent(context, ActionReceiver.class);
+        activeIntent.setAction(Constants.ACTION_UPDATE_STATUS);
+        activeIntent.putExtra(Constants.Extra.ACTION, action);
+        context.sendBroadcast(activeIntent);
+    }
+
+    /**
+     * Send start action
+     * @param context Context
+     */
+    public static void sendActionStart(Context context) {
+        sendAction(context, Constants.Action.START);
+    }
+
+    /**
+     * Send pause action
+     * @param context Context
+     */
+    public static void sendActionPause(Context context) {
+        sendAction(context, Constants.Action.PAUSE);
+    }
+
+    /**
+     * Send stop action
+     * @param context Context
+     */
+    public static void sendActionStop(Context context) {
+        sendAction(context, Constants.Action.STOP);
+    }
+
+    /**
+     * Send start or stop action
+     * @param context Context
+     * @param shouldStart Whether it should send start action
+     */
+    public static void sendActionStartOrStop(Context context, boolean shouldStart) {
+        if (shouldStart) {
+            sendActionStart(context);
+        } else {
+            sendActionStop(context);
         }
     }
 

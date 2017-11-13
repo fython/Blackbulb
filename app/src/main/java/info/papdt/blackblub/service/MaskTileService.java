@@ -10,6 +10,7 @@ import android.util.Log;
 
 import info.papdt.blackblub.Constants;
 import info.papdt.blackblub.R;
+import info.papdt.blackblub.receiver.ActionReceiver;
 
 @TargetApi(Build.VERSION_CODES.N)
 public class MaskTileService extends TileService {
@@ -19,29 +20,21 @@ public class MaskTileService extends TileService {
 
     @Override
     public void onClick(){
-        Log.i(TAG, "Tile service onClick method called");
+        Log.d(TAG, "Tile service onClick method called");
         super.onClick();
         Tile tile = getQsTile();
         if (tile == null) return;
         int status = tile.getState();
-        Log.i(TAG, "status:" +status+"\t receive");
+        Log.d(TAG, "status:" + status + "\t receive");
 
-        switch (status){
+        switch (status) {
             case Tile.STATE_INACTIVE:
-                Intent activeIntent = new Intent();
-                activeIntent.setAction(Constants.ACTION_UPDATE_STATUS);
-                activeIntent.putExtra(Constants.Extra.ACTION, Constants.Action.START);
-                sendBroadcast(activeIntent);
+                ActionReceiver.sendActionStart(this);
                 updateActiveTile(tile);
                 break;
             case Tile.STATE_ACTIVE:
-                Intent inActiveIntent = new Intent();
-                inActiveIntent.setAction(Constants.ACTION_UPDATE_STATUS);
-                inActiveIntent.putExtra(Constants.Extra.ACTION, Constants.Action.STOP);
-                sendBroadcast(inActiveIntent);
+                ActionReceiver.sendActionStop(this);
                 updateInactiveTile(tile);
-                break;
-            default:
                 break;
         }
     }
