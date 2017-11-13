@@ -31,9 +31,6 @@
 	<string name="action_about">關於</string>
 	<string name="action_dark_theme">暗色主題</string>
 
-	<string name="text_light">亮</string>
-	<string name="text_dark">暗</string>
-
 	<string name="about_author">作者: 紙飛機開發團隊 - 燒餅</string>
 	<string name="about_text">"夜間螢幕有助減少夜間螢幕強光對視力造成的損傷。\n一些設備對某些用戶而言仍偏高，我們可以通過建立遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： fythonx\@gmail.com"</string>
 	<string name="about_other">Github 項目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n徽標設計: 新浪@翟宅宅Jack</string>
@@ -57,11 +54,7 @@
 
 	<string name="dialog_choose_mode">選擇工作模式</string>
 
-	<string name="mode_text_eyes_care">護眼模式</string>
 
-	<string name="mode_text_no_permission_warning">(可能無法工作)</string>
-
-	<string name="mode_desc_eyes_care">接近於常規模式，可以過濾藍光保護你的眼睛。</string>
 	<string name="about_donate_alipay">透過支付寶支持作者</string>
 
 	<string name="scheduler_title">定時開關</string>

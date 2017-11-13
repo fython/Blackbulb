@@ -2,8 +2,6 @@
 <resources>
     <string name="app_name">夜用画面</string>
     <string name="about_author">開発者 : Paper Airplane Dev - Fung Jichun</string>
-    <string name="text_dark">暗い</string>
-    <string name="text_light">明るい</string>
     <string name="scheduler_title">Auto モード</string>
     <string name="notification_running_title">夜用画面は動作しています</string>
     <string name="notification_running_msg">タップすると設定が開きます</string>
@@ -13,9 +11,7 @@
     <string name="notification_action_turn_off">停止</string>
     <string name="mode_text_overlay_all">Overlay System モード</string>
     <string name="mode_text_normal">Normal モード</string>
-    <string name="mode_text_no_permission_warning">(動作しない可能性があります)</string>
     <string name="mode_text_no_permission">権限不要のモード</string>
-    <string name="mode_text_eyes_care">目を保護するモード</string>
     <string name="mode_desc_overlay_all">ステータスバーとナビゲーションバーの明るさも制御することができますが、アプリによっては画面が点滅する場合があります。</string>
     <string name="mode_desc_normal">おすすめのモードです。安定して動作しますが、ナビゲーションバーの明さは制御できません。また、「インストール」や「許可」の確認表示をタップする際に妨げとなることがあります。</string>
     <string name="dialog_overlay_enable_message">有効にすると画面を最前面からマスクするできるようになります。お使いの機種 (MIUI や Android 6.0 など) によっては権限の許可が必要になります。\n初回動作の確認の際に正しく動作しない場合は、「他のアプリの上に表示」を許可するようこのアプリを設定してください。</string>
@@ -29,7 +25,6 @@
     <string name="dialog_ignore_battery_opt_title">ヒント</string>
     <string name="action_about">夜用画面について</string>
     <string name="mask_fail_to_start">マスクの開始に失敗しました。システムによって権限が拒否されていないか確認してください。</string>
-    <string name="mode_desc_eyes_care">Normal モードと似ていますが、それに加えてブルーライトを軽減して夜間に目を保護します。</string>
     <string name="mode_desc_no_permission">権限を必要としませんが、ロックスクリーンやステータスバーおよびナビゲーションバーの明るさを制御することはできません。なお Android 7.0 では動作しません。</string>
     <string name="dialog_ignore_battery_opt_msg">Android 6.0 からのバッテリーの最適化によって動作を自動的に開始／停止することができない可能性があります。動作に問題がある場合は、システム設定でバッテリーの最適化を解除して確認してください。</string>
 </resources>

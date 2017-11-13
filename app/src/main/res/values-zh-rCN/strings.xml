@@ -31,9 +31,6 @@
 	<string name="action_about">关于</string>
 	<string name="action_dark_theme">暗色主题</string>
 
-	<string name="text_light">亮</string>
-	<string name="text_dark">暗</string>
-
 	<string name="about_author">作者: 纸飞机开发团队 - 烧饼</string>
 	<string name="about_text">"夜间屏幕可以帮助你减少夜晚屏幕强光对眼睛造成的损害。\n一些设备的最低亮度对于用户来讲仍然较高，我们可以通过创建遮罩使亮度更低。\n\n如果你想在物质上支持这个应用，你可以打赏到我的支付宝ww： fythonx\@gmail.com"</string>
 	<string name="about_other">Github 项目地址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n图标设计: 新浪@翟宅宅Jack</string>
@@ -58,11 +55,6 @@
 
 	<string name="dialog_choose_mode">选择模式</string>
 
-	<string name="mode_text_eyes_care">护眼模式</string>
-
-	<string name="mode_text_no_permission_warning">(可能无法工作)</string>
-
-	<string name="mode_desc_eyes_care">接近于正常模式，可以过滤蓝光保护你的眼睛。</string>
 	<string name="about_donate_alipay">通过支付宝支持作者</string>
 
 	<string name="scheduler_title">定时开关</string>

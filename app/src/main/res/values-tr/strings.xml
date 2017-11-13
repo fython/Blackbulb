@@ -5,9 +5,6 @@
 	<string name="action_about">Hakkında</string>
 	<string name="action_dark_theme">Karanlık Tema</string>
 
-	<string name="text_light">AYDINLIK</string>
-	<string name="text_dark">KARANLIK</string>
-
 	<string name="about_author">Geliştirici: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen; sizi telefonunuzun yüksek ekran parlaklığının zararlarından korur.\nBazı cihazlar\'ın ekranı düşük parlaklığa rağmen aydınlık olabilir, ekranda maske oluşturarak,bu durumun önüne geçebilirsiniz.\n\nEğer uygulamayı desteklemek istiyorsanız bana buradan bağışta bulunabilirsiniz: Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Github Kaynak Kodları: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBenim blogum: <a href="http://feng.moe">http://feng.moe</a>\nBenim sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Tasarımcısı: Google+ Youlun Zhai</string>

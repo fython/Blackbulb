@@ -7,9 +7,6 @@
 	<string name="action_about">À propos</string>
 	<string name="action_dark_theme">Thème sombre</string>
 
-	<string name="text_light">CLAIR</string>
-	<string name="text_dark">SOMBRE</string>
-
 	<string name="about_author">Auteur : Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen peut vous aider à prévenir les méfaits de la lumière forte la nuit.\nLa luminosité minimale sur certains appareils reste élevée nous pouvons donc la rendre plus faible en créant un masque sur l\'écran.\n\nSi vous souhaitez soutenir cette application, vous pouvez envoyer un peu d\'argent sur mon Alipay : fythonx\@gmail.com"</string>
 	<string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBlog : <a href="http://feng.moe">http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
@@ -36,13 +33,9 @@
 	<string name="mode_text_no_permission">Mode sans autorisation</string>
 	<string name="mode_text_normal">Mode normal</string>
 	<string name="mode_text_overlay_all">Mode système superposé</string>
-	<string name="mode_text_eyes_care">Mode soin des yeux</string>
-
-	<string name="mode_text_no_permission_warning">(Peut ne pas fonctionner)</string>
 
 	<string name="mode_desc_no_permission">Aucune autorisation requise. Mais il ne recouvre pas l\'écran de verrouillage, les barres d\'état et de navigation. Et il ne fonctionne pas sur Android 7.0.</string>
 	<string name="mode_desc_normal">Mode recommandé. Il est stable, mais il ne recouvre pas la barre de navigation et empêche l\'utilisateur d\'appuyer sur \"Installer\" ou \"Autoriser\" dans une fenêtre de dialogue.</string>
 	<string name="mode_desc_overlay_all">Vous pouvez recouvrir à la fois les barres d\'état et de navigation. Cependant, il peut faire clignoter l\'écran dans certaines applications.</string>
-	<string name="mode_desc_eyes_care">Il est proche du mode normal. Mais il peut filtrer la lumière bleue et protéger vos yeux la nuit.</string>
 
 </resources>

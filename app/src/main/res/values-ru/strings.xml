@@ -9,9 +9,6 @@
 	<string name="action_about">О программе</string>
 	<string name="action_dark_theme">Тёмная тема</string>
 
-	<string name="text_light">СВЕТЛО</string>
-	<string name="text_dark">ТЕМНО</string>
-
 	<string name="about_author">Автор: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Ночной экран поможет защитить вас от вреда сильного света ночью.\nСамая низкая яркость некоторых устройств по-прежнему высока, поэтому мы можем снизить ее, создав маску на экране.\n\nЕсли вы хотите поддержать это приложение, вы можете отправить деньги на мой Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Репозиторий Github: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nМой блог: <a href="http://feng.moe">http://feng.moe</a>\nМой Sina Weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nДизайнер логотипов: Google+ Youlun Zhai</string>
@@ -38,14 +35,10 @@
 	<string name="mode_text_no_permission">No Permission Mode</string>
 	<string name="mode_text_normal">Normal Mode</string>
 	<string name="mode_text_overlay_all">Overlay System Mode</string>
-	<string name="mode_text_eyes_care">Eyes Care Mode</string>
-
-	<string name="mode_text_no_permission_warning">(May not work)</string>
 
 	<string name="mode_desc_no_permission">No permission is needed. But it cannot dim lockscreen, status bar or navigation bar. And it doesn\'t work in Android 7.0.</string>
 	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim navigation bar and prevent user from clicking \"Install\" or \"Allow\" in permission dialog.</string>
 	<string name="mode_desc_overlay_all">You can dim both status bar and navigation bar. However, it may make screen flashing in some apps.</string>
-	<string name="mode_desc_eyes_care">It is close to Normal Mode. But it can filter blue light and protect your eyes at night.</string>
 
 	<string name="scheduler_title">Auto mode</string>
 
