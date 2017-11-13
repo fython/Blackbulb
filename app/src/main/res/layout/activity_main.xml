@@ -59,7 +59,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:gravity="center_vertical"
-			android:orientation="horizontal">
+			android:orientation="horizontal"
+			android:layout_marginBottom="4dp">
 
 			<ImageButton
 				android:id="@+id/toggle"
@@ -97,6 +98,15 @@
 				app:eiv_padding="8dp"/>
 
 		</LinearLayout>
+
+		<TextView
+			android:id="@+id/button_tips"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:padding="16dp"
+			android:background="?attr/icon_tint"
+			android:textColor="@android:color/white"
+			android:text="@string/button_tip_text"/>
 
 		<LinearLayout
 			android:id="@+id/mini_scheduler_info"

@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
     private ImageButton mToggle;
     private ExpandIconView mExpandIcon;
     private View mDivider, mMiniSchedulerBar;
-    private TextView mMiniSchedulerStatus;
+    private TextView mMiniSchedulerStatus, mButtonTip;
 
     private View mSchedulerRow;
     private TextView mSchedulerStatus;
@@ -189,6 +189,10 @@ public class MainActivity extends Activity {
         mMiniSchedulerBar = findViewById(R.id.mini_scheduler_info);
         mMiniSchedulerStatus = findViewById(R.id.mini_scheduler_status_text);
         mDivider = findViewById(R.id.divider_line);
+
+        // Show/Hide button tip
+        mButtonTip = findViewById(R.id.button_tips);
+        if (!mSettings.needButtonTip()) mButtonTip.setVisibility(View.GONE);
 
         // Init rows (Better not change initialization orders)
         initSchedulerRow();
@@ -426,6 +430,12 @@ public class MainActivity extends Activity {
     }
 
     private void startMaskService() {
+        if (mSettings.needButtonTip()) {
+            mSettings.setNeedButtonTip(false);
+            mButtonTip.setVisibility(View.GONE);
+        }
+
+        // Send start action
         ActionReceiver.sendActionStart(this);
         setToggleIconState(isRunning = true);
 

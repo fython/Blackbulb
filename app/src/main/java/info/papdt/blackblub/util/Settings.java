@@ -16,7 +16,7 @@ public class Settings {
 			KEY_DARK_THEME = "dark_theme", KEY_AUTO_MODE = "auto_mode",
 			KEY_HOURS_SUNRISE = "hrs_sunrise", KEY_MINUTES_SUNRISE = "min_sunrise",
 			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset",
-			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha";
+			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha", KEY_BUTTON_TIP = "button_tip";
 
 	private volatile static Settings sInstance;
 
@@ -124,6 +124,14 @@ public class Settings {
 
     public void setYellowFilterAlpha(int alpha) {
 	    putInt(KEY_YELLOW_FILTER_ALPHA, alpha);
+    }
+
+    public boolean needButtonTip() {
+	    return getBoolean(KEY_BUTTON_TIP, true);
+    }
+
+    public void setNeedButtonTip(boolean value) {
+	    putBoolean(KEY_BUTTON_TIP, value);
     }
 
 }

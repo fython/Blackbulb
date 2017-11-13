@@ -2,6 +2,9 @@
 
 	<string name="app_name">夜间屏幕</string>
 
+	<!-- Button tip -->
+	<string name="button_tip_text">提示: 点击左上角的按钮来打开夜间屏幕。</string>
+
 	<!-- Scheduler Row -->
 	<string name="scheduler_status_on_show_enable_time">自动开启于 %s。</string>
 	<string name="scheduler_status_on_show_disable_time">将在 %s 时关闭。</string>
