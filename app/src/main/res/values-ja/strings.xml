@@ -28,7 +28,6 @@
     <string name="mode_android_oreo_explanation_dialog_title">Why cannot change advanced mode?</string>
     <string name="mode_android_oreo_explanation_dialog_message">Since Android Oreo (8.0), system strictly limits the permission of floating window. Old methods were no longer available. Maybe we will support better methods to control brightness in the future.</string>
     <string name="mode_android_oreo_explanation_read_more">Read more</string>
-    <string name="mode_android_oreo_explanation_url" translatable="false">https://developer.android.com/about/versions/oreo/android-8.0-changes.html#all-aw</string>
 
     <!-- Notification Channel -->
     <string name="notification_channel_running_status">Running status</string>
