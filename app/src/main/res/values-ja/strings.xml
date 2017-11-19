@@ -40,7 +40,6 @@
 
     <string name="about_author">開発者 : Paper Airplane Dev - Fung Gwo</string>
     <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさの強いものがありますが、このアプリでは明るさを抑えるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。</string>
-    <string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Designer: Google+ Youlun Zhai</string>
 
     <string name="about_donate_alipay">Support author via Alipay</string>
 
