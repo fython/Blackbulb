@@ -33,7 +33,7 @@
     <string name="notification_channel_running_status">Running status</string>
 
     <!-- Shortcut -->
-    <string name="shortcut_label_switch">Toggle</string>
+    <string name="shortcut_label_switch">切り替え</string>
 
     <!-- About -->
     <string name="action_about">夜用画面について</string>
@@ -41,7 +41,7 @@
     <string name="about_author">開発者 : Paper Airplane Dev - Fung Gwo</string>
     <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさの強いものがありますが、このアプリでは明るさを抑えるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。</string>
 
-    <string name="about_donate_alipay">Support author via Alipay</string>
+    <string name="about_donate_alipay">Alipay で開発者に寄付</string>
 
     <string name="dialog_overlay_enable_title">ステータスバー上のマスクを有効にする</string>
     <string name="dialog_overlay_enable_message">有効にすると画面を最前面からマスクするできるようになります。お使いの機種 (MIUI や Android 6.0 など) によっては権限の許可が必要になります。\n初回動作の確認の際に正しく動作しない場合は、「他のアプリの上に表示」を許可するようこのアプリを設定してください。</string>
