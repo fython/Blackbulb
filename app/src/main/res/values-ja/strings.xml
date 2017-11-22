@@ -3,13 +3,13 @@
     <string name="app_name">夜用画面</string>
 
     <!-- Button tip -->
-    <string name="button_tip_text">Tips: Click the top left button to turn on Night Screen.</string>
+    <string name="button_tip_text">ヒント : 左上のボタンをタップして夜用画面を開始します</string>
 
     <!-- Scheduler Row -->
-    <string name="scheduler_status_on_show_enable_time">Automatically enable at %s.</string>
-    <string name="scheduler_status_on_show_disable_time">It will be end at %s.</string>
-    <string name="scheduler_status_off">OFF</string>
-    <string name="action_settings">Settings</string>
+    <string name="scheduler_status_on_show_enable_time">%s に自動的に有効になります</string>
+    <string name="scheduler_status_on_show_disable_time">%s に停止します</string>
+    <string name="scheduler_status_off">無効</string>
+    <string name="action_settings">設定</string>
 
     <!-- Dark theme Row -->
     <string name="action_dark_theme">ダークテーマ</string>
@@ -25,12 +25,12 @@
     <string name="mode_desc_normal">おすすめのモードです。安定して動作しますが、ナビゲーションバーの明さは制御できません。また、「インストール」や「許可」の確認表示をタップする際に妨げとなることがあります。</string>
     <string name="mode_desc_overlay_all">ステータスバーとナビゲーションバーの明るさも制御することができますが、アプリによっては画面が点滅する場合があります。</string>
 
-    <string name="mode_android_oreo_explanation_dialog_title">Why cannot change advanced mode?</string>
-    <string name="mode_android_oreo_explanation_dialog_message">Since Android Oreo (8.0), system strictly limits the permission of floating window. Old methods were no longer available. Maybe we will support better methods to control brightness in the future.</string>
-    <string name="mode_android_oreo_explanation_read_more">Read more</string>
+    <string name="mode_android_oreo_explanation_dialog_title">なぜ Advanced モードを変更できないのでしょうか？</string>
+    <string name="mode_android_oreo_explanation_dialog_message">Android Oreo (8.0) から、他のアプリの上に表示する権限が厳しく制限されています．以前の方法は利用できなくなりました。今後、明るさを変更するためのより良い方法を提供する予定です。</string>
+    <string name="mode_android_oreo_explanation_read_more">詳細</string>
 
     <!-- Notification Channel -->
-    <string name="notification_channel_running_status">Running status</string>
+    <string name="notification_channel_running_status">動作状態</string>
 
     <!-- Shortcut -->
     <string name="shortcut_label_switch">切り替え</string>
