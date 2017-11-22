@@ -1,30 +1,71 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">夜用画面</string>
-    <string name="about_author">開発者 : Paper Airplane Dev - Fung Jichun</string>
-    <string name="scheduler_title">Auto モード</string>
+
+    <!-- Button tip -->
+    <string name="button_tip_text">ヒント : 左上のボタンをタップして夜用画面を開始します</string>
+
+    <!-- Scheduler Row -->
+    <string name="scheduler_status_on_show_enable_time">%s に自動的に有効になります</string>
+    <string name="scheduler_status_on_show_disable_time">%s に停止します</string>
+    <string name="scheduler_status_off">無効</string>
+    <string name="action_settings">設定</string>
+
+    <!-- Dark theme Row -->
+    <string name="action_dark_theme">ダークテーマ</string>
+
+    <!-- Advanced Row -->
+    <string name="dialog_choose_mode">モードの選択</string>
+
+    <string name="mode_text_no_permission">権限不要のモード</string>
+    <string name="mode_text_normal">Normal モード</string>
+    <string name="mode_text_overlay_all">Overlay System モード</string>
+
+    <string name="mode_desc_no_permission">権限を必要としませんが、ロックスクリーンやステータスバーおよびナビゲーションバーの明るさを制御することはできません。なお Android 7.0 では動作しません。</string>
+    <string name="mode_desc_normal">おすすめのモードです。安定して動作しますが、ナビゲーションバーの明さは制御できません。また、「インストール」や「許可」の確認表示をタップする際に妨げとなることがあります。</string>
+    <string name="mode_desc_overlay_all">ステータスバーとナビゲーションバーの明るさも制御することができますが、アプリによっては画面が点滅する場合があります。</string>
+
+    <string name="mode_android_oreo_explanation_dialog_title">なぜ Advanced モードを変更できないのでしょうか？</string>
+    <string name="mode_android_oreo_explanation_dialog_message">Android Oreo (8.0) から、他のアプリの上に表示する権限が厳しく制限されています．以前の方法は利用できなくなりました。今後、明るさを変更するためのより良い方法を提供する予定です。</string>
+    <string name="mode_android_oreo_explanation_read_more">詳細</string>
+
+    <!-- Notification Channel -->
+    <string name="notification_channel_running_status">動作状態</string>
+
+    <!-- Shortcut -->
+    <string name="shortcut_label_switch">切り替え</string>
+
+    <!-- About -->
+    <string name="action_about">夜用画面について</string>
+
+    <string name="about_author">開発者 : Paper Airplane Dev - Fung Gwo</string>
+    <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさの強いものがありますが、このアプリでは明るさを抑えるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。</string>
+
+    <string name="about_donate_alipay">Alipay で開発者に寄付</string>
+
+    <string name="dialog_overlay_enable_title">ステータスバー上のマスクを有効にする</string>
+    <string name="dialog_overlay_enable_message">有効にすると画面を最前面からマスクするできるようになります。お使いの機種 (MIUI や Android 6.0 など) によっては権限の許可が必要になります。\n初回動作の確認の際に正しく動作しない場合は、「他のアプリの上に表示」を許可するようこのアプリを設定してください。</string>
+
+    <string name="mask_fail_to_start">マスクの開始に失敗しました。システムによって権限が拒否されていないか確認してください。</string>
+
+    <string name="dialog_first_run_title">初回動作</string>
+    <string name="dialog_first_run_message">このメッセージが表示されていますか？ 表示されていれば夜用画面は正しく動作しています。\nOK をタップしない場合は 5 秒後に動作を停止します。</string>
+
+    <!-- Notification -->
     <string name="notification_running_title">夜用画面は動作しています</string>
     <string name="notification_running_msg">タップすると設定が開きます</string>
+
     <string name="notification_paused_title">夜用画面は停止しています</string>
     <string name="notification_paused_msg">タップして設定、またはスワイプして夜用画面を終了</string>
-    <string name="notification_action_turn_on">開始</string>
+
     <string name="notification_action_turn_off">停止</string>
-    <string name="mode_text_overlay_all">Overlay System モード</string>
-    <string name="mode_text_normal">Normal モード</string>
-    <string name="mode_text_no_permission">権限不要のモード</string>
-    <string name="mode_desc_overlay_all">ステータスバーとナビゲーションバーの明るさも制御することができますが、アプリによっては画面が点滅する場合があります。</string>
-    <string name="mode_desc_normal">おすすめのモードです。安定して動作しますが、ナビゲーションバーの明さは制御できません。また、「インストール」や「許可」の確認表示をタップする際に妨げとなることがあります。</string>
-    <string name="dialog_overlay_enable_message">有効にすると画面を最前面からマスクするできるようになります。お使いの機種 (MIUI や Android 6.0 など) によっては権限の許可が必要になります。\n初回動作の確認の際に正しく動作しない場合は、「他のアプリの上に表示」を許可するようこのアプリを設定してください。</string>
-    <string name="dialog_overlay_enable_title">ステータスバー上のマスクを有効にする</string>
-    <string name="about_text">夜用画面は夜間の強い光が及ぼす悪影響からあなたを保護します。\n機種によっては最小設定の明るさでもまだ明るさの強いものがありますが、このアプリでは明るさを抑えるために画面上をマスクします。\n\nこのアプリを支援する際の支援金のお送り先はこちらまでお願いします。 Alipay: fythonx@gmail.com</string>
-    <string name="action_dark_theme">ダークテーマ</string>
-    <string name="dialog_button_go_to_set">設定</string>
-    <string name="dialog_choose_mode">モードの選択</string>
-    <string name="dialog_first_run_message">このメッセージが表示されていますか？ 表示されていれば夜用画面は正しく動作しています。\nOK をタップしない場合は 5 秒後に動作を停止します。</string>
-    <string name="dialog_first_run_title">初回動作</string>
+    <string name="notification_action_turn_on">開始</string>
+
+    <!-- Auto Mode -->
+    <string name="scheduler_title">Auto モード</string>
+
     <string name="dialog_ignore_battery_opt_title">ヒント</string>
-    <string name="action_about">夜用画面について</string>
-    <string name="mask_fail_to_start">マスクの開始に失敗しました。システムによって権限が拒否されていないか確認してください。</string>
-    <string name="mode_desc_no_permission">権限を必要としませんが、ロックスクリーンやステータスバーおよびナビゲーションバーの明るさを制御することはできません。なお Android 7.0 では動作しません。</string>
     <string name="dialog_ignore_battery_opt_msg">Android 6.0 からのバッテリーの最適化によって動作を自動的に開始／停止することができない可能性があります。動作に問題がある場合は、システム設定でバッテリーの最適化を解除して確認してください。</string>
+    <string name="dialog_button_go_to_set">設定を表示</string>
+
 </resources>
