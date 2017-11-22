@@ -66,6 +66,6 @@
 
     <string name="dialog_ignore_battery_opt_title">ヒント</string>
     <string name="dialog_ignore_battery_opt_msg">Android 6.0 からのバッテリーの最適化によって動作を自動的に開始／停止することができない可能性があります。動作に問題がある場合は、システム設定でバッテリーの最適化を解除して確認してください。</string>
-    <string name="dialog_button_go_to_set">設定</string>
+    <string name="dialog_button_go_to_set">設定を表示</string>
 
 </resources>
