@@ -435,7 +435,7 @@ public class MainActivity extends Activity {
                 }
                 return true;
         }
-        return false;
+        return super.onKeyDown(keyCode, event);
     }
 
     private void setSeekBarProgress(int progress) {

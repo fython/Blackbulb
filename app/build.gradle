@@ -8,8 +8,8 @@ android {
 		applicationId "info.papdt.blackblub"
 		minSdkVersion rootProject.ext.minSdkVersion
 		targetSdkVersion rootProject.ext.targetSdkVersion
-		versionCode rootProject.ext.versionCode
-		versionName rootProject.ext.versionName
+		versionCode 17
+		versionName '2.1.1'
 	}
 
 	compileOptions {
