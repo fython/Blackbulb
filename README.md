@@ -6,6 +6,11 @@ a Material Design Android app which can prevent your eye from being hurt by scre
 
 一个能减少屏幕光线对眼睛造成伤害的 Material Design 风格 Android 应用程序
 
+<a href="https://f-droid.org/packages/info.papdt.blackblub/" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="100"/></a>
+<a href="https://play.google.com/store/apps/details?id=info.papdt.blackblub" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="100"/></a>
+
 ---
 
 ### 支持系统
