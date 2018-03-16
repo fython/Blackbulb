@@ -1,0 +1,75 @@
+<resources
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation" >
+
+	<string name="app_name">Night Screen</string>
+
+	<!-- Button tip -->
+	<string name="button_tip_text">Wskazówka: Kliknij lewy górny przycisk, aby włączyć Night Screen.</string>
+
+	<!-- Scheduler Row -->
+	<string name="scheduler_status_on_show_enable_time">Automatycznie włączy o %s.</string>
+	<string name="scheduler_status_on_show_disable_time">Skończy się o %s.</string>
+	<string name="scheduler_status_off">OFF</string>
+	<string name="action_settings">Ustawienia</string>
+
+	<!-- Dark theme Row -->
+	<string name="action_dark_theme">Ciemny motyw</string>
+
+	<!-- Advanced Row -->
+	<string name="dialog_choose_mode">Wybierz tryb</string>
+
+	<string name="mode_text_no_permission">Tryb bez uprawnień</string>
+	<string name="mode_text_normal">Tryb Normalny</string>
+	<string name="mode_text_overlay_all">Tryb systemu nakładkowego</string>
+
+	<string name="mode_desc_no_permission">Żadne pozwolenie nie jest potrzebne. Ale nie można przyciemnić ekranu blokady, paska stanu ani paska nawigacji. I nie działa w systemie Android 7.0.</string>
+	<string name="mode_desc_normal">Tryb rekomendowany. Jest stabilny, chociaż nie może przyciemnić paska nawigacji i uniemożliwić użytkownikowi kliknięcie \"Zainstaluj\" lub \"Zezwalaj\" w oknie dialogowym uprawnień.</string>
+	<string name="mode_desc_overlay_all">Możesz przyciemnić zarówno pasek stanu, jak i pasek nawigacji. Może jednak powodować miganie ekranu w niektórych aplikacjach.</string>
+
+	<string name="mode_android_oreo_explanation_dialog_title">Dlaczego nie można zmienić trybu zaawansowanego?</string>
+	<string name="mode_android_oreo_explanation_dialog_message">Od Androida Oreo (8.0), system ściśle ogranicza uprawnienia ruchomego okna. Stare metody nie są już dostępne. Być może będziemy wspierać lepsze metody kontrolowania jasności w przyszłości.</string>
+	<string name="mode_android_oreo_explanation_read_more">Czytaj dalej</string>
+	<string name="mode_android_oreo_explanation_url" translatable="false">https://developer.android.com/about/versions/oreo/android-8.0-changes.html#all-aw</string>
+
+	<!-- Notification Channel -->
+	<string name="notification_channel_running_status">Stan pracy</string>
+
+	<!-- Shortcut -->
+	<string name="shortcut_label_switch">Przełącz</string>
+
+	<!-- About -->
+	<string name="action_about">O aplikacji</string>
+
+	<string name="about_author">Autor: Paper Airplane Dev - Fung Gwo</string>
+	<string name="about_text">"Night Screen can help protect you from the harm of strong light at night.\nSome devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send some money to my Alipay: fythonx\@gmail.com"</string>
+	<string name="about_other">Github Repo: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nMy blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Designer: Google+ Youlun Zhai</string>
+
+	<string name="about_donate_alipay">Wesprzyj autora przez Alipay</string>
+
+	<string name="dialog_overlay_enable_title">Włącz pasek stanu nakładki</string>
+	<string name="dialog_overlay_enable_message">Włączenie tego może maskować górę ekranu, ale może wymagać pozwolenia na niektóre urządzenia (takie jak MIUI i Android 6.0)\nJeśli to nie zadziała po raz pierwszy, zezwól tej aplikacji na wyświetlanie okien alertów systemowych.</string>
+
+	<string name="mask_fail_to_start">Failed to start mask. Please check whether the system has denied the permissions.</string>
+
+	<string name="dialog_first_run_title">First run</string>
+	<string name="dialog_first_run_message">Czy widzisz tę wiadomość? Jeśli możesz, Night Screen działa poprawnie.\nAutomatycznie zatrzyma się po 5 sekundach, jeśli nie naciśniesz przycisku OK</string>
+
+	<!-- Notification -->
+	<string name="notification_running_title">Night Screen działa</string>
+	<string name="notification_running_msg">Kliknij tutaj aby otworzyć ustawienia</string>
+
+	<string name="notification_paused_title">Night Screen jest wstrzymany</string>
+	<string name="notification_paused_msg">Kliknij tutaj aby otworzyć ustawienia lub Przesuń aby wyłączyć Night Screen</string>
+
+	<string name="notification_action_turn_off">Wyłącz</string>
+	<string name="notification_action_turn_on">Włącz</string>
+
+	<!-- Auto Mode -->
+	<string name="scheduler_title">Tryb automatyczny</string>
+
+	<string name="dialog_ignore_battery_opt_title">Wskazówki</string>
+	<string name="dialog_ignore_battery_opt_msg">It may not automatically activate/deactivate on time because of Android 6.0 Doze mode. If you have any problem, try to request system to ignore battery optimization.</string>
+	<string name="dialog_button_go_to_set">Go to set</string>
+
+</resources>
