@@ -1,41 +1,72 @@
 <resources>
 
-	<string name="app_name">Night Screen</string>
-	
-	<string name="shortcut_label_switch">Activer</string>	
+    <string name="app_name">Night Screen</string>
 
-	<string name="action_about">À propos</string>
-	<string name="action_dark_theme">Thème sombre</string>
+    <!-- Button tip -->
+    <string name="button_tip_text">Astuce: cliquez sur le bouton en haut à gauche pour activer Night Screen</string>
 
-	<string name="about_author">Auteur : Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Night Screen peut vous aider à prévenir les méfaits de la lumière forte la nuit.\nLa luminosité minimale sur certains appareils reste élevée nous pouvons donc la rendre plus faible en créant un masque sur l\'écran.\n\nSi vous souhaitez soutenir cette application, vous pouvez envoyer un peu d\'argent sur mon Alipay : fythonx\@gmail.com"</string>
-	<string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBlog : <a href="http://feng.moe">http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
+    <!-- Scheduler Row -->
+    <string name="scheduler_status_on_show_enable_time">Activation auto. à %s.</string>
+    <string name="scheduler_status_on_show_disable_time">Arrêt à %s.</string>
+    <string name="scheduler_status_off">Désactivé</string>
+    <string name="action_settings">Paramètres</string>
 
-	<string name="dialog_overlay_enable_title">Activer Couvrir la barre d\'état</string>
-	<string name="dialog_overlay_enable_message">Activer cela permet de couvrir le haut de l\'écran, mais peut requérir une autorisation sur certains appareils (tels que MIUI et Android 6.0)\nSi cela ne fonctionne pas, veuillez autoriser à cette application d\'afficher la fenêtre d\'alerte système.</string>
+    <!-- Dark theme Row -->
+    <string name="action_dark_theme">Thème sombre</string>
 
-	<string name="mask_fail_to_start">Impossible de démarrer le masque. Veuillez vérifier si le système a refusé les autorisations.</string>
+    <!-- Advanced Row -->
+    <string name="dialog_choose_mode">Choisir un mode</string>
 
-	<string name="dialog_first_run_title">Première exécution</string>
-	<string name="dialog_first_run_message">Pouvez-vous voir ce message ? Si oui, cela prouve que Night Screen fonctionne bien.\nIl s\'arrêtera automatiquement au bout de 5 secondes si vous n\'appuyez pas sur OK.</string>
+    <string name="mode_text_no_permission">Mode sans autorisation</string>
+    <string name="mode_text_normal">Mode normal</string>
+    <string name="mode_text_overlay_all">Mode système superposé</string>
 
-	<string name="notification_running_title">Night Screen est en exécution</string>
-	<string name="notification_running_msg">Appuyez pour ouvrir les paramètres</string>
-	
-	<string name="notification_paused_title">Night Screen est en pause</string>
-	<string name="notification_paused_msg">Appuyez pour ouvrir les paramètres ou glissez pour arrêter</string>	
-	
-	<string name="notification_action_turn_off">Désactiver</string>
-	<string name="notification_action_turn_on">Activer</string>
-	
-	<string name="dialog_choose_mode">Choisir un mode</string>
-	
-	<string name="mode_text_no_permission">Mode sans autorisation</string>
-	<string name="mode_text_normal">Mode normal</string>
-	<string name="mode_text_overlay_all">Mode système superposé</string>
+    <string name="mode_desc_no_permission">Aucune autorisation requise. Mais il ne recouvre pas l\'écran de verrouillage, les barres d\'état et de navigation. Et il ne fonctionne pas sur Android 7.0.</string>
+    <string name="mode_desc_normal">Mode recommandé. Il est stable, mais il ne recouvre pas la barre de navigation et empêche l\'utilisateur d\'appuyer sur \"Installer\" ou \"Autoriser\" dans une fenêtre de dialogue.</string>
+    <string name="mode_desc_overlay_all">Vous pouvez recouvrir à la fois les barres d\'état et de navigation. Cependant, il peut faire clignoter l\'écran dans certaines applications.</string>
 
-	<string name="mode_desc_no_permission">Aucune autorisation requise. Mais il ne recouvre pas l\'écran de verrouillage, les barres d\'état et de navigation. Et il ne fonctionne pas sur Android 7.0.</string>
-	<string name="mode_desc_normal">Mode recommandé. Il est stable, mais il ne recouvre pas la barre de navigation et empêche l\'utilisateur d\'appuyer sur \"Installer\" ou \"Autoriser\" dans une fenêtre de dialogue.</string>
-	<string name="mode_desc_overlay_all">Vous pouvez recouvrir à la fois les barres d\'état et de navigation. Cependant, il peut faire clignoter l\'écran dans certaines applications.</string>
+    <string name="mode_android_oreo_explanation_dialog_title">Pourquoi ne puis-je pas accéder au mode avancé ?</string>
+    <string name="mode_android_oreo_explanation_dialog_message">Depuis Android Oreo (8.0), le système limite strictement les permissions des fenêtres flottantes. Nous améliorerons peut-être le contrôle de la luminosité dans une prochaine version de Night Shift.</string>
+    <string name="mode_android_oreo_explanation_read_more">Plus de détails</string>
+
+    <!-- Notification Channel -->
+    <string name="notification_channel_running_status">Statut</string>
+
+    <!-- Shortcut -->
+    <string name="shortcut_label_switch">Activer</string>
+
+    <!-- About -->
+    <string name="action_about">À propos</string>
+
+    <string name="about_author">Auteur : Paper Airplane Dev - Fung Jichun</string>
+    <string name="about_text">"Night Screen peut vous aider à prévenir les méfaits de la lumière forte la nuit.\nLa luminosité minimale sur certains appareils reste élevée nous pouvons donc la rendre plus faible en créant un masque sur l\'écran.\n\nSi vous souhaitez soutenir cette application, vous pouvez envoyer un peu d\'argent sur mon Alipay : fythonx\\@gmail.com"</string>
+    <string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb" >https://github.com/fython/Blackbulb</a>\nBlog : <a href="http://feng.moe" >http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython" >@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython" >https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
+
+    <string name="about_donate_alipay">Soutenez financièrement l\'auteur via Alipay</string>
+
+    <string name="dialog_overlay_enable_title">Activer Couvrir la barre d\'état</string>
+    <string name="dialog_overlay_enable_message">Activer cela permet de couvrir le haut de l\'écran, mais peut requérir une autorisation sur certains appareils (tels que MIUI et Android 6.0)\nSi cela ne fonctionne pas, veuillez autoriser à cette application d\'afficher la fenêtre d\'alerte système.</string>
+
+    <string name="mask_fail_to_start">Impossible de démarrer le masque. Veuillez vérifier si le système a refusé les autorisations.</string>
+
+    <string name="dialog_first_run_title">Première exécution</string>
+    <string name="dialog_first_run_message">Pouvez-vous voir ce message ? Si oui, cela prouve que Night Screen fonctionne bien.\nIl s\'arrêtera automatiquement au bout de 5 secondes si vous n\'appuyez pas sur OK.</string>
+
+    <!-- Notification -->
+    <string name="notification_running_title">Night Screen est en exécution</string>
+    <string name="notification_running_msg">Appuyez pour ouvrir les paramètres</string>
+
+    <string name="notification_paused_title">Night Screen est en pause</string>
+    <string name="notification_paused_msg">Appuyez pour ouvrir les paramètres ou glissez pour arrêter</string>
+
+    <string name="notification_action_turn_off">Désactiver</string>
+    <string name="notification_action_turn_on">Activer</string>
+
+    <!-- Auto Mode -->
+    <string name="scheduler_title">Mode automatique</string>
+
+    <string name="dialog_ignore_battery_opt_title">Astuce</string>
+    <string name="dialog_ignore_battery_opt_msg">L\'activation/désactivation automatique de Night Shift selon l\'heure pourrait ne pas fonctionner à cause du mode d\'économie d\'énergie (\"Doze mode\") introduit dans Android depuis sa version 6.0. En cas de problème, essayez de désactiver la fonction d\'optimisation de la batterie d\'Android.</string>
+    <string name="dialog_button_go_to_set">Accéder aux paramètres</string>
 
 </resources>
