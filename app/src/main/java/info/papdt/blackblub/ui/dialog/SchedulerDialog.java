@@ -146,5 +146,4 @@ public class SchedulerDialog extends AlertDialog implements TimePickerDialog.OnT
 		}
 		AlarmUtil.updateAlarmSettings(getContext());
 	}
-
 }

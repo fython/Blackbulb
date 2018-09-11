@@ -229,5 +229,4 @@ public final class Utility {
             Log.d("Utility", "Failed to create CM status bar tile. Ignore it.");
         }
     }
-
 }

@@ -191,7 +191,7 @@ public class ExpandIconView extends View {
 		updateArrow(animate);
 	}
 
-	/**
+	/*
 	 * Set duration of icon animation from state {@link #MORE} to state {@link #LESS}
 	 *
 	 * @param animationDuration

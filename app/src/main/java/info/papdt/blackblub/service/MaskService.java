@@ -26,7 +26,10 @@ import info.papdt.blackblub.ui.MainActivity;
 import info.papdt.blackblub.util.ColorUtil;
 import info.papdt.blackblub.util.Utility;
 
-import static android.view.WindowManager.LayoutParams.*;
+import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+import static android.view.WindowManager.LayoutParams.TYPE_TOAST;
 
 public class MaskService extends Service {
 
@@ -205,74 +208,14 @@ public class MaskService extends Service {
         }
     }
 
-    private void updateLayoutParams(int paramInt) {
-        if (mLayoutParams == null) {
-            mLayoutParams = new WindowManager.LayoutParams();
+	private static float constrain(float paramFloat1) {
+		if (paramFloat1 < 0.0F) {
+			return 0.0F;
         }
-
-        // Hacky method. However, I don't know how it works.
-        mAccessibilityManager.isEnabled();
-
-        // Apply layout params type & gravity
-        mLayoutParams.type = getWindowType();
-        mLayoutParams.gravity = Gravity.CENTER;
-
-        // Apply layout params attributes
-        if (getWindowType() == TYPE_SYSTEM_ERROR) {
-            // This is the reason why it will not affect users' application installation.
-            // Mask window won't cover any views.
-            mLayoutParams.width = 0;
-            mLayoutParams.height = 0;
-            mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-            mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-            mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
-            // I haven't found what this two value mean. :p (I got them from another screen filter app)
-            mLayoutParams.flags &= 0xFFDFFFFF;
-            mLayoutParams.flags &= 0xFFFFFF7F;
-            mLayoutParams.format = PixelFormat.OPAQUE;
-            // Screen is dimmed by system.
-            mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F, 0.0F, 0.9F);
-        } else {
-            // A dirty fix to deal with screen rotation.
-            int max = Math.max(
-                    Utility.getRealScreenWidth(this),
-                    Utility.getRealScreenHeight(this)
-            );
-            mLayoutParams.height = mLayoutParams.width = max + 200;
-
-            mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                    | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                    | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-            mLayoutParams.format = PixelFormat.TRANSPARENT;
-
-            // Set mask alpha to adjust screen brightness
-            float targetAlpha = (100 - mBrightness) * 0.01f;
-            if (paramInt != -1) {
-                if (isShowing) {
-                    // Start animation when value changes a lot.
-                    if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
-                        mLayout.setAlpha(targetAlpha);
-                    } else {
-                        mLayout.animate().alpha(targetAlpha).setDuration(100).start();
-                    }
-                } else {
-                    mLayout.animate().alpha(targetAlpha)
-                            .setDuration(ANIMATE_DURATION_MILES).start();
-                }
-            }
+		if (paramFloat1 > 0.9F) {
+			return 0.9F;
         }
-
-        if (mLayout != null) {
-            int color = Color.BLACK;
-            if (mYellowFilterAlpha > 0) {
-                Log.i(TAG, "Alpha: " + mYellowFilterAlpha);
-                float ratio = ((float) mYellowFilterAlpha) / 100F;
-                int blend = ColorUtil.blendColors(Color.YELLOW, Color.TRANSPARENT, ratio);
-                blend = ColorUtil.blendColors(Color.RED, blend, ratio / 3F);
-                color = ColorUtil.blendColors(blend, color, ratio / 3F);
-            }
-            mLayout.setBackgroundColor(color);
-        }
+		return paramFloat1;
     }
 
     private void destroyMaskView() {
@@ -387,14 +330,74 @@ public class MaskService extends Service {
         }
     }
 
-    private static float constrain(float paramFloat1, float paramFloat2, float paramFloat3) {
-        if (paramFloat1 < paramFloat2) {
-            return paramFloat2;
+	private void updateLayoutParams(int paramInt) {
+		if (mLayoutParams == null) {
+			mLayoutParams = new WindowManager.LayoutParams();
         }
-        if (paramFloat1 > paramFloat3) {
-            return paramFloat3;
+
+		// Hacky method. However, I don't know how it works.
+		mAccessibilityManager.isEnabled();
+
+		// Apply layout params type & gravity
+		mLayoutParams.type = getWindowType();
+		mLayoutParams.gravity = Gravity.CENTER;
+
+		// Apply layout params attributes
+		if (getWindowType() == TYPE_SYSTEM_ERROR) {
+			// This is the reason why it will not affect users' application installation.
+			// Mask window won't cover any views.
+			mLayoutParams.width = 0;
+			mLayoutParams.height = 0;
+			mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+			mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+			mLayoutParams.flags |= WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+			// I haven't found what this two value mean. :p (I got them from another screen filter app)
+			mLayoutParams.flags &= 0xFFDFFFFF;
+			mLayoutParams.flags &= 0xFFFFFF7F;
+			mLayoutParams.format = PixelFormat.OPAQUE;
+			// Screen is dimmed by system.
+			mLayoutParams.dimAmount = constrain((100 - paramInt) / 100.0F);
+		} else {
+			// A dirty fix to deal with screen rotation.
+			int max = Math.max(
+					Utility.getRealScreenWidth(this),
+					Utility.getRealScreenHeight(this)
+			);
+			mLayoutParams.height = mLayoutParams.width = max + 200;
+
+			mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+					| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+					| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+			mLayoutParams.format = PixelFormat.TRANSPARENT;
+
+			// Set mask alpha to adjust screen brightness
+			float targetAlpha = (100 - mBrightness) * 0.01f;
+			if (paramInt != -1) {
+				if (isShowing) {
+					// Start animation when value changes a lot.
+					if (Math.abs(targetAlpha - mLayout.getAlpha()) < 0.1f) {
+						mLayout.setAlpha(targetAlpha);
+					} else {
+						mLayout.animate().alpha(targetAlpha).setDuration(100).start();
+					}
+				} else {
+					mLayout.animate().alpha(targetAlpha)
+							.setDuration(ANIMATE_DURATION_MILES).start();
+				}
+			}
         }
-        return paramFloat1;
+
+		if (mLayout != null) {
+			int color = Color.BLACK;
+			if (mYellowFilterAlpha > 0) {
+				Log.i(TAG, "Alpha: " + mYellowFilterAlpha);
+				float ratio = ((float) mYellowFilterAlpha) / 100F;
+				int blend = ColorUtil.blendColors(Color.YELLOW, Color.TRANSPARENT, ratio);
+				blend = ColorUtil.blendColors(Color.RED, blend, ratio / 3F);
+				color = ColorUtil.blendColors(blend, color, ratio / 3F);
+			}
+			mLayout.setBackgroundColor(color);
+		}
     }
 
     public class MaskServiceBinder extends IMaskServiceInterface.Stub {

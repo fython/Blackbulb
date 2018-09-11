@@ -321,9 +321,7 @@ public class MainActivity extends Activity {
                         .setNeutralButton(R.string.mode_android_oreo_explanation_read_more,
                                 (d, w) -> startActivity(
                                         new Intent(Intent.ACTION_VIEW, Uri.parse(
-                                                getString(
-                                                        R.string.mode_android_oreo_explanation_url)
-                                        )))
+                                                getString(R.string.mode_android_oreo_explanation_url))))
                         )
                         .setPositiveButton(android.R.string.ok, (d, w) -> {})
                         .show();
@@ -539,7 +537,5 @@ public class MainActivity extends Activity {
                     break;
             }
         }
-
     }
-
 }

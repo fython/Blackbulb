@@ -48,7 +48,6 @@ public class VerticalTextView extends TextView {
             canvas.rotate(-90);
         }
 
-
         canvas.translate(getCompoundPaddingLeft(), getExtendedPaddingTop());
 
         getLayout().draw(canvas);

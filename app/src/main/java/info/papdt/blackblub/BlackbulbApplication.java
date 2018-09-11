@@ -24,8 +24,7 @@ public class BlackbulbApplication extends Application {
             NotificationChannel channel = new NotificationChannel(
                     Constants.NOTIFICATION_CHANNEL_ID_RS,
                     getString(R.string.notification_channel_running_status),
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
+					NotificationManager.IMPORTANCE_DEFAULT);
             channel.setShowBadge(false);
             channel.enableLights(false);
             channel.enableVibration(false);
@@ -34,5 +33,4 @@ public class BlackbulbApplication extends Application {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
 }

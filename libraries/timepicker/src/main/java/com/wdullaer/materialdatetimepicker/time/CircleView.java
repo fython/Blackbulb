@@ -46,7 +46,6 @@ public class CircleView extends View {
 
     public CircleView(Context context) {
         super(context);
-
         mIsInitialized = false;
     }
 
@@ -65,13 +64,10 @@ public class CircleView extends View {
 
         mIs24HourMode = controller.is24HourMode();
         if (mIs24HourMode || controller.getVersion() != TimePickerDialog.Version.VERSION_1) {
-            mCircleRadiusMultiplier = Float.parseFloat(
-                    res.getString(R.string.mdtp_circle_radius_multiplier_24HourMode));
+            mCircleRadiusMultiplier = Float.parseFloat(res.getString(R.string.mdtp_circle_radius_multiplier_24HourMode));
         } else {
-            mCircleRadiusMultiplier = Float.parseFloat(
-                    res.getString(R.string.mdtp_circle_radius_multiplier));
-            mAmPmCircleRadiusMultiplier =
-                    Float.parseFloat(res.getString(R.string.mdtp_ampm_circle_radius_multiplier));
+            mCircleRadiusMultiplier = Float.parseFloat(res.getString(R.string.mdtp_circle_radius_multiplier));
+            mAmPmCircleRadiusMultiplier = Float.parseFloat(res.getString(R.string.mdtp_ampm_circle_radius_multiplier));
         }
 
         mIsInitialized = true;

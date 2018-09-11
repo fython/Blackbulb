@@ -3,6 +3,7 @@ package com.github.florent37.diagonallayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+
 import info.papdt.blackblub.R;
 
 public class DiagonalLayoutSettings {
@@ -14,9 +15,9 @@ public class DiagonalLayoutSettings {
 	public final static int DIRECTION_LEFT = 1;
 	public final static int DIRECTION_RIGHT = 2;
 
-	private float angle = 15;
+	private float angle;
 	private boolean handleMargins;
-	private int gravity = BOTTOM;
+	private int gravity;
 	private boolean isDirectionLeft;
 	private float elevation;
 

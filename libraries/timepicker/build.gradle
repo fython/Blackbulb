@@ -3,7 +3,6 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion rootProject.ext.targetSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion rootProject.ext.targetSdkVersion
@@ -11,19 +10,19 @@ android {
         versionCode 1
     }
 
-    compileOptions {
+	compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    buildTypes {
+    lintOptions {
+        abortOnError false
+    }
+
+	buildTypes {
         release {
             minifyEnabled false
         }
-    }
-
-    lintOptions {
-        abortOnError false
     }
 }
 

@@ -39,7 +39,6 @@ public class ToggleActivity extends Activity {
 			Intent i = new Intent(this, MaskService.class);
 			bindService(i, mServiceConnection, MaskService.BIND_AUTO_CREATE);
 		}
-
 	}
 
 	private ServiceConnection mServiceConnection = new ServiceConnection() {
@@ -56,5 +55,4 @@ public class ToggleActivity extends Activity {
 		}
 		@Override public void onServiceDisconnected(ComponentName name) {}
 	};
-
 }
