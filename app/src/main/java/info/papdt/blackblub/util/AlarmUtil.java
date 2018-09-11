@@ -108,5 +108,4 @@ public final class AlarmUtil {
                     requestCode, new Intent(action), PendingIntent.FLAG_UPDATE_CURRENT));
         }
     }
-    
 }

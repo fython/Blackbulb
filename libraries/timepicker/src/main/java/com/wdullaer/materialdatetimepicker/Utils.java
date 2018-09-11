@@ -46,7 +46,7 @@ public class Utils {
     public static final int FULL_ALPHA = 255;
 
     public static boolean isJellybeanOrLater() {
-      return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+        return true;
     }
 
     /**

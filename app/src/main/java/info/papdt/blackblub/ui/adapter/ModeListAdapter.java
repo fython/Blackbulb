@@ -110,7 +110,5 @@ public class ModeListAdapter extends BaseAdapter implements ListAdapter {
                 Constants.AdvancedMode.OVERLAY_ALL,
                 R.string.mode_text_overlay_all,
                 R.string.mode_desc_overlay_all);
-
     }
-
 }

@@ -25,7 +25,6 @@ public final class Constants {
         public static final String ADVANCED_MODE = "advanced_mode";
         public static final String IS_SHOWING = "is_showing";
         public static final String YELLOW_FILTER_ALPHA = "yellow_filter_alpha";
-
     }
 
     public static final class Action {
@@ -35,7 +34,6 @@ public final class Constants {
         public static final int PAUSE = 3;
         public static final int STOP = 4;
         public static final int CHECK = 5;
-
     }
 
     public static final class Event {
@@ -43,7 +41,5 @@ public final class Constants {
         public static final int CANNOT_START = 1;
         public static final int DESTROY_SERVICE = 2;
         public static final int CHECK = 3;
-
     }
-
 }

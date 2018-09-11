@@ -78,5 +78,4 @@ public class MaskTileService extends TileService {
             }
         }
     }
-
 }

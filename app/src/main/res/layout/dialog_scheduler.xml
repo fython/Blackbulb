@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
 	<FrameLayout
-			android:id="@+id/frame_layout"
-			android:layout_width="match_parent"
-			android:layout_height="260dp"
-			android:theme="@android:style/Theme.Material">
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:theme="@android:style/Theme.Material">
 
 		<com.github.florent37.diagonallayout.DiagonalLayout
 				android:id="@+id/left_layout"
@@ -18,7 +18,7 @@
 				app:diagonal_angle="10"
 				app:diagonal_direction="left"
 				app:diagonal_position="right"
-				android:layout_gravity="left">
+            android:layout_gravity="start">
 
 			<FrameLayout
 					android:id="@+id/sunrise_button"
@@ -26,7 +26,8 @@
 					android:layout_height="match_parent"
 					android:clickable="true"
 					android:foreground="@drawable/ripple_foreground"
-					android:background="#2196F3">
+                android:background="#2196F3"
+                android:focusable="true">
 
 				<ImageView
 						android:layout_width="56dp"
@@ -60,7 +61,7 @@
 				app:diagonal_angle="10"
 				app:diagonal_direction="left"
 				app:diagonal_position="left"
-				android:layout_gravity="right">
+            android:layout_gravity="end">
 
 			<FrameLayout
 					android:id="@+id/sunset_button"
@@ -68,7 +69,8 @@
 					android:layout_height="match_parent"
 					android:clickable="true"
 					android:foreground="@drawable/ripple_foreground"
-					android:background="#283593">
+                android:background="#283593"
+                android:focusable="true">
 
 				<ImageView
 						android:layout_width="56dp"

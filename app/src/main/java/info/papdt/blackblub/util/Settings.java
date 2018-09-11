@@ -133,5 +133,4 @@ public class Settings {
     public void setNeedButtonTip(boolean value) {
 	    putBoolean(KEY_BUTTON_TIP, value);
     }
-
 }
