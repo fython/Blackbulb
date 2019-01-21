@@ -7,6 +7,10 @@
 	<!-- Button tip -->
 	<string name="button_tip_text">Tip: Click the top left button to turn on Night Screen.</string>
 
+    <!-- Yellow filter row -->
+    <string name="yellow_filter">Yellow filter</string>
+	<string name="yellow_filter_explanation">Slide to the right to make the overlay yellow instead of grey</string>
+
 	<!-- Scheduler Row -->
 	<string name="scheduler_status_on_show_enable_time">Automatically enable at %s.</string>
 	<string name="scheduler_status_on_show_disable_time">It will be end at %s.</string>
