@@ -5,6 +5,10 @@
 	<!-- Button tip -->
 	<string name="button_tip_text">提示: 点击左上角的按钮来打开夜间屏幕。</string>
 
+	<!-- Yellow filter row -->
+	<string name="yellow_filter">蓝光过滤</string>
+	<string name="yellow_filter_explanation">滑动调节变暗遮罩的蓝光过滤程度</string>
+
 	<!-- Scheduler Row -->
 	<string name="scheduler_status_on_show_enable_time">自动开启于 %s。</string>
 	<string name="scheduler_status_on_show_disable_time">将在 %s 时关闭。</string>

@@ -18,7 +18,7 @@
 		android:layout_marginBottom="16dp"
 		android:padding="8dp"
 		android:clickable="true"
-		android:focusable="false"
+		android:focusable="true"
 		android:elevation="8dp"
 		android:animateLayoutChanges="true"
 		android:orientation="vertical">
