@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -16,13 +17,13 @@
 		android:layout_height="wrap_content"
 		android:importantForAccessibility="no"
 		android:src="@drawable/ic_wb_incandescent_black_24dp"
-		android:tint="?attr/icon_tint" />
+		android:tint="?attr/icon_tint"/>
 
 	<LinearLayout
 		android:layout_width="0dp"
-        android:layout_weight="1"
+		android:layout_weight="1"
 		android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+		android:layout_marginStart="8dp"
 		android:orientation="vertical">
 
 		<TextView
@@ -30,25 +31,25 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="@string/yellow_filter"
-            android:layout_marginTop="2dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="4dp"
-			android:textAppearance="@android:style/TextAppearance.Material.Body2" />
+			android:layout_marginTop="2dp"
+			android:layout_marginStart="8dp"
+			android:layout_marginBottom="4dp"
+			android:textAppearance="@android:style/TextAppearance.Material.Body2"/>
 
 		<TextView
 			android:id="@+id/yellow_filter_explanation"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-			android:text="@string/yellow_filter_explanation" />
+			android:layout_marginStart="8dp"
+			android:text="@string/yellow_filter_explanation"/>
 
 		<SeekBar
 			android:id="@+id/yellow_filter_seek_bar"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+			android:layout_marginTop="16dp"
 			android:max="100"
-			android:progress="0" />
+			android:progress="0"/>
 
 	</LinearLayout>
 
