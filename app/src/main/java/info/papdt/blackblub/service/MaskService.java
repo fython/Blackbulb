@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -406,6 +407,16 @@ public class MaskService extends Service {
         @Override
         public boolean isShowing() {
             return getService() != null && getService().isShowing();
+        }
+
+        @Override
+        public int getBrightness() {
+            return getService().mBrightness;
+        }
+
+        @Override
+        public int getYellowFilterAlpha() {
+            return getService().mYellowFilterAlpha;
         }
 
     }

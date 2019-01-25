@@ -18,10 +18,11 @@
 		android:layout_marginBottom="16dp"
 		android:padding="8dp"
 		android:clickable="true"
-		android:focusable="true"
+		android:focusable="false"
 		android:elevation="8dp"
 		android:animateLayoutChanges="true"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		tools:ignore="KeyboardInaccessibleWidget">
 
 		<LinearLayout
 			android:id="@+id/title_bar"

@@ -4,6 +4,9 @@
 
 	<string name="app_name">Night Screen</string>
 
+	<string name="permission_control_blackbulb_label">Control Night Screen</string>
+	<string name="permission_control_blackbulb_desc">get the status of Night Screen and control it</string>
+
 	<!-- Button tip -->
 	<string name="button_tip_text">Tip: Click the top left button to turn on Night Screen.</string>
 
