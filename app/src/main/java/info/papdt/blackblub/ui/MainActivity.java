@@ -1,6 +1,7 @@
 package info.papdt.blackblub.ui;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -41,6 +42,8 @@ import info.papdt.blackblub.util.Settings;
 import info.papdt.blackblub.util.Utility;
 import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 
+import java.util.List;
+
 public class MainActivity extends Activity {
 
     // Views & States
@@ -61,6 +64,8 @@ public class MainActivity extends Activity {
 
     private View mYellowFilterRow;
     private SeekBar mYellowFilterSeekBar;
+
+    private View mMoreSettingsRow;
 
     private AlertDialog mFirstRunDialog;
 
@@ -96,6 +101,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mSettings = Settings.getInstance(this);
+
+        if (!mSettings.shouldShowTask()) {
+            final ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+            if (am != null) {
+                List<ActivityManager.AppTask> tasks = am.getAppTasks();
+                if (tasks != null && tasks.size() > 0) {
+                    for (ActivityManager.AppTask task : tasks) {
+                        task.setExcludeFromRecents(true);
+                    }
+                }
+            }
+        }
 
         // Apply theme and transparent system ui
         Utility.applyTransparentSystemUI(this);
@@ -197,6 +214,7 @@ public class MainActivity extends Activity {
         initDarkThemeRow();
         initYellowFilterRow();
         initAdvancedModeRow();
+        initMoreSettingsRow();
 
         updateExpandViews();
     }
@@ -211,6 +229,7 @@ public class MainActivity extends Activity {
         mDarkThemeRow.setVisibility(visibility);
         mYellowFilterRow.setVisibility(visibility);
         mAdvancedModeRow.setVisibility(visibility);
+        mMoreSettingsRow.setVisibility(visibility);
     }
 
     private void initSchedulerRow() {
@@ -358,6 +377,15 @@ public class MainActivity extends Activity {
         mAdvancedModeText.setText(textResId);
     }
 
+    private void initMoreSettingsRow() {
+        mMoreSettingsRow = findViewById(R.id.more_settings_row);
+        findViewById(R.id.btn_more_settings).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MoreSettingsActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+    }
+
     private void showSchedulerDialog() {
         new SchedulerDialog(this, dialogInterface -> updateSchedulerRow()).show();
     }
@@ -421,19 +449,21 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        // Support control brightness by volume buttons
-        int action = event.getAction();
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    setSeekBarProgress(mSeekBar.getProgress() - 5);
-                }
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    setSeekBarProgress(mSeekBar.getProgress() + 5);
-                }
-                return true;
+        if (mSettings.shouldHandleVolumeKey()) {
+            // Support control brightness by volume buttons
+            int action = event.getAction();
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    if (action == KeyEvent.ACTION_DOWN) {
+                        setSeekBarProgress(mSeekBar.getProgress() - 5);
+                    }
+                    return true;
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    if (action == KeyEvent.ACTION_DOWN) {
+                        setSeekBarProgress(mSeekBar.getProgress() + 5);
+                    }
+                    return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }

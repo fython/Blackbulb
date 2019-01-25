@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<CheckBoxPreference
+		android:key="handle_volume_key"
+		android:title="@string/handle_volume_key_title"
+		android:summary="@string/handle_volume_key_summary"
+		android:defaultValue="true"/>
+
+	<CheckBoxPreference
+		android:key="show_task"
+		android:title="@string/show_task_title"
+		android:summary="@string/show_task_summary"
+		android:defaultValue="false"/>
+
+</PreferenceScreen>

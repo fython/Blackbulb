@@ -22,7 +22,7 @@
         <activity
             android:name=".ui.MainActivity"
             android:finishOnTaskLaunch="true"
-            android:excludeFromRecents="true"
+            android:excludeFromRecents="false"
             android:launchMode="singleInstance"
             android:stateNotNeeded="true">
             <intent-filter>
@@ -34,6 +34,12 @@
 
             <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts"/>
         </activity>
+
+		<activity
+			android:name=".ui.MoreSettingsActivity"
+			android:label="@string/more_settings"
+			android:theme="@android:style/Theme.Material.Light"
+			android:exported="false"/>
 
 	    <activity android:name=".ui.shortcut.ToggleActivity"
 		    android:label="@string/shortcut_label_switch"

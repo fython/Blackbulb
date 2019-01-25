@@ -28,6 +28,9 @@
 	<string name="mode_android_oreo_explanation_dialog_message">从 Android Oreo (8.0) 开始，系统严格地限制了悬浮窗权限，旧方法已经不再有效。也许未来我们会支持更好的方法来控制亮度。</string>
 	<string name="mode_android_oreo_explanation_read_more">了解更多</string>
 
+	<!-- More settings row -->
+	<string name="more_settings">更多设置</string>
+
 	<!-- Notification Channel -->
 	<string name="notification_channel_running_status">运行状态</string>
 
@@ -66,5 +69,11 @@
 	<string name="dialog_ignore_battery_opt_title">提示</string>
 	<string name="dialog_ignore_battery_opt_msg">由于 Android 6.0 Doze 模式，定时开关功能可能失效。如果你遇到了问题，可以尝试请求系统忽略夜间屏幕电池优化。</string>
 	<string name="dialog_button_go_to_set">去设置</string>
+
+	<!-- More settings -->
+	<string name="handle_volume_key_title">使用音量按键来调节亮度</string>
+	<string name="handle_volume_key_summary">你可以在 “夜间屏幕” 界面内通过音量按键来调节亮度。</string>
+	<string name="show_task_title">在最近任务中显示 “夜间屏幕”</string>
+	<string name="show_task_summary">一些 Android 系统会杀掉没有在最近任务中显示/锁定的应用，如果你没有遇到这种情况，不建议开启。（需要手动重启应用来生效）</string>
 
 </resources>

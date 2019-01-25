@@ -9,14 +9,15 @@ import info.papdt.blackblub.Constants;
 
 public class Settings {
 
-	private static final String PREFERENCES_NAME = "settings";
+	public static final String PREFERENCES_NAME = "settings";
 
 	public static final String KEY_BRIGHTNESS = "brightness",
 			KEY_ADVANCED_MODE = "advanced_mode", KEY_FIRST_RUN = "first_run",
 			KEY_DARK_THEME = "dark_theme", KEY_AUTO_MODE = "auto_mode",
 			KEY_HOURS_SUNRISE = "hrs_sunrise", KEY_MINUTES_SUNRISE = "min_sunrise",
 			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset",
-			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha", KEY_BUTTON_TIP = "button_tip";
+			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha", KEY_BUTTON_TIP = "button_tip",
+			KEY_HANDLE_VOLUME_KEY = "handle_volume_key", KEY_SHOW_TASK = "show_task";
 
 	private volatile static Settings sInstance;
 
@@ -98,6 +99,22 @@ public class Settings {
 
     public void setDarkTheme(boolean useDarkTheme) {
         putBoolean(KEY_DARK_THEME, useDarkTheme);
+    }
+
+    public void setHandleVolumeKey(boolean handleVolumeKey) {
+		putBoolean(KEY_HANDLE_VOLUME_KEY, handleVolumeKey);
+    }
+
+    public boolean shouldHandleVolumeKey() {
+		return getBoolean(KEY_HANDLE_VOLUME_KEY, true);
+    }
+
+    public void setShowTask(boolean showTask) {
+		putBoolean(KEY_SHOW_TASK, showTask);
+    }
+
+    public boolean shouldShowTask() {
+		return getBoolean(KEY_SHOW_TASK, false);
     }
 
     public String getSunsetTimeText() {

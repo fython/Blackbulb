@@ -169,6 +169,12 @@
 			tools:visibility="visible"
 			layout="@layout/include_advanced_mode_row"/>
 
+		<include
+			android:id="@+id/more_settings_row"
+			android:visibility="gone"
+			tools:visibility="visible"
+			layout="@layout/include_more_settings_row"/>
+
 	</LinearLayout>
 
 </FrameLayout>
