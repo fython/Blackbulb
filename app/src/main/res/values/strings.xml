@@ -5,7 +5,11 @@
 	<string name="app_name">Night Screen</string>
 
 	<!-- Button tip -->
-	<string name="button_tip_text">Tips: Click the top left button to turn on Night Screen.</string>
+	<string name="button_tip_text">Tip: Click the top left button to turn on Night Screen.</string>
+
+    <!-- Yellow filter row -->
+    <string name="yellow_filter">Yellow filter</string>
+	<string name="yellow_filter_explanation">Slide to the right to make the overlay yellow instead of grey</string>
 
 	<!-- Scheduler Row -->
 	<string name="scheduler_status_on_show_enable_time">Automatically enable at %s.</string>
@@ -19,16 +23,16 @@
 	<!-- Advanced Row -->
 	<string name="dialog_choose_mode">Choose mode</string>
 
-	<string name="mode_text_no_permission">No Permission Mode</string>
-	<string name="mode_text_normal">Normal Mode</string>
-	<string name="mode_text_overlay_all">Overlay System Mode</string>
+	<string name="mode_text_no_permission">No permission mode</string>
+	<string name="mode_text_normal">Normal mode</string>
+	<string name="mode_text_overlay_all">System overlay mode</string>
 
-	<string name="mode_desc_no_permission">No permission is needed. But it cannot dim lockscreen, status bar or navigation bar. And it doesn\'t work in Android 7.0.</string>
-	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim navigation bar and prevent user from clicking \"Install\" or \"Allow\" in permission dialog.</string>
-	<string name="mode_desc_overlay_all">You can dim both status bar and navigation bar. However, it may make screen flashing in some apps.</string>
+	<string name="mode_desc_no_permission">No permission is needed. However, the lockscreen, status bar and navigation bar are not dimmed. Note that this doesn\'t work in Android 7.0.</string>
+	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim the navigation bar and it prevents users from clicking \"Install\" or \"Allow\" in permission dialogs.</string>
+	<string name="mode_desc_overlay_all">Both the status bar and the navigation bar are dimmed. However, the screen may flash in some apps.</string>
 
-	<string name="mode_android_oreo_explanation_dialog_title">Why cannot change advanced mode?</string>
-	<string name="mode_android_oreo_explanation_dialog_message">Since Android Oreo (8.0), system strictly limits the permission of floating window. Old methods were no longer available. Maybe we will support better methods to control brightness in the future.</string>
+	<string name="mode_android_oreo_explanation_dialog_title">Why can\'t I change the mode?</string>
+	<string name="mode_android_oreo_explanation_dialog_message">Since Android Oreo (8.0), Android strictly limits the permissions of floating windows. The methods used before are no longer available. Maybe we will support better methods to control brightness in the future.</string>
 	<string name="mode_android_oreo_explanation_read_more">Read more</string>
 	<string name="mode_android_oreo_explanation_url" translatable="false">https://developer.android.com/about/versions/oreo/android-8.0-changes.html#all-aw</string>
 
@@ -47,8 +51,8 @@
 
 	<string name="about_donate_alipay">Support author via Alipay</string>
 
-	<string name="dialog_overlay_enable_title">Enable Overlay Status Bar</string>
-	<string name="dialog_overlay_enable_message">Enabling this can mask the top of screen, but it may need a permission on some devices (such as MIUI and Android 6.0)\nIf it doesn\'t work on the first try, please allow this app to show system alert windows.</string>
+	<string name="dialog_overlay_enable_title">Enable Status Bar Overlay</string>
+	<string name="dialog_overlay_enable_message">Enabling this can overlay the status bar at the top of the screen, but it may need a permission on some devices (such as MIUI and Android 6.0). \nIf it doesn\'t work on the first try, please allow Night Screen to show system alert windows.</string>
 
 	<string name="mask_fail_to_start">Failed to start mask. Please check whether the system has denied the permissions.</string>
 
@@ -56,11 +60,11 @@
 	<string name="dialog_first_run_message">Can you see this message? If you can, Night Screen is working well.\nIt will automatically stop after 5 seconds if you don\'t press OK.</string>
 
 	<!-- Notification -->
-	<string name="notification_running_title">Night Screen is working</string>
+	<string name="notification_running_title">Night Screen is enabled</string>
 	<string name="notification_running_msg">Click here to open settings</string>
 
 	<string name="notification_paused_title">Night Screen is paused</string>
-	<string name="notification_paused_msg">Click here to open settings or Swipe to stop Night Screen</string>
+	<string name="notification_paused_msg">Click here to open settings or swipe to stop Night Screen</string>
 
 	<string name="notification_action_turn_off">Turn off</string>
 	<string name="notification_action_turn_on">Turn on</string>
@@ -68,8 +72,8 @@
 	<!-- Auto Mode -->
 	<string name="scheduler_title">Auto mode</string>
 
-	<string name="dialog_ignore_battery_opt_title">Tips</string>
-	<string name="dialog_ignore_battery_opt_msg">It may not automatically activate/deactivate on time because of Android 6.0 Doze mode. If you have any problem, try to request system to ignore battery optimization.</string>
-	<string name="dialog_button_go_to_set">Go to set</string>
+	<string name="dialog_ignore_battery_opt_title">Note</string>
+	<string name="dialog_ignore_battery_opt_msg">Due to restrictions on apps introduced in Android 6.0, we may not be able to automatically (de-)activate Night Screen on time. \n\nA possible solution is to tell Android to ignore battery optimizations for Night Screen. To do so, tap \"Go to settings\" and confirm the dialog that follows.</string>
+	<string name="dialog_button_go_to_set">Go to settings</string>
 
 </resources>

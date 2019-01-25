@@ -1,13 +1,51 @@
-<resources>
+<resources
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="MissingTranslation" >
 
 	<string name="app_name">Night Screen</string>
 
-	<string name="action_about">Hakkında</string>
+	<!-- Button tip -->
+	<string name="button_tip_text">İpucu: Night Screen\'i açmak için sol üstteki tuşa bas.</string>
+
+	<!-- Scheduler Row -->
+	<string name="scheduler_status_on_show_enable_time">%s saatinde etkinleştir.</string>
+	<string name="scheduler_status_on_show_disable_time">%s saatinde bitirilecek.</string>
+	<string name="scheduler_status_off">KAPALI</string>
+	<string name="action_settings">Ayarlar</string>
+
+	<!-- Dark theme Row -->
 	<string name="action_dark_theme">Karanlık Tema</string>
+
+	<!-- Advanced Row -->
+	<string name="dialog_choose_mode">Mod Seçimi</string>
+
+	<string name="mode_text_no_permission">Yetki Gerektirmeyen Mod</string>
+	<string name="mode_text_normal">Normal Mod</string>
+	<string name="mode_text_overlay_all">Üzerinde Görüntüleme Modu</string>
+
+	<string name="mode_desc_no_permission">Herhangi bir yetkilendirme gerekmez. Ancak, kilit ekranını, navigasyon ve bildirim çubuğunu karartamaz. Ayrıca Android 7.0\'da çalışmaz.</string>
+	<string name="mode_desc_normal">Tavsiye edilen mod. Kararlıdır ama navigasyon ve bildirim çubuğunu karartamaz ve izin diyaloglarda \"Yükle\" veya \"İzin Ver\" tuşlarına basılmasını engeller.</string>
+	<string name="mode_desc_overlay_all">Navigasyon ve bildirim çubuğunu karartabilirsiniz. Ancak, bazı uygulamalarda ekranın yanıp sönmesine sebep olabilir.</string>
+
+	<string name="mode_android_oreo_explanation_dialog_title">Neden gelişmiş moda geçilemiyor?</string>
+	<string name="mode_android_oreo_explanation_dialog_message">Android Oreo\'dan (8.0) beri diğer uygulamaların üzerinde olabilen uygulamaların yetkileri sıkıca denetlenmektedir ve eski metodlar artık çalışmamaktadır. Belki gelecekte parlaklık kontrolü için daha iyi bir çözümü destekleriz.</string>
+	<string name="mode_android_oreo_explanation_read_more">Daha fazlası</string>
+	<string name="mode_android_oreo_explanation_url" translatable="false">https://developer.android.com/about/versions/oreo/android-8.0-changes.html#all-aw</string>
+
+	<!-- Notification Channel -->
+	<string name="notification_channel_running_status">Çalışıyor bildirimi</string>
+
+	<!-- Shortcut -->
+	<string name="shortcut_label_switch">Aç/Kapat</string>
+
+	<!-- About -->
+	<string name="action_about">Hakkında</string>
 
 	<string name="about_author">Geliştirici: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen; sizi telefonunuzun yüksek ekran parlaklığının zararlarından korur.\nBazı cihazlar\'ın ekranı düşük parlaklığa rağmen aydınlık olabilir, ekranda maske oluşturarak,bu durumun önüne geçebilirsiniz.\n\nEğer uygulamayı desteklemek istiyorsanız bana buradan bağışta bulunabilirsiniz: Alipay: fythonx\@gmail.com"</string>
 	<string name="about_other">Github Kaynak Kodları: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBenim blogum: <a href="http://feng.moe">http://feng.moe</a>\nBenim sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Tasarımcısı: Google+ Youlun Zhai</string>
+
+	<string name="about_donate_alipay">Alipay ile destek ol</string>
 
 	<string name="dialog_overlay_enable_title">Durum çubuğunu kaplamayı aç.</string>
 	<string name="dialog_overlay_enable_message">Ekranın üstünde bir maske oluşturur, bazı cihazlarda izinler gerektirebilir. (örn: MIUI ve Android 6.0)\nEğer ilk denemede çalışmazsa, bu uygulamanın sistem uyarı pencerelerini göstermesi için gerekli olan uygulama izinlerini verin.</string>
@@ -17,10 +55,21 @@
 	<string name="dialog_first_run_title">İlk kurulum</string>
 	<string name="dialog_first_run_message">Bu mesajı görüyormusun? Eğer görüyorsan; Night Screen sorunsuz çalışıyor demektir.\n OK.\'a tıklamazsan,5 saniye sonra otomatik olarak kapanacak.</string>
 
-	<string name="notification_running_title">Night Screen çalışıyor.</string>
-	<string name="notification_running_msg">Buraya tıklayarak Ayarları açabilirsiniz.</string>
+	<!-- Notification -->
+	<string name="notification_running_title">Night Screen çalışıyor</string>
+	<string name="notification_running_msg">Buraya tıklayarak ayarları açabilirsiniz.</string>
+
+	<string name="notification_paused_title">Night Screen durduruldu</string>
+	<string name="notification_paused_msg">Buraya tıklayarak ayarları açabilir veya kaydırarak Nigth Screen\'i kapatabilirsiniz.</string>
+
 	<string name="notification_action_turn_off">Kapat</string>
-	<string name="notification_action_turn_on">açmak</string>
-	<string name="shortcut_label_switch">Değiştirmek</string>
+	<string name="notification_action_turn_on">Aç</string>
+
+	<!-- Auto Mode -->
+	<string name="scheduler_title">Otomatik Mod</string>
+
+	<string name="dialog_ignore_battery_opt_title">İpuçları</string>
+	<string name="dialog_ignore_battery_opt_msg">Android 6.0\'ın Kafein modu yüzünden otomatik olarak aktive veya deaktive olmayabilir. Eğer herhangi bir sorun yaşıyorsanız, sistem ayarlarından pil optimizasyonunu kapatmayı deneyebilirsiniz.</string>
+	<string name="dialog_button_go_to_set">Ayarla</string>
 
 </resources>
