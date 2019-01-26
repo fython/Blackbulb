@@ -78,6 +78,7 @@
 	<string name="handle_volume_key_summary">你可以在「夜間熒幕」介面內通過音量按鍵以調節亮度。</string>
 	<string name="show_task_title">在最近任務中顯示「夜間熒幕」</string>
 	<string name="show_task_summary">一些 Android 系統會殺掉沒有在最近任務中顯示/鎖定的程式，如果你沒有遇到這種情景，不建議開啟。（需要手動重啟程式以生效）</string>
+	<string name="auto_enable_when_brightness_changed_title">調節亮度時自動啟用</string>
 
 	<string name="category_others">雜項</string>
 	<string name="telegram_title">獲知最新消息 &amp; 加入討論群組</string>

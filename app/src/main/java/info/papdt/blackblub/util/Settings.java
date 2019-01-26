@@ -17,7 +17,8 @@ public class Settings {
 			KEY_HOURS_SUNRISE = "hrs_sunrise", KEY_MINUTES_SUNRISE = "min_sunrise",
 			KEY_HOURS_SUNSET = "hrs_sunset", KEY_MINUTES_SUNSET = "min_sunset",
 			KEY_YELLOW_FILTER_ALPHA = "yellow_filter_alpha", KEY_BUTTON_TIP = "button_tip",
-			KEY_HANDLE_VOLUME_KEY = "handle_volume_key", KEY_SHOW_TASK = "show_task";
+			KEY_HANDLE_VOLUME_KEY = "handle_volume_key", KEY_SHOW_TASK = "show_task",
+			KEY_AUTO_ENABLE_WHEN_BRIGHTNESS_CHANGED = "auto_enabled_when_brightness_changed";
 
 	private volatile static Settings sInstance;
 
@@ -115,6 +116,14 @@ public class Settings {
 
     public boolean shouldShowTask() {
 		return getBoolean(KEY_SHOW_TASK, false);
+    }
+
+    public void setAutoEnableWhenBrightnessChanged(boolean newValue) {
+	    putBoolean(KEY_AUTO_ENABLE_WHEN_BRIGHTNESS_CHANGED, newValue);
+    }
+
+    public boolean isAutoEnableWhenBrightnessChanged() {
+	    return getBoolean(KEY_AUTO_ENABLE_WHEN_BRIGHTNESS_CHANGED, true);
     }
 
     public String getSunsetTimeText() {

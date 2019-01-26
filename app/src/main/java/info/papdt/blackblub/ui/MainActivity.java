@@ -171,6 +171,11 @@ public class MainActivity extends Activity {
                     intent.putExtra(Constants.Extra.ACTION, Constants.Action.UPDATE);
                     intent.putExtra(Constants.Extra.BRIGHTNESS, currentProgress);
                     startService(intent);
+                } else if (mSettings.isAutoEnableWhenBrightnessChanged()) {
+                    if (!Utility.canDrawOverlays(MainActivity.this)) {
+                        return;
+                    }
+                    startMaskService();
                 }
             }
             @Override

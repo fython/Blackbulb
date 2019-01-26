@@ -8,6 +8,11 @@
 		android:defaultValue="false"/>
 
 	<CheckBoxPreference
+		android:key="auto_enabled_when_brightness_changed"
+		android:title="@string/auto_enable_when_brightness_changed_title"
+		android:defaultValue="true"/>
+
+	<CheckBoxPreference
 		android:key="handle_volume_key"
 		android:title="@string/handle_volume_key_title"
 		android:summary="@string/handle_volume_key_summary"
