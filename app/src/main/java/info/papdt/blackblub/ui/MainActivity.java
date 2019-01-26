@@ -10,12 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.PowerManager;
-import android.os.RemoteException;
+import android.os.*;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,8 +51,6 @@ public class MainActivity extends Activity {
     private TextView mSchedulerStatus;
     private ImageView mSchedulerIcon;
 
-    private View mDarkThemeRow;
-
     private View mAdvancedModeRow;
     private TextView mAdvancedModeText;
 
@@ -68,6 +60,8 @@ public class MainActivity extends Activity {
     private View mMoreSettingsRow;
 
     private AlertDialog mFirstRunDialog;
+
+    private boolean isUsingDarkTheme = false;
 
     private static boolean isExpand = false, hasDismissFirstRunDialog = false;
 
@@ -85,7 +79,8 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        @Override public void onServiceDisconnected(ComponentName name) {}
+        @Override
+        public void onServiceDisconnected(ComponentName name) {}
     };
 
     // Settings
@@ -118,6 +113,10 @@ public class MainActivity extends Activity {
         Utility.applyTransparentSystemUI(this);
         if (mSettings.isDarkTheme()) {
             setTheme(R.style.AppTheme_Dark);
+            isUsingDarkTheme = true;
+        } else {
+            setTheme(R.style.AppTheme_Light);
+            isUsingDarkTheme = false;
         }
 
         // Apply Noto Sans CJK Full font from FontProvider API
@@ -211,7 +210,6 @@ public class MainActivity extends Activity {
 
         // Init rows (Better not change initialization orders)
         initSchedulerRow();
-        initDarkThemeRow();
         initYellowFilterRow();
         initAdvancedModeRow();
         initMoreSettingsRow();
@@ -226,7 +224,6 @@ public class MainActivity extends Activity {
                 !isExpand && mSettings.isAutoMode() ? View.VISIBLE : View.GONE);
         mDivider.setVisibility(visibility);
         mSchedulerRow.setVisibility(visibility);
-        mDarkThemeRow.setVisibility(visibility);
         mYellowFilterRow.setVisibility(visibility);
         mAdvancedModeRow.setVisibility(visibility);
         mMoreSettingsRow.setVisibility(visibility);
@@ -307,21 +304,6 @@ public class MainActivity extends Activity {
         } else {
             mSchedulerStatus.setText(R.string.scheduler_status_off);
         }
-    }
-
-    private void initDarkThemeRow() {
-        mDarkThemeRow = findViewById(R.id.dark_theme_row);
-        Switch mDarkThemeSwitch = findViewById(R.id.dark_theme_switch);
-
-        mDarkThemeSwitch.setChecked(mSettings.isDarkTheme());
-
-        mDarkThemeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            mSettings.setDarkTheme(isChecked);
-            // Restart main activity after theme changed
-            Intent intent = Intent.makeRestartActivityTask(getComponentName());
-            startActivity(intent);
-            finish();
-        });
     }
 
     private void initAdvancedModeRow() {
@@ -413,6 +395,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (mSettings.isDarkTheme() != isUsingDarkTheme) {
+            isUsingDarkTheme = mSettings.isDarkTheme();
+            new Handler(Looper.getMainLooper()).postDelayed(this::recreate, 200);
+            return;
+        }
+
         if (mReceiver == null) {
             mReceiver = new MessageReceiver();
         }
@@ -433,7 +422,11 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        unbindService(mServiceConnection);
+        try {
+            unbindService(mServiceConnection);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

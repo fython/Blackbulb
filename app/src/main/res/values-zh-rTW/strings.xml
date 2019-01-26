@@ -15,6 +15,10 @@
 	<string name="scheduler_status_off">已關閉</string>
 	<string name="action_settings">設定</string>
 
+	<!-- Dark theme row -->
+	<string name="action_dark_theme">暗色主題</string>
+	<string name="dark_theme_summary">讓「夜間熒幕」變暗</string>
+
 	<!-- Advanced Mode Row -->
 	<string name="mode_text_no_permission">零權限模式</string>
 	<string name="mode_text_normal">常規模式</string>
@@ -36,7 +40,6 @@
 
 	<!-- Unclassified -->
 	<string name="action_about">關於</string>
-	<string name="action_dark_theme">暗色主題</string>
 
 	<string name="about_author">作者: 紙飛機開發團隊 - 燒餅</string>
 	<string name="about_text">"夜間螢幕有助於減少夜間螢幕強光對視力造成的損傷。\n部分裝置亮度對某些使用者而言仍偏高，我們可以透過建立遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： fythonx\@gmail.com"</string>

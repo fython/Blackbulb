@@ -2,7 +2,11 @@ package info.papdt.blackblub.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 import info.papdt.blackblub.R;
@@ -48,6 +52,17 @@ public class MoreSettingsActivity extends Activity {
             super.onCreate(savedInstanceState);
             getPreferenceManager().setSharedPreferencesName(Settings.PREFERENCES_NAME);
             addPreferencesFromResource(R.xml.pref_more_settings);
+
+            findPreference(Settings.KEY_DARK_THEME).setOnPreferenceChangeListener((pref, newValue) -> {
+                final Activity parent = getActivity();
+                if (parent != null) {
+                    Settings.getInstance(parent).setDarkTheme((boolean) newValue);
+                    new Handler(Looper.getMainLooper()).postDelayed(parent::recreate, 200);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
         }
 
     }

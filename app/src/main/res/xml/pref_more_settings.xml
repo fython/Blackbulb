@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<SwitchPreference
+		android:key="dark_theme"
+		android:title="@string/action_dark_theme"
+		android:summary="@string/dark_theme_summary"
+		android:defaultValue="false"/>
+
 	<CheckBoxPreference
 		android:key="handle_volume_key"
 		android:title="@string/handle_volume_key_title"

@@ -22,6 +22,7 @@
 
 	<!-- Dark theme Row -->
 	<string name="action_dark_theme">Dark theme</string>
+	<string name="dark_theme_summary">Switch on to make Night Screen dark</string>
 
 	<!-- Advanced Row -->
 	<string name="dialog_choose_mode">Choose mode</string>

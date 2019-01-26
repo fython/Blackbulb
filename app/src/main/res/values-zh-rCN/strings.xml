@@ -15,6 +15,10 @@
 	<string name="scheduler_status_off">已关闭</string>
 	<string name="action_settings">设置</string>
 
+	<!-- Dark theme row -->
+	<string name="action_dark_theme">暗色主题</string>
+	<string name="dark_theme_summary">让 “夜间屏幕” 变暗</string>
+
 	<!-- Advanced Mode Row -->
 	<string name="mode_text_no_permission">零权限模式</string>
 	<string name="mode_text_normal">正常模式</string>
@@ -36,7 +40,6 @@
 
 	<!-- Unclassified -->
 	<string name="action_about">关于</string>
-	<string name="action_dark_theme">暗色主题</string>
 
 	<string name="about_author">作者: 纸飞机开发团队 - 烧饼</string>
 	<string name="about_text">"夜间屏幕可以帮助你减少夜晚屏幕强光对眼睛造成的损害。\n一些设备的最低亮度对于用户来讲仍然较高，我们可以通过创建遮罩使亮度更低。\n\n如果你想在物质上支持这个应用，你可以打赏到我的支付宝ww： fythonx\@gmail.com"</string>
