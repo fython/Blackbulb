@@ -51,7 +51,8 @@
 				android:tint="@android:color/darker_gray"
 				android:importantForAccessibility="no"
 				android:background="?android:attr/selectableItemBackgroundBorderless"
-				android:src="@drawable/ic_info_black_24dp"/>
+				android:src="@drawable/ic_info_black_24dp"
+				android:visibility="gone"/>
 
 		</LinearLayout>
 

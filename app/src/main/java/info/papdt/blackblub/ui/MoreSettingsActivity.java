@@ -2,8 +2,10 @@ package info.papdt.blackblub.ui;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,6 +13,7 @@ import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 import info.papdt.blackblub.R;
 import info.papdt.blackblub.util.Settings;
+import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 
 public class MoreSettingsActivity extends Activity {
 
@@ -62,6 +65,24 @@ public class MoreSettingsActivity extends Activity {
                 } else {
                     return false;
                 }
+            });
+
+            findPreference("about").setOnPreferenceClickListener(pref -> {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setView(R.layout.dialog_about);
+                builder.setPositiveButton(android.R.string.ok, (d, i) -> {});
+                if (AlipayZeroSdk.hasInstalledAlipayClient(getActivity())) {
+                    builder.setNeutralButton(R.string.about_donate_alipay,
+                            (d, i) -> AlipayZeroSdk.startAlipayClient(getActivity(), "aehvyvf4taua18zo6e"));
+                }
+                builder.show();
+                return true;
+            });
+            findPreference("telegram").setOnPreferenceClickListener(pref -> {
+                final Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("https://t.me/gwo_apps"));
+                startActivity(intent);
+                return true;
             });
         }
 

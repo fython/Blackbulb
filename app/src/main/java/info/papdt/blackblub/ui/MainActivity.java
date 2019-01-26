@@ -130,17 +130,6 @@ public class MainActivity extends Activity {
             // When rootView is clicked, exit main activity.
             finish();
         });
-        findViewById(R.id.btn_about).setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(R.layout.dialog_about);
-            builder.setPositiveButton(android.R.string.ok, (d, i) -> {});
-            if (AlipayZeroSdk.hasInstalledAlipayClient(this)) {
-                builder.setNeutralButton(R.string.about_donate_alipay,
-                        (d, i) -> AlipayZeroSdk.startAlipayClient(
-                                MainActivity.this, "aehvyvf4taua18zo6e"));
-            }
-            builder.show();
-        });
 
         // Set up cardView's top padding and system ui visibility
         LinearLayout cardView = findViewById(R.id.card_view);

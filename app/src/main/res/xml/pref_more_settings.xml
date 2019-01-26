@@ -19,4 +19,17 @@
 		android:summary="@string/show_task_summary"
 		android:defaultValue="false"/>
 
+	<PreferenceCategory android:title="@string/category_others">
+
+		<Preference
+			android:key="about"
+			android:title="@string/action_about"/>
+
+		<Preference
+			android:key="telegram"
+			android:title="@string/telegram_title"
+			android:summary="@string/telegram_summary"/>
+
+	</PreferenceCategory>
+
 </PreferenceScreen>

@@ -79,4 +79,8 @@
 	<string name="show_task_title">在最近任务中显示 “夜间屏幕”</string>
 	<string name="show_task_summary">一些 Android 系统会杀掉没有在最近任务中显示/锁定的应用，如果你没有遇到这种情况，不建议开启。（需要手动重启应用来生效）</string>
 
+	<string name="category_others">其它</string>
+	<string name="telegram_title">获取最新消息 &amp; 加入讨论群组</string>
+	<string name="telegram_summary">点击这里来打开 Telegram@gwo_apps</string>
+
 </resources>
