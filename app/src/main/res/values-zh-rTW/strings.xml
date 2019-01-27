@@ -43,7 +43,7 @@
 
 	<string name="about_author">作者: 紙飛機開發團隊 - 燒餅</string>
 	<string name="about_text">"夜間螢幕有助於減少夜間螢幕強光對視力造成的損傷。\n部分裝置亮度對某些使用者而言仍偏高，我們可以透過建立遮罩以讓亮度更低。\n\n如果你願意在物質上支援本應用程式，你可以打賞到我的支付寶ww： fythonx\@gmail.com"</string>
-	<string name="about_other">Github 專案網址: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\n我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n圖示設計: 新浪@翟宅宅Jack</string>
+	<string name="about_other">我的博客: <a href="http://feng.moe">http://feng.moe</a>\n新浪微博: <a href="http://weibo.com/fython">http://weibo.com/fython</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\n圖示設計: 新浪@翟宅宅Jack</string>
 
 	<string name="dialog_overlay_enable_title">啟用覆蓋系統狀態列</string>
 	<string name="dialog_overlay_enable_message">啟用本選項可以使遮罩置頂於螢幕，部分裝置上需要取得權限（例如 MIUI 與 Android 6.0）\n如果啟用本選項後沒有生效，請自行設定權限。</string>
@@ -83,5 +83,8 @@
 	<string name="category_others">雜項</string>
 	<string name="telegram_title">獲知最新消息 &amp; 加入討論群組</string>
 	<string name="telegram_summary">點擊這裡來打開 Telegram@gwo_apps</string>
+	<string name="github_title">GitHub 倉庫</string>
+	<string name="open_source_license">開放原始碼項目許可證</string>
+	<string name="open_source_license_summary">「夜間熒幕」的誕生離不開這些開放原始碼項目的努力</string>
 
 </resources>

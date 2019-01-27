@@ -35,6 +35,16 @@
 			android:title="@string/telegram_title"
 			android:summary="@string/telegram_summary"/>
 
+		<Preference
+			android:key="github"
+			android:title="@string/github_title"
+			android:summary="@string/github_url"/>
+
+		<Preference
+			android:key="license"
+			android:title="@string/open_source_license"
+			android:summary="@string/open_source_license_summary"/>
+
 	</PreferenceCategory>
 
 </PreferenceScreen>

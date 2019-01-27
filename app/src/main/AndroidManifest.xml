@@ -47,6 +47,12 @@
 			android:theme="@android:style/Theme.Material.Light"
 			android:exported="false"/>
 
+		<activity
+			android:name=".ui.LicenseActivity"
+			android:label="@string/open_source_license"
+			android:theme="@android:style/Theme.Material.Light"
+			android:exported="false"/>
+
 	    <activity android:name=".ui.shortcut.ToggleActivity"
 		    android:label="@string/shortcut_label_switch"
 		    android:icon="@mipmap/ic_shortcut_switch"

@@ -245,6 +245,7 @@ public class MainActivity extends Activity {
             }
             showSchedulerDialog();
         });
+        mSchedulerRow.setOnClickListener(v -> settingsButton.performClick());
 
         updateSchedulerRow();
     }
@@ -324,6 +325,7 @@ public class MainActivity extends Activity {
                         .show();
             });
         }
+        mAdvancedModeRow.setOnClickListener(v -> settingsButton.performClick());
 
         updateAdvancedModeRow();
     }
@@ -355,11 +357,13 @@ public class MainActivity extends Activity {
 
     private void initMoreSettingsRow() {
         mMoreSettingsRow = findViewById(R.id.more_settings_row);
-        findViewById(R.id.btn_more_settings).setOnClickListener(v -> {
+        final View button = findViewById(R.id.btn_more_settings);
+        button.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MoreSettingsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+        mMoreSettingsRow.setOnClickListener(v -> button.performClick());
     }
 
     private void showSchedulerDialog() {

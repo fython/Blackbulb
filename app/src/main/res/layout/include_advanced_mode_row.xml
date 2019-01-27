@@ -10,6 +10,9 @@
 	android:paddingTop="16dp"
 	android:paddingBottom="16dp"
 	android:gravity="center_vertical"
+	android:clickable="true"
+	android:focusable="true"
+	android:background="?android:attr/selectableItemBackground"
 	tools:background="?attr/card_background_color">
 
 	<ImageView
@@ -35,6 +38,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_marginEnd="8dp"
+		android:padding="4dp"
 		android:src="@drawable/ic_settings_black_24dp"
 		android:tint="?attr/icon_tint"
 		android:background="?android:attr/selectableItemBackgroundBorderless"/>

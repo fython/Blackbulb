@@ -16,13 +16,11 @@ import moe.feng.alipay.zerosdk.AlipayZeroSdk;
 
 public class MoreSettingsActivity extends Activity {
 
-    private Settings mSettings;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mSettings = Settings.getInstance(this);
+        Settings settings = Settings.getInstance(this);
 
-        if (mSettings.isDarkTheme()) {
+        if (settings.isDarkTheme()) {
             setTheme(android.R.style.Theme_Material);
         }
 
@@ -31,6 +29,7 @@ public class MoreSettingsActivity extends Activity {
         final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setSubtitle(R.string.app_name);
         }
 
         getFragmentManager().beginTransaction()
@@ -80,6 +79,18 @@ public class MoreSettingsActivity extends Activity {
             findPreference("telegram").setOnPreferenceClickListener(pref -> {
                 final Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://t.me/gwo_apps"));
+                startActivity(intent);
+                return true;
+            });
+            findPreference("github").setOnPreferenceClickListener(pref -> {
+                final Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(getString(R.string.github_url)));
+                startActivity(intent);
+                return true;
+            });
+            findPreference("license").setOnPreferenceClickListener(pref -> {
+                final Intent intent = new Intent(getActivity(), LicenseActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 startActivity(intent);
                 return true;
             });

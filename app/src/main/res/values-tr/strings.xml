@@ -30,7 +30,6 @@
 	<string name="mode_android_oreo_explanation_dialog_title">Neden gelişmiş moda geçilemiyor?</string>
 	<string name="mode_android_oreo_explanation_dialog_message">Android Oreo\'dan (8.0) beri diğer uygulamaların üzerinde olabilen uygulamaların yetkileri sıkıca denetlenmektedir ve eski metodlar artık çalışmamaktadır. Belki gelecekte parlaklık kontrolü için daha iyi bir çözümü destekleriz.</string>
 	<string name="mode_android_oreo_explanation_read_more">Daha fazlası</string>
-	<string name="mode_android_oreo_explanation_url" translatable="false">https://developer.android.com/about/versions/oreo/android-8.0-changes.html#all-aw</string>
 
 	<!-- Notification Channel -->
 	<string name="notification_channel_running_status">Çalışıyor bildirimi</string>
@@ -43,7 +42,7 @@
 
 	<string name="about_author">Geliştirici: Paper Airplane Dev - Fung Jichun</string>
 	<string name="about_text">"Night Screen; sizi telefonunuzun yüksek ekran parlaklığının zararlarından korur.\nBazı cihazlar\'ın ekranı düşük parlaklığa rağmen aydınlık olabilir, ekranda maske oluşturarak,bu durumun önüne geçebilirsiniz.\n\nEğer uygulamayı desteklemek istiyorsanız bana buradan bağışta bulunabilirsiniz: Alipay: fythonx\@gmail.com"</string>
-	<string name="about_other">Github Kaynak Kodları: <a href="https://github.com/fython/Blackbulb">https://github.com/fython/Blackbulb</a>\nBenim blogum: <a href="http://feng.moe">http://feng.moe</a>\nBenim sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Tasarımcısı: Google+ Youlun Zhai</string>
+	<string name="about_other">Benim blogum: <a href="http://feng.moe">http://feng.moe</a>\nBenim sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Tasarımcısı: Google+ Youlun Zhai</string>
 
 	<string name="about_donate_alipay">Alipay ile destek ol</string>
 

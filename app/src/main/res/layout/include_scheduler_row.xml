@@ -9,6 +9,9 @@
 	android:paddingEnd="16dp"
 	android:paddingTop="16dp"
 	android:paddingBottom="8dp"
+	android:clickable="true"
+	android:focusable="true"
+	android:background="?android:attr/selectableItemBackground"
 	tools:background="?attr/card_background_color">
 
 	<ImageView

@@ -40,7 +40,7 @@
 
     <string name="about_author">Auteur : Paper Airplane Dev - Fung Jichun</string>
     <string name="about_text">"Night Screen peut vous aider à prévenir les méfaits de la lumière forte la nuit.\nLa luminosité minimale sur certains appareils reste élevée nous pouvons donc la rendre plus faible en créant un masque sur l\'écran.\n\nSi vous souhaitez soutenir cette application, vous pouvez envoyer un peu d\'argent sur mon Alipay : fythonx\\@gmail.com"</string>
-    <string name="about_other">Dépôt Github : <a href="https://github.com/fython/Blackbulb" >https://github.com/fython/Blackbulb</a>\nBlog : <a href="http://feng.moe" >http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython" >@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython" >https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
+    <string name="about_other">Blog : <a href="http://feng.moe" >http://feng.moe</a>\nSina weibo : <a href="http://weibo.com/fython" >@某烧饼</a>\nPaypal : <a href="https://www.paypal.me/fython" >https://www.paypal.me/fython</a>\nDesigner logo : Google+ Youlun Zhai</string>
 
     <string name="about_donate_alipay">Soutenez financièrement l\'auteur via Alipay</string>
 
