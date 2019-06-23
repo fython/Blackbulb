@@ -6,7 +6,7 @@
 	<string name="action_dark_theme">Tema oscuro</string>
 
 	<string name="about_author">Autor: Paper Airplane Dev - Fung Jichun</string>
-	<string name="about_text">"Night Screen puede ayudarte a protegerte del daño causado al ver luces brillantes de noche.\nEl nivel de brillo más bajo de algunos dispositivos sigue siendo muy alto así que lo disminuimos colocando una máscara a la pantalla.\n\nSi quieres apoyar el desarrollo de esta aplicación, puedes enviarme algo de dinero a mi Alipay: fythonx\@gmail.com"</string>
+	<string name="about_text">Night Screen puede ayudarte a protegerte del daño causado al ver luces brillantes de noche. El nivel de brillo más bajo de algunos dispositivos sigue siendo muy alto así que lo disminuimos colocando una máscara a la pantalla. Si quieres apoyar el desarrollo de esta aplicación, puedes enviarme algo de dinero a mi Alipay: fythonx@gmail.com</string>
 	<string name="about_other">Mi blog: <a href="http://feng.moe">http://feng.moe</a>\nMi sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nDiseñador del logo: Google+ Youlun Zhai</string>
 
 	<string name="dialog_overlay_enable_title">Cubrir la barra de estado</string>
@@ -22,5 +22,43 @@
 	<string name="notification_action_turn_off">Desactivar</string>
 	<string name="notification_action_turn_on">Encender</string>
 	<string name="shortcut_label_switch">Cambiar</string>
+    <string name="about_donate_alipay">Apoyar al autor usando Alipay</string>
+    <string name="auto_enable_when_brightness_changed_title">Activar automáticamente cuando se cambia el brillo</string>
+	<string name="button_tip_text">Toca el botón superior izquierda para activar Night Screen.</string>
+	<string name="category_others">Otros</string>
+	<string name="dark_theme_summary">Activar para usar Night Screen con el tema oscuro</string>
+	<string name="dialog_button_go_to_set">Ir ajustes</string>
+	<string name="dialog_choose_mode">Selecciona modo</string>
+	<string name="dialog_ignore_battery_opt_msg">Debido a las restricciones de las aplicaciones introducidas en Android 6.0, es posible que no podamos activar ni desactivar automáticamente Night Screen a tiempo. Una posible solución es decirle a Android que ignore las optimizaciones de la batería para Night Screen. Para ello, toque \"Ir a ajustes\" y confirme el diálogo que aparece a continuación.</string>
+	<string name="dialog_ignore_battery_opt_title">Nota</string>
+	<string name="handle_volume_key_summary">Si tienes Night Screen abierto, puedes ajustar el brillo de la masca usando los botones de volumen.</string>
+	<string name="handle_volume_key_title">Usar botones de volumen para cambiar brillo</string>
+	<string name="mode_android_oreo_explanation_dialog_message">Desde Android Oreo (8.0), Android limita estrictamente los permisos de mascas. Los métodos utilizados anteriormente ya no están disponibles. Tal vez en el futuro apoyemos mejores métodos para controlar el brillo.</string>
+	<string name="mode_android_oreo_explanation_dialog_title">Por qué no puedo cambiar el modo?</string>
+	<string name="mode_android_oreo_explanation_read_more">Leer más</string>
+	<string name="mode_desc_no_permission">No necesita permisos. Sin embargo, la pantalla de bloqueo, la barra de estado y la barra de navegación no se atenúan. Tenga en cuenta que esto no funciona en Android 7.0.</string>
+	<string name="mode_desc_normal">Modo recomendado. Es estable, aunque no puede atenuar la barra de navegación e impide que los usuarios hagan clic en \"Instalar\" o \"Permitir\" en los cuadros de diálogo de permisos.</string>
+	<string name="mode_desc_overlay_all">Tanto la barra de estado como la barra de navegación están atenuadas. Sin embargo, la pantalla puede parpadear en algunas aplicaciones.</string>
+	<string name="mode_text_no_permission">Sin permisos</string>
+	<string name="mode_text_normal">Normal</string>
+	<string name="mode_title">Modo de atenuación</string>
+	<string name="more_settings">Más ajustes</string>
+	<string name="notification_channel_running_status">Estado operativo</string>
+	<string name="notification_paused_msg">Toca aquí para abrir la configuración o deslice el dedo para desactivar Night Screen.</string>
+	<string name="notification_paused_title">Night Screen está pausada</string>
+	<string name="open_source_license">Licencia de código abierto</string>
+	<string name="open_source_license_summary">Night Screen es inseparable de los esfuerzos de estos proyectos de código abierto.</string>
+	<string name="permission_control_blackbulb_desc">Recobrar el status de Night Screen y controlarlo</string>
+	<string name="permission_control_blackbulb_label">Controlar Night Screen</string>
+	<string name="scheduler_status_off">Inactivo</string>
+	<string name="scheduler_status_on_show_disable_time">Atenuación terminará a las %s.</string>
+	<string name="scheduler_status_on_show_enable_time">Se activará la atenuación a las %s.</string>
+	<string name="scheduler_title">Atenuación programada</string>
+	<string name="show_task_summary">Algunas versiones de Android cierran aplicaciones que no se muestran o no están bloqueadas en la vista de tareas recientes. Si no tienes este problema, no necesitas activar esta opción. (Requiere reiniciar la aplicación manualmente para aplicarla)</string>
+	<string name="show_task_title">Muestra Night Screen en la vista de tareas recientes</string>
+	<string name="telegram_summary">Toca para abrir Telegram@gwo_apps</string>
+	<string name="telegram_title">Recibe las últimas noticias y unite al grupo de discusiones</string>
+	<string name="yellow_filter">Filtro amarillo</string>
+	<string name="yellow_filter_explanation">Deslice hacia la derecha para que la máscara sea amarilla en lugar de gris</string>
 
 </resources>

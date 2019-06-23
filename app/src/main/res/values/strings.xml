@@ -53,13 +53,13 @@
 	<string name="action_about">About</string>
 
 	<string name="about_author">Author: Paper Airplane Dev - Fung Gwo</string>
-	<string name="about_text">"Night Screen can help protect you from the harm of strong light at night.\nSome devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.\n\nIf you want to support this application, you could send some money to my Alipay: fythonx\@gmail.com"</string>
-	<string name="about_other">My blog: <a href="http://feng.moe">http://feng.moe</a>\nMy sina weibo: <a href="http://weibo.com/fython">@某烧饼</a>\nPaypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a>\nLogo Designer: Google+ Youlun Zhai</string>
+	<string name="about_text">Night Screen can help protect you from the harm of strong light at night. Some devices\' lowest brightness is still high so we can make it lower by creating a mask on screen.  If you want to support this application, you could send some money to my Alipay: fythonx\\@gmail.com</string>
+	<string name="about_other">My blog: <a href="http://feng.moe">http://feng.moe</a> My sina weibo: <a href="http://weibo.com/fython">@某烧饼</a> Paypal: <a href="https://www.paypal.me/fython">https://www.paypal.me/fython</a> Logo Designer: Google+ Youlun Zhai</string>
 
 	<string name="about_donate_alipay">Support author via Alipay</string>
 
 	<string name="dialog_overlay_enable_title">Enable Status Bar Overlay</string>
-	<string name="dialog_overlay_enable_message">Enabling this can overlay the status bar at the top of the screen, but it may need a permission on some devices (such as MIUI and Android 6.0). \nIf it doesn\'t work on the first try, please allow Night Screen to show system alert windows.</string>
+	<string name="dialog_overlay_enable_message">Enabling this can overlay the status bar at the top of the screen, but it may need a permission on some devices (such as MIUI and Android 6.0).  If it doesn\'t work on the first try, please allow Night Screen to show system alert windows.</string>
 
 	<string name="mask_fail_to_start">Failed to start mask. Please check whether the system has denied the permissions.</string>
 
@@ -80,14 +80,14 @@
 	<string name="scheduler_title">Auto mode</string>
 
 	<string name="dialog_ignore_battery_opt_title">Note</string>
-	<string name="dialog_ignore_battery_opt_msg">Due to restrictions on apps introduced in Android 6.0, we may not be able to automatically (de-)activate Night Screen on time. \n\nA possible solution is to tell Android to ignore battery optimizations for Night Screen. To do so, tap \"Go to settings\" and confirm the dialog that follows.</string>
+	<string name="dialog_ignore_battery_opt_msg">Due to restrictions on apps introduced in Android 6.0, we may not be able to automatically (de-)activate Night Screen on time. A possible solution is to tell Android to ignore battery optimizations for Night Screen. To do so, tap \"Go to settings\" and confirm the dialog that follows.</string>
 	<string name="dialog_button_go_to_set">Go to settings</string>
 
 	<!-- More settings -->
 	<string name="handle_volume_key_title">Use volume key to adjust brightness</string>
 	<string name="handle_volume_key_summary">You can adjust brightness by volume key in Night Screen interface.</string>
 	<string name="show_task_title">Show Night Screen in recent tasks</string>
-	<string name="show_task_summary">Some Android OS will kill apps which doesn\'t show or isn\'t locked in recent tasks. If you didn\'t meet this problem, better not to enable this option. (Requires restart app manually to apply)</string>
+	<string name="show_task_summary">Some version of Android close apps which don\'t show or aren\'t locked in the recent tasks view. If you don\'t have this problem, you don\'t need to enable this option. (Requires an app restart to apply)</string>
 	<string name="auto_enable_when_brightness_changed_title">Auto enable when brightness changed</string>
 
 	<string name="category_others">Others</string>
