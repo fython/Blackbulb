@@ -227,9 +227,8 @@ public class MainActivity extends Activity {
         mSchedulerRow = findViewById(R.id.scheduler_row);
         mSchedulerIcon = findViewById(R.id.scheduler_icon);
         mSchedulerStatus = findViewById(R.id.tv_scheduler_status);
-        Button settingsButton = findViewById(R.id.btn_scheduler_settings);
 
-        settingsButton.setOnClickListener(v -> {
+        mSchedulerRow.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PowerManager pm = getSystemService(PowerManager.class);
                 if (pm != null && !pm.isIgnoringBatteryOptimizations(getPackageName())) {
@@ -245,7 +244,6 @@ public class MainActivity extends Activity {
             }
             showSchedulerDialog();
         });
-        mSchedulerRow.setOnClickListener(v -> settingsButton.performClick());
 
         updateSchedulerRow();
     }

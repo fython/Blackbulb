@@ -15,10 +15,9 @@
 	<string name="yellow_filter_explanation">Slide to the right to make the overlay yellow instead of grey</string>
 
 	<!-- Scheduler Row -->
-	<string name="scheduler_status_on_show_enable_time">Automatically enable at %s.</string>
-	<string name="scheduler_status_on_show_disable_time">It will be end at %s.</string>
+	<string name="scheduler_status_on_show_enable_time">Dimming will be automatically enabled at %s.</string>
+	<string name="scheduler_status_on_show_disable_time">Dimming will end at %s.</string>
 	<string name="scheduler_status_off">OFF</string>
-	<string name="action_settings">Settings</string>
 
 	<!-- Dark theme Row -->
 	<string name="action_dark_theme">Dark theme</string>
@@ -77,7 +76,7 @@
 	<string name="notification_action_turn_on">Turn on</string>
 
 	<!-- Auto Mode -->
-	<string name="scheduler_title">Auto mode</string>
+	<string name="scheduler_title">Scheduled dimming</string>
 
 	<string name="dialog_ignore_battery_opt_title">Note</string>
 	<string name="dialog_ignore_battery_opt_msg">Due to restrictions on apps introduced in Android 6.0, we may not be able to automatically (de-)activate Night Screen on time. \n\nA possible solution is to tell Android to ignore battery optimizations for Night Screen. To do so, tap \"Go to settings\" and confirm the dialog that follows.</string>
