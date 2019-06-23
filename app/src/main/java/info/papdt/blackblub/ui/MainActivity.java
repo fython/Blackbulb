@@ -227,9 +227,8 @@ public class MainActivity extends Activity {
         mSchedulerRow = findViewById(R.id.scheduler_row);
         mSchedulerIcon = findViewById(R.id.scheduler_icon);
         mSchedulerStatus = findViewById(R.id.tv_scheduler_status);
-        Button settingsButton = findViewById(R.id.btn_scheduler_settings);
 
-        settingsButton.setOnClickListener(v -> {
+        mSchedulerRow.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 PowerManager pm = getSystemService(PowerManager.class);
                 if (pm != null && !pm.isIgnoringBatteryOptimizations(getPackageName())) {
@@ -245,7 +244,6 @@ public class MainActivity extends Activity {
             }
             showSchedulerDialog();
         });
-        mSchedulerRow.setOnClickListener(v -> settingsButton.performClick());
 
         updateSchedulerRow();
     }
@@ -303,29 +301,27 @@ public class MainActivity extends Activity {
 
     private void initAdvancedModeRow() {
         mAdvancedModeRow = findViewById(R.id.advanced_mode_row);
-        mAdvancedModeText = findViewById(R.id.advanced_mode_text);
-        ImageButton settingsButton = findViewById(R.id.btn_advanced_mode_settings);
+        mAdvancedModeText = findViewById(R.id.tv_mode_status);
 
-        settingsButton.setOnClickListener(v -> showAdvancedModeDialog());
+        mAdvancedModeRow.setOnClickListener(v -> showAdvancedModeDialog());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            settingsButton.setImageResource(R.drawable.ic_help_outline_black_24dp);
-            settingsButton.setOnClickListener(v -> {
-                // Show explanation
+            // Show explanation
+            mAdvancedModeRow.setOnClickListener(o ->
                 new AlertDialog.Builder(this)
-                        .setTitle(R.string.mode_android_oreo_explanation_dialog_title)
-                        .setMessage(R.string.mode_android_oreo_explanation_dialog_message)
-                        .setNeutralButton(R.string.mode_android_oreo_explanation_read_more,
-                                (d, w) -> startActivity(
-                                        new Intent(Intent.ACTION_VIEW, Uri.parse(
-                                                getString(
-                                                        R.string.mode_android_oreo_explanation_url)
-                                        )))
-                        )
-                        .setPositiveButton(android.R.string.ok, (d, w) -> {})
-                        .show();
-            });
+                    .setTitle(R.string.mode_android_oreo_explanation_dialog_title)
+                    .setMessage(R.string.mode_android_oreo_explanation_dialog_message)
+                    .setNeutralButton(R.string.mode_android_oreo_explanation_read_more,
+                        (d, w) -> startActivity(
+                            new Intent(Intent.ACTION_VIEW, Uri.parse(
+                                getString(
+                                    R.string.mode_android_oreo_explanation_url)
+                            )))
+                    )
+                    .setPositiveButton(android.R.string.ok, (d, w) -> {})
+                    .show()
+            );
         }
-        mAdvancedModeRow.setOnClickListener(v -> settingsButton.performClick());
 
         updateAdvancedModeRow();
     }
@@ -382,9 +378,9 @@ public class MainActivity extends Activity {
                     mSettings.setAdvancedMode(adapter.getItem(which).getModeId());
                     updateAdvancedModeRow();
                     // Restart service
-                    mToggle.performClick();
-                    mToggle.postDelayed(() -> mToggle.performClick(), 800);
-                    dialog.dismiss();
+                      mToggle.performClick();
+                      mToggle.postDelayed(() -> mToggle.performClick(), 800);
+                      dialog.dismiss();
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
