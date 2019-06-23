@@ -24,13 +24,14 @@
 	<string name="dark_theme_summary">Switch on to make Night Screen dark</string>
 
 	<!-- Advanced Row -->
+	<string name="mode_title">Dimming mode</string>
 	<string name="dialog_choose_mode">Choose mode</string>
 
-	<string name="mode_text_no_permission">No permission mode</string>
-	<string name="mode_text_normal">Normal mode</string>
-	<string name="mode_text_overlay_all">System overlay mode</string>
+	<string name="mode_text_no_permission">Permissionless</string>
+	<string name="mode_text_normal">Normal</string>
+	<string name="mode_text_overlay_all">System overlay</string>
 
-	<string name="mode_desc_no_permission">No permission is needed. However, the lockscreen, status bar and navigation bar are not dimmed. Note that this doesn\'t work in Android 7.0.</string>
+	<string name="mode_desc_no_permission">No permission is needed. However, the lock screen, status bar and navigation bar are not dimmed. Note that this doesn\'t work in Android 7.0.</string>
 	<string name="mode_desc_normal">Recommended mode. It is stable, although it cannot dim the navigation bar and it prevents users from clicking \"Install\" or \"Allow\" in permission dialogs.</string>
 	<string name="mode_desc_overlay_all">Both the status bar and the navigation bar are dimmed. However, the screen may flash in some apps.</string>
 
@@ -75,7 +76,7 @@
 	<string name="notification_action_turn_off">Turn off</string>
 	<string name="notification_action_turn_on">Turn on</string>
 
-	<!-- Auto Mode -->
+	<!-- Auto Mode/scheduled dimming -->
 	<string name="scheduler_title">Scheduled dimming</string>
 
 	<string name="dialog_ignore_battery_opt_title">Note</string>
